@@ -73,7 +73,7 @@ save `hetmireg'
 *===============================================================================
 use "$dpath/srs_sample_t.dta", clear
 	sort hhid
-	rforest e_y x1-x5, type(reg) numvars(5) iter(200) lsize(5)
+	rforest Y_B x1-x5, type(reg) numvars(5) iter(200) lsize(5)
 	predict xb
 	gen double res = Y_B - xb
 	gen touse = !missing(res)

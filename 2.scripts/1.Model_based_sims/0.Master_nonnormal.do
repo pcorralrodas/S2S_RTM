@@ -21,8 +21,11 @@ set seed 94131
 if (lower("`c(username)'")=="ham_andres"){
 	global main    "/Users/ham_andres/Library/CloudStorage/Dropbox/research/wb/S2S/"
 }
-if (lower("`c(username)'")=="wb378870"|lower("`c(username)'")=="paul corral"){
+if (lower("`c(username)'")=="wb378870"){
 	global main    "C:/Users//`c(username)'//Github/S2S_RTM/"
+}
+if (lower("`c(username)'")=="paul corral"){
+	global main "C:\Users\Paul Corral\Documents\GitHub\S2S_RTM\"
 }
 
 global dpath   "$main/1.data"
@@ -41,7 +44,7 @@ cap: github install pcorralrodas/wentropy
 *===============================================================================
 
 * Runs processes
-forval z=1/100	{
+forval z=1/1000	{
 	
 	* Displays current simulation
 	global zed = `z'

@@ -6,15 +6,31 @@ clear all
 if (lower("`c(username)'")=="ham_andres"){
 	global main    "/Users/ham_andres/Library/CloudStorage/Dropbox/research/wb/S2S/"
 }
-if (lower("`c(username)'")=="wb378870"|lower("`c(username)'")=="paul corral"){
+if (lower("`c(username)'")=="wb378870"){
 	global main    "C:/Users//`c(username)'//Github/S2S_RTM/"
+}
+if (lower("`c(username)'")=="paul corral"){
+	global main "C:\Users\Paul Corral\Documents\GitHub\S2S_RTM\"
 }
 
 global dpath   "$main/1.data"
 global thedo   "$main/2.scripts/1.Model_based_sims"
 global theado  "$main/2.scripts/0.ados"
 global figs    "$main/5.figures"
+*===============================================================================
+// MSE comparisons
+*===============================================================================
+use "$dpath\MSE_BS.dta", clear
 
+twoway (line true_mse ptile if source=="MI 20", lpattern(-) lcolor(blue)) ///
+(line true_mse ptile if source=="BLUP", lpattern(-) lcolor(red)) ///
+(scatter mse_ ptile if source=="MI 20", msymbol(Oh) mcolor(blue)) ///
+(scatter mse_ ptile if source=="BLUP", msymbol(Oh) mcolor(red)), ///
+legend(label(1 "Empirical MSE - MI 20") label(2 "Empirical MSE - BLUP") ///
+label(3 "Avg. estimated MSE - MI 20") label(4 "Avg. estimated MSE - BLUP") pos(6) cols(2)) ///
+xtitle(Poverty rate) ytitle(MSE) 
+
+graph export "$figs\method_comp_MSE.jpg", as(jpg) name("Graph") quality(100) replace
 *===============================================================================
 // Hetero sims
 *===============================================================================
@@ -33,10 +49,11 @@ use "$dpath/results_micomps_het.dta", clear
 	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
 	(scatter bias ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
 	(scatter bias ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="Hetregress MLE", msymbol(*) mcolor(red)) ///
 	(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg Het", msymbol(Oh) mcolor(blue)), ///
 	legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
 	label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
-	label(6 "lasso BIC") label(7 "Alpha model") ///
+	label(6 "lasso BIC") label(7 "Het. MLE") label(8 "Alpha model") ///
 	position(6) cols(4)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
 	graph export "$figs\method_comp_fgt0_het.jpg", as(jpg) name("Graph") quality(100) replace
@@ -100,11 +117,27 @@ use "$dpath/results_micomps_t.dta", clear
 	(line bias ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
 	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
 	(scatter bias ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="rforest", msymbol(*) mcolor(red)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg", msymbol(Dh) mcolor(blue)) ///	
 	(scatter bias ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)), ///
 	legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
 	label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
-	label(6 "lasso BIC")  ///
-	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	label(6 "Random Forest") label(7 "OLS BS") label(8 "lasso BIC")  ///
+	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(6.5) ysize(5)
+	
+	graph export "$figs\method_comp_fgt0_rf_t.jpg", as(jpg) name("Graph") quality(100) replace
+	
+	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
+	(line bias ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
+	(line bias ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg", msymbol(Dh) mcolor(blue)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)), ///
+	legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
+	label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
+	label(6 "OLS BS") label(7 "lasso BIC")  ///
+	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(6.5) ysize(5)
 	
 	graph export "$figs\method_comp_fgt0_t.jpg", as(jpg) name("Graph") quality(100) replace
 

@@ -93,7 +93,16 @@ rvey imputation of poverty
 \end_layout
 
 \begin_layout Author
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 Paul Corral, Andres Ham, Leonardo Lucchetti, and Henry Stemmler
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -2495,7 +2504,7 @@ name "fig:bias_eb_mi"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/mi_ebp_fgt0.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/mi_ebp_fgt0.eps
 	lyxscale 80
 	scale 80
 
@@ -2650,7 +2659,7 @@ name "fig:bias_eb_mi-1"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_rf_t.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_rf_t.eps
 	lyxscale 80
 	scale 50
 
@@ -2658,7 +2667,7 @@ name "fig:bias_eb_mi-1"
 
 
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_t.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_t.eps
 	lyxscale 80
 	scale 50
 
@@ -2914,7 +2923,7 @@ name "fig:bias_het"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_het.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_het.eps
 	lyxscale 80
 	scale 80
 
@@ -3071,7 +3080,7 @@ name "fig:bias_pmm"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_PMMpp1.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_PMMpp1.eps
 	lyxscale 80
 	scale 80
 
@@ -3138,7 +3147,7 @@ name "fig:bias_pmm-1"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_PMMpp.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_PMMpp.eps
 	lyxscale 80
 	scale 80
 
@@ -3301,7 +3310,7 @@ name "fig:MSE_comp"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_MSE.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_MSE.eps
 	lyxscale 80
 	scale 80
 
@@ -3966,7 +3975,7 @@ name "fig:bias_reweight"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_bb_fgt0.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_bb_fgt0.eps
 	lyxscale 80
 	scale 80
 
@@ -4038,7 +4047,7 @@ name "fig:bias_reweight-1"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_tbb_fgt0.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_tbb_fgt0.eps
 	lyxscale 25
 	scale 80
 
@@ -4156,7 +4165,7 @@ name "fig:bias_reweight-gini"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_bb_gini.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_bb_gini.eps
 	lyxscale 25
 	scale 80
 
@@ -4227,7 +4236,7 @@ name "fig:bias_reweight-gini-1"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_tbb_gini.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_tbb_gini.eps
 	lyxscale 25
 	scale 80
 
@@ -4498,7 +4507,7 @@ name "fig:Change-in-poverty_sigma"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/sigma_change_fgt0.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/sigma_change_fgt0.eps
 	lyxscale 80
 	scale 80
 
@@ -4606,7 +4615,7 @@ name "fig:Change-in-poverty_intercept"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/constant_change_fgt0.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/constant_change_fgt0.eps
 	lyxscale 80
 	scale 80
 
@@ -5927,7 +5936,7 @@ name "fig:ovb new period"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/bd5_ed7.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/bd5_ed7.eps
 	lyxscale 80
 	scale 80
 

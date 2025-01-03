@@ -72,7 +72,7 @@ drop ptiles
 	replace yb_pred = yb_pred + rnormal(0,`RMSE')
 	//Plot residuals to illustrate that model residuals will still be normal
 	qnorm res
-	graph export "$figs\obv_sim_qnorm.jpg", as(jpg) replace
+	graph export "$figs\obv_sim_qnorm.eps", as(eps) replace
 	
 preserve
 	gen all=1
@@ -85,7 +85,7 @@ preserve
 	// will produce an unbiased prediction
 	twoway (line valueY_B ptile) (scatter valueyb_pred ptile, msize(medium) msymbol(X)), ///
 	ytitle("Cumulative share of population" "(living on less than percentile value)") xtitle("2019 percentiles") legend(label(1 "True") label(2 "Predicted") pos(7))
-	graph export "$figs\obv_pred_orig.jpg", as(jpg) replace
+	graph export "$figs\obv_pred_orig.eps", as(eps) replace
 	
 restore
 

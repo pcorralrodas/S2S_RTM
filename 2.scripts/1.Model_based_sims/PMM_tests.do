@@ -140,7 +140,7 @@ legend(label(1 "True change") label(2 "Predicted change PMM") ///
 label(3 "Predicted change Normal") ///
 pos(7) cols(2)) xtitle (Poverty rate period 1) ytitle(Change (%))
 
-graph export "$figs\method_comp_PMM1.jpg", as(jpg) name("Graph") quality(100) replace
+graph export "$figs\method_comp_PMM1.eps", as(eps) name("Graph") replace
 
 	replace true_change = true_change*poverty
 	replace pred_change = pred_change*poverty
@@ -153,7 +153,7 @@ legend(label(1 "True change") label(2 "Predicted change") ///
 label(3 "Predicted change Normal") ///
 pos(7) cols(2)) xtitle (Poverty rate period 1) ytitle(Difference (pp))
 
-graph export "$figs\method_comp_PMMpp1.jpg", as(jpg) name("Graph") quality(100) replace
+graph export "$figs\method_comp_PMMpp1.eps", as(eps) name("Graph") replace
 
 *===============================================================================
 // Now produce new welfare, only gor incomes by 20% - a 4 year growth of 4.66%
@@ -205,7 +205,7 @@ twoway (line true_change ptile ) (scatter pred_change ptile), ///
 legend(label(1 "True change") label(2 "Predicted change") ///
 pos(7) cols(2)) xtitle (Poverty rate period 1) ytitle(Change (%))
 
-graph export "$figs\method_comp_PMM.jpg", as(jpg) name("Graph") quality(100) replace
+graph export "$figs\method_comp_PMM.eps", as(eps) name("Graph") replace
 
 	replace true_change = true_change*poverty
 	replace pred_change = pred_change*poverty
@@ -214,7 +214,7 @@ twoway (line true_change ptile ) (scatter pred_change ptile), ///
 legend(label(1 "True change") label(2 "Predicted change") ///
 pos(7) cols(2)) xtitle (Poverty rate period 1) ytitle(Difference (pp))
 
-graph export "$figs\method_comp_PMMpp.jpg", as(jpg) name("Graph") quality(100) replace
+graph export "$figs\method_comp_PMMpp.eps", as(eps) name("Graph") replace
 
 //The predictions are worse at the bottom since the the
 	

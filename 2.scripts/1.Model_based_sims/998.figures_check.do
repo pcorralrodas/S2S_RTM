@@ -30,7 +30,7 @@ legend(label(1 "Empirical MSE - MI 20") label(2 "Empirical MSE - BLUP") ///
 label(3 "Avg. estimated MSE - MI 20") label(4 "Avg. estimated MSE - BLUP") pos(6) cols(2)) ///
 xtitle(Poverty rate) ytitle(MSE) 
 
-graph export "$figs\method_comp_MSE.jpg", as(jpg) name("Graph") quality(100) replace
+graph export "$figs\method_comp_MSE.eps", as(eps) name("Graph") replace
 *===============================================================================
 // Hetero sims
 *===============================================================================
@@ -56,7 +56,7 @@ use "$dpath/results_micomps_het.dta", clear
 	label(6 "lasso BIC") label(7 "Het. MLE") label(8 "Alpha model") ///
 	position(6) cols(4)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\method_comp_fgt0_het.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\method_comp_fgt0_het.eps", as(eps) name("Graph") replace
 
 	
 	twoway (line bias ptile if measure=="fgt0"  & method=="lasso BIC", color(blue) lpattern(-)) ///
@@ -67,7 +67,7 @@ use "$dpath/results_micomps_het.dta", clear
 	label(3 "lasso") label(4 "Alpha model") ///
 	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 
-	graph export "$figs\lasso_comp_fgt0_het.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\lasso_comp_fgt0_het.eps", as(eps) name("Graph") replace
 
 
 *===============================================================================
@@ -99,7 +99,7 @@ rename line ptile
 	label(6 "120% {&sigma}")  ///
 	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 
-	graph export "$figs\sigma_change_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\sigma_change_fgt0.eps", as(eps) name("Graph") replace
 *===============================================================================
 // Non normal simulations - t distribution 10 df, SD=0.5
 *===============================================================================
@@ -125,7 +125,7 @@ use "$dpath/results_micomps_t.dta", clear
 	label(6 "Random Forest") label(7 "OLS BS") label(8 "lasso BIC")  ///
 	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(6.5) ysize(5)
 	
-	graph export "$figs\method_comp_fgt0_rf_t.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\method_comp_fgt0_rf_t.eps", as(eps) name("Graph") replace
 	
 	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
 	(line bias ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
@@ -139,7 +139,7 @@ use "$dpath/results_micomps_t.dta", clear
 	label(6 "OLS BS") label(7 "lasso BIC")  ///
 	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(6.5) ysize(5)
 	
-	graph export "$figs\method_comp_fgt0_t.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\method_comp_fgt0_t.eps", as(eps) name("Graph") replace
 
 	
 	twoway (line bias ptile if measure=="fgt0"  & method=="lasso BIC", color(blue) lpattern(-)) ///
@@ -149,7 +149,7 @@ use "$dpath/results_micomps_t.dta", clear
 	label(3 "lasso") ///
 	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 
-	graph export "$figs\lasso_comp_fgt0_t.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\lasso_comp_fgt0_t.eps", as(eps) name("Graph") replace
 
 *===============================================================================
 // Gini
@@ -171,10 +171,10 @@ use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_rewei
 	replace method = "Standardize XB" if method=="Standardize xb"
 	
 	graph hbar (mean) bias if source=="biased_sample", over(method) ytitle(Bias (Gini points))
-	graph export "$figs\weights_std_bb_gini.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\weights_std_bb_gini.eps", as(eps) name("Graph") replace
 	
 	graph hbar (mean) bias if source=="biased_sample_topbottom", over(method) ytitle(Bias (Gini points))
-	graph export "$figs\weights_std_tbb_gini.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\weights_std_tbb_gini.eps", as(eps) name("Graph") replace
 	
 *===============================================================================
 // Figures for OVB
@@ -242,7 +242,7 @@ qui: reshape wide value, i(ptile) j(variable) string
 		legend(label(1 "True change in poverty") label(2 "Predicted change")) ///
 		title("`title1' `title2'")
 		
-		graph export "$figs\bd`bd'_ed`ed'.jpg", as(jpg) name("Graph") quality(100) replace
+		graph export "$figs\bd`bd'_ed`ed'.eps", as(eps) name("Graph") replace
 		
 	}
 	
@@ -266,7 +266,7 @@ qui: reshape wide value, i(ptile) j(variable) string
 		legend(label(1 "True change in poverty") label(2 "Predicted change")) ///
 		title("`title1' `title2'")
 		
-		graph export "$figs\bd`bd'_ed`ed'.jpg", as(jpg) name("Graph") quality(100) replace
+		graph export "$figs\bd`bd'_ed`ed'.eps", as(eps) name("Graph") replace
 		
 	}
 	
@@ -292,7 +292,7 @@ twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"b_") & pch
 	label(5 "3% increase") label(6 "3% decrease") ///
 	label(7 "4% increase") label(8 "4% decrease") ///
 	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	graph export "$figs\beta_change_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\beta_change_fgt0.eps", as(eps) name("Graph") replace
 	
 twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"mu_") & pchange==-1, color(red) lpattern(-)) ///
 	          (line bias ptile if measure=="fgt0"  & regexm(variable,"mu_") & pchange==1, color(blue) lpattern(-)) ///
@@ -307,7 +307,7 @@ twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"mu_") & pc
 	label(5 "3% increase") label(6 "3% decrease") ///
 	label(7 "4% increase") label(8 "4% decrease") ///
 	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	graph export "$figs\beta_mu_change_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\beta_mu_change_fgt0.eps", as(eps) name("Graph") replace
 	
 twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"sd_") & pchange==-1, color(red) lpattern(-)) ///
 	          (line bias ptile if measure=="fgt0"  & regexm(variable,"sd_") & pchange==1, color(blue) lpattern(-)) ///
@@ -322,7 +322,7 @@ twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"sd_") & pc
 	label(5 "3% increase") label(6 "3% decrease") ///
 	label(7 "4% increase") label(8 "4% decrease") ///
 	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	graph export "$figs\beta_sd_change_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\beta_sd_change_fgt0.eps", as(eps) name("Graph") replace
 
 *===============================================================================
 // FIgures for changing constants
@@ -349,7 +349,7 @@ import excel using "$main/1.data/Changing constant.xlsx", first clear
 	label(7 "4% increase") label(8 "4% decrease") ///
 	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\constant_change_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\constant_change_fgt0.eps", as(eps) name("Graph") replace
 	
 
 *===============================================================================
@@ -377,7 +377,7 @@ use "$dpath/results_micomps.dta", clear
 	label(6 "MI 100")  ///
 	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\mi_ebp_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\mi_ebp_fgt0.eps", as(eps) name("Graph") replace
 	
 	twoway (line bias ptile if measure=="fgt1"  & method=="A la EBP", color(blue) lpattern(-)) ///
 	(scatter bias ptile if measure=="fgt1"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
@@ -390,7 +390,7 @@ use "$dpath/results_micomps.dta", clear
 	label(6 "MI 100")  ///
 	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\mi_ebp_fgt1.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\mi_ebp_fgt1.eps", as(eps) name("Graph") replace
 
 *===============================================================================
 // FIgures for reweighting and standarization simulations
@@ -420,7 +420,7 @@ use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_rewei
 	label(6 "Standardize each X") label(7 "Standardize XB") ///
 	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\weights_std_tbb_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\weights_std_tbb_fgt0.eps", as(eps) name("Graph") replace
 	
 	twoway (line bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Non adjusted", color(blue) lpattern(-)) ///
 	(scatter bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
@@ -434,7 +434,7 @@ use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_rewei
 	label(6 "Standardize each X") label(7 "Standardize XB") ///
 	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\weights_std_bb_fgt0.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\weights_std_bb_fgt0.eps", as(eps) name("Graph") replace
 	
 	twoway (line bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Non adjusted", color(blue) lpattern(-)) ///
 	(scatter bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
@@ -448,7 +448,7 @@ use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_rewei
 	label(6 "Standardize each X") label(7 "Standardize XB") ///
 	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\weights_std_tbb_fgt1.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\weights_std_tbb_fgt1.eps", as(eps) name("Graph") replace
 	
 	twoway (line bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Non adjusted", color(blue) lpattern(-)) ///
 	(scatter bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
@@ -462,4 +462,4 @@ use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_rewei
 	label(6 "Standardize each X") label(7 "Standardize XB") ///
 	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	
-	graph export "$figs\weights_std_bb_fgt1.jpg", as(jpg) name("Graph") quality(100) replace
+	graph export "$figs\weights_std_bb_fgt1.eps", as(eps) name("Graph") replace

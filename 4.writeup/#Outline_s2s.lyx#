@@ -3459,6 +3459,19 @@ literal "false"
  However, this method struggles to fully correct biases as will be seen:
 \end_layout
 
+\begin_layout Enumerate
+
+\series bold
+Mean Adjustment:
+\series default
+ Matching covariate means alone fails to address biases caused by systematic
+ undersampling of critical segments of the population, such as the poorest
+ or richest quintiles.
+ Variance Inclusion: Adding constraints on covariate variances improves
+ results marginally but cannot rectify distortions in the overall welfare
+ distribution.
+\end_layout
+
 \begin_layout Standard
 Re-weighting is applied by 
 \begin_inset CommandInset citation

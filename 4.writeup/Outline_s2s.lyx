@@ -3415,89 +3415,26 @@ The method's MSE/variance is the average from the 10,000 imputations.
 \end_layout
 
 \begin_layout Subsection
-Imputations under biased sample
+Imputations under biased samples
 \end_layout
 
 \begin_layout Standard
-The purpose of this section is to test the implications of under-sampling
- segments of the population and then adjusting the target data to correct
- for this bias.
- Two approaches are tested.
- The first is creating or adjusting survey weights so that totals or moments
- of the distribution match those of the underlying population.
- The second approach involves standardizing covariates across surveys so
- that the mean the standard deviation matches that of the unbiased sample.
+urvey-to-survey (S2S) imputation methods are often applied to biased samples,
+ such as when specific population segments are systematically underrepresented.
+ To address this issue, practitioners commonly attempt two corrective strategies
+: re-weighting the sample and standardizing covariates.
+ This section examines these methods and evaluates their effectiveness using
+ simulations.
 \end_layout
 
 \begin_layout Subsubsection
-Re-weighting the sample 
+Re-weighting the target sample
 \end_layout
 
 \begin_layout Standard
-Re-weighting is applied by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sinha2022poverty"
-literal "false"
-
-\end_inset
-
- for the case of India where there were concerns regarding the sampling
- of the target survey.
- Weights are also frequently recalculated to adjust phone surveys like is
- done in the case of Afghanistan 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "barriga2023updating"
-literal "false"
-
-\end_inset
-
-.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand citet
-key "zhang2023correcting"
-literal "false"
-
-\end_inset
-
- present how sampling weights were calculated to correct the sampling and
- nonresponse biases of phone surveys.
-\end_layout
-
-\end_inset
-
- Although referred to as a max-entropy approach by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sinha2022poverty"
-literal "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "zhang2023correcting"
-literal "false"
-
-\end_inset
-
-, the method used to adjust the target sample weights is in reality minimum
- cross-entropy where the sampling weights in the target survey are adjusted
- by the smallest extent possible given the constraints (
-\begin_inset CommandInset citation
-LatexCommand citealt
-key "wittenberg2010introduction"
-literal "false"
-
-\end_inset
-
-).
+Re-weighting involves adjusting the sampling weights in the target survey
+ to align its characteristics with those of the overall population.
+ One common approach, minimum cross-entropy,
 \begin_inset Foot
 status collapsed
 
@@ -3518,10 +3455,10 @@ literal "false"
 
 \end_inset
 
- The constraints, in the case of India's imputation, correspond to the mean
- of a set of variables that are found in other nationally representative
- surveys.
- 
+ modifies the weights to match constraints like the mean or variance of
+ key covariates.
+ While theoretically sound, re-weighting assumes that adjusted weights can
+ restore the representativeness of a biased sample.
 \end_layout
 
 \begin_layout Standard
@@ -3545,7 +3482,7 @@ noprefix "false"
 status collapsed
 
 \begin_layout Plain Layout
-Reweighting is done using Stata's user created command 
+Re-weighting is done using Stata's user created command 
 \family typewriter
 wentropy
 \family default
@@ -3587,25 +3524,35 @@ maxentropy
 \end_layout
 
 \begin_layout Enumerate
-Covariate match: The simple random sample’s mean of each covariate is used
- to calibrate the weights of the biased samples.
- For re-weighting, I use minimum cross-entropy to adjust prior weights by
- the smallest amount possible so that the constraints (i.e., the means) are
- satisfied.
- 
+
+\series bold
+Covariate match:
+\series default
+ The mean of each covariate from the simple random sample is used as a benchmark
+ to adjust the weights of the biased samples.
+ Re-weighting is performed using minimum cross-entropy, which modifies the
+ prior weights as minimally as possible to ensure that the adjusted sample
+ meets the specified constraints, namely the covariate means.
 \end_layout
 
 \begin_layout Enumerate
-Linear fit match: The linear fit’s mean of the simple random sample is used
- to calibrate the weights of the biased samples.
- Weights are calibrated using minimum cross-entropy to adjust prior weights
- by the smallest amount possible so that the constraints (i.e., the means)
- are satisfied.
- 
+
+\series bold
+Linear fit match:
+\series default
+ The mean of the model's linear fit from the simple random sample is used
+ to adjust the weights of the biased samples.
+ This calibration is performed using minimum cross-entropy, ensuring that
+ the prior weights are modified as minimally as necessary to satisfy the
+ constraint of matching the linear fit's mean.
 \end_layout
 
 \begin_layout Enumerate
-Linear fit & variance match: The linear fit’s 
+
+\series bold
+Linear fit & variance match:
+\series default
+ The linear fit’s 
 \series bold
 mean
 \series default
@@ -3637,38 +3584,32 @@ Standardizing covariates
 \end_layout
 
 \begin_layout Standard
-The basics of standardizing covariates is simple.
- In principle, from the data where the model is fit (source or training
- data) the mean and variance of each covariate is known.
- Consequently, covariates in the sample to be imputed (target data) can
- be adjusted so that the mean and variance of the covariates are aligned
- to that of the source data.
- This is what 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "dang2017"
-literal "false"
-
-\end_inset
-
- recommend for making different survey samples more comparable.
- However, a key assumption here is that the covariates follow a normal distribut
-ion.
- In tests done by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "dang2017"
-literal "false"
-
-\end_inset
-
- with data from Jordan the method is judged to be valid.
+Standardizing covariates offers a straightforward approach to addressing
+ disparities between survey samples.
+ Using data from the source survey (or training data), where the model is
+ initially estimated, practitioners can leverage the known means and variances
+ of each covariate to adjust the corresponding variables in the target survey.
+ This alignment ensures that the mean and variance of covariates in the
+ imputed data match those of the source data, enhancing comparability.
  
+\begin_inset CommandInset citation
+LatexCommand citet
+key "dang2017"
+literal "false"
+
+\end_inset
+
+ advocate this approach as a practical solution for reconciling differences
+ between survey samples.
+ Their application of the method to Jordanian data suggests that it can
+ yield valid results under certain conditions.
 \end_layout
 
 \begin_layout Standard
-To test the validity of covariate standardization, the same samples detailed
- in section 
+However, the method's efficacy depends on the assumption that covariates
+ follow a normal distribution—an assumption that may not hold universally.
+ To assess the robustness of this approach, the samples described in Section
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Extracting-samples"
@@ -3678,13 +3619,11 @@ noprefix "false"
 
 \end_inset
 
- are used.
- Note, however, that the covariates here do not follow a normal distribution.
- Covariate standardization is done by adjusting the covariate from the 
-\begin_inset Formula $new$
-\end_inset
-
- survey in the following manner:
+ were used, despite the fact that the covariates in this case deviate from
+ normality.
+ The adjustment process involves scaling and centering the covariates from
+ the target survey so that their means and variances align with those of
+ the source survey, as demonstrated in the following formula:
 \end_layout
 
 \begin_layout Standard
@@ -3696,6 +3635,12 @@ x_{new}=(x_{new}-\hat{\mu}_{x_{new}})\frac{\hat{\sigma}_{x}}{\hat{\sigma}_{x_{ne
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This analysis provides a critical lens through which to evaluate the effectivene
+ss of covariate standardization, particularly in cases where key assumptions
+ are not met.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3710,36 +3655,44 @@ name "subsec:Results_simdata"
 \end_layout
 
 \begin_layout Standard
-To remove the potential for other sources of bias, instead of refitting
- a model on the sample, the actual values for the coefficients 
+To isolate the impact of biased sampling and assess the effectiveness of
+ correction methods, the analysis avoids introducing additional sources
+ of error by using the true values for the coefficients (
 \begin_inset Formula $\beta$
 \end_inset
 
- and the error distribution 
+) and error distribution (
 \begin_inset Formula $\sigma_{e}^{2}$
 \end_inset
 
- are used.
- For each sample, under each population, 100 vectors in the sample are created
- by adding the linear fit to a randomly drawn error term 
+).
+ For each sample within the simulated populations, 100 vectors were generated
+ by combining the linear fit with a randomly drawn error term 
 \begin_inset Formula $e_{i}\sim N(0,0.5^{2})$
 \end_inset
 
- to every observation.
- Then, poverty and Gini estimates are obtained for each of the 100 created
- vectors using the newly created survey weights or the standardized covariates
- to calculate poverty and Gini for the samples.
- The average value of the 100 Gini and poverty estimates is used as the
- final estimate.
- Bias is calculated for each measure of interest by comparing the estimate
- with the actual value from the population.
- In total, 1,000 populations are created and 1,000 imputations are made.
+ for every observation.
+ Poverty and Gini coefficients were then calculated for each of these 100
+ vectors using either re-weighted survey weights or standardized covariates.
+ The final estimates were obtained by averaging across the 100 simulations,
+ and bias was determined by comparing these estimates to the true population
+ values.
+ The analysis was repeated for 1,000 populations, resulting in a robust
+ evaluation of the methods.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Results and Discussion
+\series default
  
 \end_layout
 
 \begin_layout Standard
-If left unadjusted, poverty estimates under the bottom biased samples will
- underestimate poverty across the entire welfare distribution (Figure 
+In bottom-biased samples, where the poorest segments of the population were
+ underrepresented, poverty estimates systematically underestimated true
+ poverty levels across the welfare distribution (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:bias_reweight"
@@ -3750,16 +3703,8 @@ noprefix "false"
 \end_inset
 
 ).
- Attempts to correct the bias via the creation of weights that match the
- means of the model covariates (
-\begin_inset Quotes eld
-\end_inset
-
-Match X
-\begin_inset Quotes erd
-\end_inset
-
-) do not have any impact on the bias.
+ Efforts to address this bias by adjusting survey weights to match covariate
+ means had no noticeable effect (“Match X”).
 \begin_inset Foot
 status collapsed
 
@@ -3773,167 +3718,10 @@ Since the weights assume no priors, these are in fact calculated using maximum
 
 \end_inset
 
- Adjusting weights so that the covariate means and variances match also
- seems to have little impact on the bias (
-\begin_inset Quotes eld
-\end_inset
-
-Match X and var[X]
-\begin_inset Quotes erd
-\end_inset
-
-).
- However, adjusting weights so that the mean linear fit of the target data
- matches the average of the linear fit of the model (
-\begin_inset Formula $\hat{y}$
-\end_inset
-
-) leads to considerably better results (
-\begin_inset Quotes eld
-\end_inset
-
-Match XB and var[XB]
-\begin_inset Quotes erd
-\end_inset
-
-).
- Similarly, much better results are achieved by standardizing each covariate
- 
-\begin_inset Quotes eld
-\end_inset
-
-Standardize each X
-\begin_inset Quotes erd
-\end_inset
-
-, as well as 
-\begin_inset Quotes eld
-\end_inset
-
-Standardizing XB
-\begin_inset Quotes erd
-\end_inset
-
-.
- The latter achieves a similar result to adjusting weights so that the mean
- of the linear fit and its variance matches that of the training data.
- In principle, both methods are attempting to achieve the same thing.
- The results presented here are related to Eq.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:var pov"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, thus what matters for poverty is not just the mean of the linear fit,
- it is also dependent on the variance of the linear fit.
-\end_layout
-
-\begin_layout Standard
-Similar performance of the different adjustment methods is observed when
- applying these to top and bottom biased samples (Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:bias_reweight-1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- An interesting outcome in these results is that if the model were only
- judged at the 40th percentile (i.e.
- at a threshold that yields a poverty rate of 40 percent) it would ignore
- the biased nature of the samples.
- For this reason, it is always recommended to check results across the entire
- welfare distribution, like is done here.
- 
-\end_layout
-
-\begin_layout Standard
-The results show that standardizing covariates as suggested by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "dang2017"
-literal "false"
-
-\end_inset
-
- may be just as good or a better approach than re-weighting covariates,
- of course this result may not hold under different covariates or DGPs.
- However, even better results are obtained by standardizing the linear fit
- (
-\begin_inset Formula $X\beta)$
-\end_inset
-
-.
- Standardizing 
-\begin_inset Formula $X\beta$
-\end_inset
-
- yields phenomenal results under both biased samples tested.
- Given that the standardizing relies on normally distributed data, perhaps
- a better option may be achieved from re-weighting in other scenarios.
- 
-\end_layout
-
-\begin_layout Standard
-Results presented in Figures 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:bias_reweight"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:bias_reweight-1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- suggest that not all types of re-weighting work well.
- Re-weighting to match means, as done in an application in India by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sinha2022poverty"
-literal "false"
-
-\end_inset
-
-, still yields biased results.
- Since the 
-\begin_inset Formula $\beta$
-\end_inset
-
- and 
-\begin_inset Formula $\sigma_{e}^{2}$
-\end_inset
-
- used are always the true values, one can surmise that the bias from the
- sampling cannot be overcome by simply re-weighting the data.
- This also holds true for cases where the weights are adjusted so that the
- linear fit in the biased sample matches the mean of the SRS data.
- This sampling bias will be in addition to any other potential sources of
- bias, for example, non-normally distributed residuals or using a 
-\begin_inset Formula $σ_{e}$
-\end_inset
-
- that does not correspond to the same period.
- The bias is in addition to all the other potential sources of bias of the
- imputation.
- 
+ Incorporating additional constraints to the algorithm, such as aligning
+ both means and variances of covariates, provided marginal improvements
+ but failed to address the core issue of sampling distortion (“Match X and
+ var[X]”).
 \end_layout
 
 \begin_layout Standard
@@ -4081,14 +3869,100 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-For Gini, a similar issue is at play.
- Because biasing a sample by excluding households at the bottom of the distribut
-ion will likely lead to lower 
-\begin_inset Formula $\mathrm{var}[xβ]$
+A more effective approach involved aligning the mean of the linear fit of
+ the model (
+\begin_inset Formula $\hat{y}$
 \end_inset
 
-, which is not addressed by the re-weighting procedure used, keeping everything
- else equal leads to a downward biased estimate of Gini (Figure 
+) in the target data with the average linear fit of the source data (
+\begin_inset Quotes eld
+\end_inset
+
+Match XB
+\begin_inset Quotes erd
+\end_inset
+
+).
+ This adjustment yielded significantly improved estimates, as did standardizing
+ individual covariates (
+\begin_inset Quotes eld
+\end_inset
+
+Standardize each X
+\begin_inset Quotes erd
+\end_inset
+
+).
+ However, the best performing estimates incorporate the mean of the linear
+ fit and the variance of the linear fit (
+\begin_inset Quotes eld
+\end_inset
+
+Match XB and var[XB]
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+Standardize XB
+\begin_inset Quotes erd
+\end_inset
+
+).
+ These methods effectively address the interaction between mean and variance
+ in determining poverty estimates, as outlined in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:var pov"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For top-and-bottom-biased samples, where both the poorest and wealthiest
+ households were under-sampled, the performance of the correction methods
+ mirrored the earlier findings (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bias_reweight-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Unadjusted estimates again misrepresented poverty and inequality, while
+ methods that accounted for the mean and variance of the linear fit provided
+ more accurate results.
+ Importantly, results varied significantly across the welfare distribution.
+ Biases that appeared negligible at certain thresholds, such as the 40th
+ percentile, became pronounced elsewhere, highlighting the importance of
+ evaluating imputations across the full distribution.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Implications for Gini Estimation
+\end_layout
+
+\begin_layout Standard
+The challenges extend to inequality measurement.
+ Biasing a sample by excluding low-income households reduces 
+\begin_inset Formula $\mathrm{var}\left[x\beta\right]$
+\end_inset
+
+, which standard re-weighting methods fail to address (i.e.
+ only addressing differences in the mean).
+ This limitation results in downward-biased Gini estimates (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:bias_reweight-gini"
@@ -4099,12 +3973,12 @@ noprefix "false"
 \end_inset
 
 ).
- This is worse under the top and bottom biased samples because the value
- of 
-\begin_inset Formula $\mathrm{var}[x\beta]$
+ The issue is even more pronounced for top-and-bottom-biased samples, where
+ 
+\begin_inset Formula $\mathrm{var}\left[x\beta\right]$
 \end_inset
 
- is considerably smaller than under the bottom biased sample (Figure 
+ is further diminished (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:bias_reweight-gini-1"
@@ -4115,15 +3989,12 @@ noprefix "false"
 \end_inset
 
 ).
- Consequently, adjusting the weights so that not just the mean of 
-\begin_inset Formula $X\beta$
+ Adjusting weights to align both the mean and variance of 
+\begin_inset Formula $x\beta$
 \end_inset
 
- matches the value observed in the SRS but also 
-\begin_inset Formula $\mathrm{var}[xβ]$
-\end_inset
-
- yields much better imputed values for Gini.
+ with those of the source data significantly improved the accuracy of Gini
+ estimates.
 \end_layout
 
 \begin_layout Standard
@@ -4269,12 +4140,19 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-As encouraging as these results are, it is not possible to apply these to
- S2S imputation across time.
- The reason for this is because the true or a valid estimate of the mean
- for the dependent variable (which would be equal to the mean linear fit)
- or the variance of the linear fit would be unknown.
- 
+
+\series bold
+Limitations and Application Across Time 
+\end_layout
+
+\begin_layout Standard
+Despite the encouraging results for correcting biased cross-sectional samples,
+ these methods cannot be directly applied to S2S imputation across time.
+ This limitation arises from the unavailability of true or reliable estimates
+ for the mean and variance of the dependent variable in the target period.
+ Without these benchmarks, the ability to standardize or re-weight effectively
+ diminishes, compounding the challenges of imputing poverty estimates in
+ dynamic contexts.
 \end_layout
 
 \begin_layout Subsection

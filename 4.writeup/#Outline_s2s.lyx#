@@ -388,15 +388,28 @@ literal "false"
  The model parameters are then applied to a second data source (the target
  data) where the same set of household characteristics can be found with
  the aim of replicating the welfare distribution.
+ With a simulated welfare in hand, poverty estimates and other welfare indicator
+s can be derived from the target data.
+ The methods can be applied to contemporaneous surveys or to surveys correspondi
+ng to a different point in time.
  
 \end_layout
 
 \begin_layout Standard
-With a simulated welfare in hand, poverty estimates and other welfare indicators
- can be derived from the target data.
- The methods can be applied to contemporaneous surveys or to surveys correspondi
-ng to a different point in time.
- 
+The method is often treated as a prediction exercise and unlike much of
+ econometrics the parameters of the linear regression are not intended to
+ capture only the direct effect of the characteristics on welfare (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "elbers2003micro"
+literal "false"
+
+\end_inset
+
+, p356).
+ Nevertheless, as will be later posited, this pertains mostly to predictions
+ in the same point in time.
+ When attempting to predict to a different point in time this can lead 
 \end_layout
 
 \begin_layout Standard

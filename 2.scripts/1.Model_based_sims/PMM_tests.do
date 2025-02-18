@@ -137,7 +137,7 @@ twoway (line true_change ptile ) ///
 (scatter pred_change ptile) ///
 (scatter pred_change_ols ptile), ///
 legend(label(1 "True change") label(2 "Predicted change PMM") ///
-label(3 "Predicted change Normal") ///
+label(3 "Predicted change assuming normal errors") ///
 pos(7) cols(2)) xtitle (Poverty rate period 1) ytitle(Change (%))
 
 graph export "$figs\method_comp_PMM1.eps", as(eps) name("Graph") replace

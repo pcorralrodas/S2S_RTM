@@ -408,8 +408,9 @@ literal "false"
 
 , p356).
  Nevertheless, as will be later posited, this pertains mostly to predictions
- in the same point in time.
- When attempting to predict to a different point in time this can lead 
+ in the same point in time; when attempting to predict to a different point
+ in time this can lead to potentially biased estimates.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -664,8 +665,8 @@ official
 \begin_inset Quotes erd
 \end_inset
 
- the leaked report never fed into the World Bank's global poverty monitoring
- efforts.
+ the leaked report's findings were never incorporated to the World Bank's
+ global poverty monitoring efforts.
  
 \end_layout
 
@@ -726,18 +727,89 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-A common feature across these imputation exercises is their reliance on
- parameters derived from the 2011 National Sample Survey (NSS), despite
- significant changes in the Indian economy since then.
- This reliance has produced conflicting trends.
- For example, the imputation-based models suggest declining poverty and
- inequality, while data from a leaked, retracted 2017-18 report indicates
- a fall in rural consumption across all deciles of the welfare distribution,
- with higher declines among wealthier groups.
- This discrepancy highlights the limitations of imputation-based methods
- over extended periods, particularly when direct data is unavailable and
- significant economic changes occur, raising serious concerns about the
- accuracy and reliability of poverty estimates.
+A common limitation across these studies is their reliance on parameters
+ derived from the 2011 National Sample Survey (NSS), despite significant
+ economic shifts since then.
+ This has led to conflicting trends: imputation-based models suggest declining
+ poverty and inequality, while the leaked 2017/18 report indicates widespread
+ rural consumption declines across all income groups, with wealthier households
+ experiencing steeper drops.
+ This discrepancy underscores the challenges of using imputation methods
+ over long periods, especially in the absence of direct survey data and
+ amid substantial economic changes, raising concerns about the accuracy
+ and reliability of poverty estimates.
+\end_layout
+
+\begin_layout Standard
+The latest estimates from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sinha2022poverty"
+literal "false"
+
+\end_inset
+
+ can be found in the World Bank's Poverty and Inequality Platform (PiP)
+ and thus, are a key ingredient to the institution's global poverty figures.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://pip.worldbank.org/country-profiles/IND
+\end_layout
+
+\end_inset
+
+ However, the underlying data source used – the Consumer Pyramid Household
+ Surveys (CPHS) – has been noted for undersampling poor households.
+ A key issue is that a sample may systematically exclude many poor households
+ without this being apparent in observable socioeconomic variables.
+ The authors attempted to correct for this undersampling by re-weighting
+ the CPHS to make it representative of the country's population using maximum
+ entropy (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "wittenberg2010introduction"
+literal "false"
+
+\end_inset
+
+).
+ However, the effectiveness of such corrections depends on the nature of
+ the biases they aim to address (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "dreze2024weighty"
+literal "false"
+
+\end_inset
+
+).
+ If missing households are randomly distributed across observable groups,
+ re-weighting may work well – but this is difficult to ascertain in practice
+ (ibid).
+ Moreover, adjusting covariates does not necessarily correct distribution-sensit
+ive statistics like the headcount ratio, which is more relevant for poverty
+ measurement (ibid).
+ As will be illustrated in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Results_simdata"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, re-weighting, as implemented by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sinha2022poverty"
+literal "false"
+
+\end_inset
+
+ does not fully compensate for the underrepresentation of the poor.
 \end_layout
 
 \begin_layout Standard

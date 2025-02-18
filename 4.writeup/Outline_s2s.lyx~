@@ -387,15 +387,37 @@ literal "false"
  to as the source of training data.
  The model parameters are then applied to a second data source (the target
  data) where the same set of household characteristics can be found with
- the aim of replicating the welfare distribution.
+ the aim of replicating the welfare distribution via imputation.
+ With a simulated welfare in hand, poverty estimates and other welfare indicator
+s can be derived from the target data.
+ The methods can be applied to contemporaneous surveys or to surveys correspondi
+ng to a different point in time.
  
 \end_layout
 
 \begin_layout Standard
-With a simulated welfare in hand, poverty estimates and other welfare indicators
- can be derived from the target data.
- The methods can be applied to contemporaneous surveys or to surveys correspondi
-ng to a different point in time.
+The method is often treated as a prediction exercise and unlike much of
+ econometrics the parameters of the linear regression are not intended to
+ capture only the direct effect of the characteristics on welfare (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "elbers2003micro"
+literal "false"
+
+\end_inset
+
+, p356).
+ Nevertheless, the original intent of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "elbers2003micro"
+literal "false"
+
+\end_inset
+
+ was to predict on to the same population.
+ As will be later shown, when attempting to predict to a different point
+ in time, this assumption can lead to potentially biased estimates.
  
 \end_layout
 
@@ -651,8 +673,8 @@ official
 \begin_inset Quotes erd
 \end_inset
 
- the leaked report never fed into the World Bank's global poverty monitoring
- efforts.
+ the leaked report's findings were never incorporated to the World Bank's
+ global poverty monitoring efforts.
  
 \end_layout
 
@@ -713,18 +735,89 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-A common feature across these imputation exercises is their reliance on
- parameters derived from the 2011 National Sample Survey (NSS), despite
- significant changes in the Indian economy since then.
- This reliance has produced conflicting trends.
- For example, the imputation-based models suggest declining poverty and
- inequality, while data from a leaked, retracted 2017-18 report indicates
- a fall in rural consumption across all deciles of the welfare distribution,
- with higher declines among wealthier groups.
- This discrepancy highlights the limitations of imputation-based methods
- over extended periods, particularly when direct data is unavailable and
- significant economic changes occur, raising serious concerns about the
- accuracy and reliability of poverty estimates.
+A common limitation across these studies is their reliance on parameters
+ derived from the 2011 National Sample Survey (NSS), despite significant
+ economic shifts since then.
+ This has led to conflicting trends: imputation-based models suggest declining
+ poverty and inequality, while the leaked 2017/18 report indicates widespread
+ rural consumption declines across all income groups, with wealthier households
+ experiencing steeper drops.
+ This discrepancy underscores the challenges of using imputation methods
+ over long periods, especially in the absence of direct survey data and
+ amid substantial economic changes, raising concerns about the accuracy
+ and reliability of poverty estimates.
+\end_layout
+
+\begin_layout Standard
+The latest estimates from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sinha2022poverty"
+literal "false"
+
+\end_inset
+
+ can be found in the World Bank's Poverty and Inequality Platform (PiP)
+ and thus, are a key ingredient to the institution's global poverty figures.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://pip.worldbank.org/country-profiles/IND
+\end_layout
+
+\end_inset
+
+ However, the underlying data source used – the Consumer Pyramid Household
+ Surveys (CPHS) – has been noted for undersampling poor households.
+ A key issue is that a sample may systematically exclude many poor households
+ without this being apparent in observable socioeconomic variables.
+ The authors attempted to correct for this undersampling by re-weighting
+ the CPHS to make it representative of the country's population using maximum
+ entropy (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "wittenberg2010introduction"
+literal "false"
+
+\end_inset
+
+).
+ However, the effectiveness of such corrections depends on the nature of
+ the biases they aim to address (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "dreze2024weighty"
+literal "false"
+
+\end_inset
+
+).
+ If missing households are randomly distributed across observable groups,
+ re-weighting may work well – but this is difficult to ascertain in practice
+ (ibid).
+ Moreover, adjusting covariates does not necessarily correct distribution-sensit
+ive statistics like the headcount ratio, which is more relevant for poverty
+ measurement (ibid).
+ As will be illustrated in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Results_simdata"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, re-weighting, as implemented by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sinha2022poverty"
+literal "false"
+
+\end_inset
+
+ does not fully compensate for the underrepresentation of the poor.
 \end_layout
 
 \begin_layout Standard
@@ -2244,9 +2337,10 @@ Imputing across time
 \begin_layout Standard
 Survey-to-survey (S2S) imputation provides a valuable tool for addressing
  gaps in welfare data, but its application over time demands careful scrutiny.
- The core assumption—that changes in welfare stem solely from shifts in
+ The core assumption – that changes in welfare stem solely from shifts in
  observable characteristics while their relationship with welfare remains
- stable—becomes increasingly fragile as the time span between surveys grows.
+ stable – becomes increasingly fragile as the time span between surveys
+ grows.
  Structural changes in the economy, shifts in labor markets, and evolving
  household behaviors can all undermine this assumption, leading to imputation
  errors that distort true welfare dynamics.
@@ -2348,8 +2442,8 @@ literal "false"
  may not fully reflect actual poverty or inequality levels but rather the
  role of compositional shifts in shaping welfare evolution.
  In other words, instead of measuring the true welfare distribution, the
- method may only capture the effect of compositional shifts—how the population’s
- characteristics are changing over time.
+ method may only capture the effect of compositional shifts – how the population
+’s characteristics are changing over time.
  When characteristics change significantly, the assumption of stable parameters
  becomes increasingly restrictive, leading to potential bias in predicted
  welfare levels.
@@ -2862,7 +2956,7 @@ noprefix "false"
 \end_inset
 
 ).
- Although the "Fixed B" method—where parameters are directly applied (Eq.
+ Although the "Fixed B" method – where parameters are directly applied (Eq.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2873,7 +2967,7 @@ noprefix "false"
 
 \end_inset
 
-)—produces the lowest bias, the differences between methods are negligible.
+) – produces the lowest bias, the differences between methods are negligible.
  Even in the most biased case observed in this simulation, the discrepancy
  is less than 0.025 percentage points.
  Additionally, the number of imputations performed under multiple imputation
@@ -4535,7 +4629,7 @@ literal "false"
 
 \begin_layout Standard
 However, the method's efficacy depends on the assumption that covariates
- follow a normal distribution—an assumption that may not hold universally.
+ follow a normal distribution – an assumption that may not hold universally.
  To assess the robustness of this approach, the samples described in Section
  
 \begin_inset CommandInset ref
@@ -5300,7 +5394,8 @@ literal "false"
 \end_inset
 
  often recommended selecting covariates that may vary over time but maintain
- a stable relationship with welfare—a challenging criterion to meet in practice.
+ a stable relationship with welfare – a challenging criterion to meet in
+ practice.
  Furthermore, restricting the eligible covariates for the model can result
  in insufficient explanation of the variation in welfare.
  This, in turn, increases reliance on the distribution of unobservables,
@@ -7013,7 +7108,7 @@ This paper has highlighted both the potential and the challenges of survey-to-su
 rvey (S2S) imputation for poverty prediction, emphasizing the need for cautious
  application and robust methodological development.
  While S2S has several limitations, it may be the best available option
- in certain scenarios— particularly when real-time poverty estimates are
+ in certain scenarios – particularly when real-time poverty estimates are
  needed, but household surveys are outdated, unavailable, or inconsistent,
  and when methods relying on real GDP growth are not feasible due to data
  limitations or reliability concerns.
@@ -7021,7 +7116,7 @@ rvey (S2S) imputation for poverty prediction, emphasizing the need for cautious
  such as extrapolations based purely on national accounts, which often diverge
  from household survey-based welfare measures.
  The question is not just whether S2S introduces bias, but how its biases
- compare to those of alternative methods — or the default of producing no
+ compare to those of alternative methods – or the default of producing no
  estimate at all.
  
 \end_layout
@@ -7055,9 +7150,9 @@ Enhance Validation Practices:
  validation to assess robustness against economic and structural changes.
  Practitioners should also evaluate predictions across multiple poverty
  thresholds to capture distributional nuances.
- Additionally, external validation—comparing results with broader indicators
- such as GDP and unemployment, while incorporating country-specific knowledge—en
-hances reliability.
+ Additionally, external validation – comparing results with broader indicators
+ such as GDP and unemployment, while incorporating country-specific knowledge
+ – enhances reliability.
  
 \end_layout
 
@@ -7096,7 +7191,7 @@ Exercise Caution in Interpretation:
 \series default
  S2S methods should be applied with explicit acknowledgment of their limitations
 , particularly for tracking poverty over long periods.
- Transparency is essential—clearly stating that the estimates are predicted
+ Transparency is essential – clearly stating that the estimates are predicted
  rather than derived from an actual household survey ensures proper interpretati
 on and avoids misrepresentation.
  
@@ -7130,8 +7225,8 @@ Foster Methodological Transparency:
 Support Survey Improvements While Maintaining Comparability
 \series default
 : Statistical Offices should be encouraged to update their surveys in line
- with best practices—for example, refining the measurement of housing and
- durable goods in consumption aggregates.
+ with best practices – for example, refining the measurement of housing
+ and durable goods in consumption aggregates.
  However, such improvements can compromise comparability with earlier surveys.
  To address this, Statistical Offices could introduce "bridging" surveys
  by fielding the old questionnaire to a sub-sample of the new survey sample.
@@ -7145,8 +7240,8 @@ By recognizing both the challenges and the practical value of S2S, we can
  better position it as a useful tool for addressing poverty data gaps while
  maintaining the rigor needed for informed policy decisions.
  S2S should not be seen as an automatic substitute for household surveys
- but as a tool that—when carefully applied and validated—can provide meaningful
- insights when other data sources are unavailable or unreliable.
+ but as a tool that – when carefully applied and validated – can provide
+ meaningful insights when other data sources are unavailable or unreliable.
  The appropriate use of S2S is not just about improving estimates but also
  about demonstrating when cruder alternatives may be far more misleading.
  
@@ -7203,9 +7298,9 @@ literal "false"
 
 \end_inset
 
- report overall poverty reduction driven by rural improvements—despite GDP
- contraction, reduced aid, and a locust outbreak—they attribute this to
- decreased conflict.
+ report overall poverty reduction driven by rural improvements – despite
+ GDP contraction, reduced aid, and a locust outbreak – they attribute this
+ to decreased conflict.
 \begin_inset Foot
 status collapsed
 

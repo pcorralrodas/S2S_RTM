@@ -214,6 +214,9 @@ literal "false"
 \begin_layout Standard
 Survey-to-survey (S2S) imputation has emerged as a methodological response
  to these data limitations.
+ The method is often used as a way to produce poverty numbers when traditional
+ welfare data collection is unavailable due to costs, complexity, conflict,
+ or other reasons.
  The approach builds upon techniques originally developed for small area
  estimation (SAE) in poverty mapping, pioneered by 
 \begin_inset CommandInset citation
@@ -287,8 +290,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-This handbook first examines the limitations and potential pitfalls of survey-to
--survey imputation through rigorous analysis of its fundamental assumptions.
+This paper first examines the limitations and potential pitfalls of survey-to-su
+rvey imputation through rigorous analysis of its fundamental assumptions.
  In these experiments, the focus is not on traditional concerns such as
  variable selection or model specification, but rather on the method's core
  limitations, particularly for measuring poverty across extended time periods
@@ -417,7 +420,9 @@ literal "false"
 
  was to predict on to the same population.
  As will be later shown, when attempting to predict to a different point
- in time, this assumption can lead to potentially biased estimates.
+ in time, particularly when considerable underlying changes in the economy
+ and society have taken place (droughts, earthquakes, floods, conflict,
+ etc.), this assumption can lead to potentially biased estimates.
  
 \end_layout
 
@@ -427,7 +432,7 @@ ns of these methods, with much of the criticism centered around applications
  to surveys from a different point in time.
  The fundamental challenge lies in the method's core assumptions.
  S2S imputation assumes that model parameters remain stationary over time
- - meaning that any observed changes in poverty are solely attributable
+ – meaning that any observed changes in poverty are solely attributable
  to changes in the model's covariates, rather than shifts in unobservable
  factors or changing returns to these covariates (Dang, Lanjouw and Serajuddin
  
@@ -449,10 +454,10 @@ literal "false"
 \end_inset
 
  note, such assumptions may be especially problematic in rapidly growing
- economies like India, where structural economic changes can alter the relations
-hip between poverty and its predictors.
+ economies, where structural economic changes can alter the relationship
+ between poverty and its predictors.
  It can also be problematic when a strong shock has occurred between the
- periods – for example, a global pandemic.
+ periods – for example, a global pandemic or changes in a country's fragility.
 \end_layout
 
 \begin_layout Standard
@@ -496,6 +501,15 @@ The effectiveness of S2S imputation across time has been subject to empirical
  validation across various contexts, revealing both its potential and its
  limitations.
  While some studies report estimates within acceptable margins of error,
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+CITE SOME OF HAI ANH's WORK
+\end_layout
+
+\end_inset
+
  others highlight significant discrepancies between predicted and observed
  poverty rates.
  These mixed results underscore the importance of careful consideration
@@ -613,712 +627,6 @@ As of this writing, every poverty number for India after 2011 is an imputation.
  for tracking changes in well-being; and (iii) the impact of omitted variable
  bias, especially when imputing across time periods marked by significant
  economic shocks or structural changes.
-\end_layout
-
-\begin_layout Subsection
-S2S in India
-\end_layout
-
-\begin_layout Standard
-India's importance in global poverty measurement cannot be overstated.
- Its large population implies that even a slight shift in poverty in the
- country can make or break the World Bank's pledge on ending extreme poverty.
- Consequently, since 2011, the last time data was collected before 2022,
- there are at least 3 different studies which attempt to estimate a poverty
- rate for the country making use of survey-to-survey imputation (see 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "newhouse2019estimating,sinha2022poverty,edochie2022we"
-literal "false"
-
-\end_inset
-
-).
- These papers obtain a welfare model constructed on the 2011 data and apply
- it to several more recent data which lack a welfare measure to obtain poverty
- predictions.
- 
-\end_layout
-
-\begin_layout Standard
-In 2017, when the next expenditure survey for the country was supposed to
- be released it was scrapped due to concerns regarding its validity.
- There were leaks of the report, however, and these suggested that between
- 2011 and 2017/18 consumption in the country had fallen by 3.7 percent.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset href
-LatexCommand href
-name "https://www.thehinducentre.com/the-arena/current-issues/article30265409.ece"
-target "https://www.thehinducentre.com/the-arena/current-issues/article30265409.ece"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- While rural consumption fell by 8.8 percent, urban areas fared somewhat
- better and grew by 2 percent over the period.
- Given the lack of actual data to validate the leaked report and the fact
- that the survey was never 
-\begin_inset Quotes eld
-\end_inset
-
-official
-\begin_inset Quotes erd
-\end_inset
-
- the leaked report's findings were never incorporated to the World Bank's
- global poverty monitoring efforts.
- 
-\end_layout
-
-\begin_layout Standard
-Various studies utilizing survey-to-survey (S2S) imputation have produced
- divergent estimates of poverty in India, raising questions about the robustness
- of such methods.
- 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "newhouse2019estimating"
-literal "false"
-
-\end_inset
-
- estimate a dramatic reduction in poverty, from 22.5 percent in 2011/12 to
- 12.7 percent in 2014/15, suggesting poverty was nearly halved during this
- period.
- In contrast, 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sinha2022poverty"
-literal "false"
-
-\end_inset
-
- provide a higher poverty estimate for 2015, ranging between 18.6 percent
- and 20.6 percent, while an earlier version of the same paper placed the
- figure at around 15 percent.
- Similarly, estimates for 2017/18 differ: the World Bank's Poverty and Shared
- Prosperity Report (PSPR) 
-\begin_inset CommandInset citation
-LatexCommand citeyearpar
-key "WorldBank2020"
-literal "false"
-
-\end_inset
-
-, following 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "edochie2022we"
-literal "false"
-
-\end_inset
-
-, provides estimates of poverty at 9.9 percent.
- However, 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sinha2022poverty"
-literal "false"
-
-\end_inset
-
- suggest the poverty rate for 2017 lies between 12.2 and 15.3 percent, with
- a previous version of their work estimating 13 to 14 percent.
-\end_layout
-
-\begin_layout Standard
-A common limitation across these studies is their reliance on parameters
- derived from the 2011 National Sample Survey (NSS), despite significant
- economic shifts since then.
- This has led to conflicting trends: imputation-based models suggest declining
- poverty and inequality, while the leaked 2017/18 report indicates widespread
- rural consumption declines across all income groups, with wealthier households
- experiencing steeper drops.
- This discrepancy underscores the challenges of using imputation methods
- over long periods, especially in the absence of direct survey data and
- amid substantial economic changes, raising concerns about the accuracy
- and reliability of poverty estimates.
-\end_layout
-
-\begin_layout Standard
-The latest estimates from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sinha2022poverty"
-literal "false"
-
-\end_inset
-
- can be found in the World Bank's Poverty and Inequality Platform (PiP)
- and thus, are a key ingredient to the institution's global poverty figures.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-https://pip.worldbank.org/country-profiles/IND
-\end_layout
-
-\end_inset
-
- However, the underlying data source used – the Consumer Pyramid Household
- Surveys (CPHS) – has been noted for undersampling poor households.
- A key issue is that a sample may systematically exclude many poor households
- without this being apparent in observable socioeconomic variables.
- The authors attempted to correct for this undersampling by re-weighting
- the CPHS to make it representative of the country's population using maximum
- entropy (
-\begin_inset CommandInset citation
-LatexCommand citealt
-key "wittenberg2010introduction"
-literal "false"
-
-\end_inset
-
-).
- However, the effectiveness of such corrections depends on the nature of
- the biases they aim to address (
-\begin_inset CommandInset citation
-LatexCommand citealt
-key "dreze2024weighty"
-literal "false"
-
-\end_inset
-
-).
- If missing households are randomly distributed across observable groups,
- re-weighting may work well – but this is difficult to ascertain in practice
- (ibid).
- Moreover, adjusting covariates does not necessarily correct distribution-sensit
-ive statistics like the headcount ratio, which is more relevant for poverty
- measurement (ibid).
- As will be illustrated in section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Results_simdata"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, re-weighting, as implemented by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "sinha2022poverty"
-literal "false"
-
-\end_inset
-
- does not fully compensate for the underrepresentation of the poor.
-\end_layout
-
-\begin_layout Standard
-Other authors have attempted to arrive at a poverty rate for India leading
- to a wide range of predictions, leaving many to wonder what in fact is
- the true poverty rate for the country.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-See for example: 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "lanjouw2024imputation,bhalla2022pandemic"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- Additionally, a key question in these contexts is what meaning do the estimated
- standard errors for the imputations carry? In some instances, through some
- very elaborate statistical applications poverty numbers are presented with
- statements of precision that may be misleading.
- 
-\end_layout
-
-\begin_layout Subsection
-S2S in Afghanistan
-\end_layout
-
-\begin_layout Standard
-Afghanistan's 2023 poverty estimates, derived through survey-to-survey (S2S)
- imputation, illustrate the complexities of applying this methodology during
- periods of significant economic transition.
- 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "barriga2023updating"
-literal "false"
-
-\end_inset
-
- trained their model using the 2019-2020 Expenditure and Labor Force Survey
- (IE-LFS), which reported a national poverty rate of 52.3 percent, and applied
- it to 2023 phone survey data to estimate updated poverty rates.
-\end_layout
-
-\begin_layout Standard
-The estimates indicate a decline in poverty to 48.3 percent in 2023, driven
- by reductions in rural poverty despite slight increases in urban areas.
- While these results are noteworthy, several methodological and contextual
- factors warrant caution.
- First, the reliance on phone survey data introduces challenges related
- to representativeness.
- The 2023 estimates were based on responses from households in the 2019-20
- IE-LFS with access to phones and who participated in the follow-up survey.
- Although weights were adjusted for socioeconomic characteristics such as
- region, urban/rural status, electricity access, and household assets, such
- adjustments may not fully address potential biases inherent in phone-based
- surveys.
- Experimental evidence (see section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Results_simdata"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-) demonstrates the risks of bias when using S2S imputation with re-weighted
- data.
-\end_layout
-
-\begin_layout Standard
-Second, the model’s performance metrics raise questions about its predictive
- accuracy.
- Even when imputations were obtained using the original 2019-20 data, model
- predictions deviated from the original, direct, estimates by nearly 1 percentag
-e point, indicating potential violations of key assumptions (Table 4 of
- 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "barriga2023updating"
-literal "false"
-
-\end_inset
-
-).
- When applied to 2021 data, the model overestimated urban poverty by 1.7
- percentage points and rural poverty by 2.1 points, suggesting that the reported
- 4-percentage-point reduction in 2023 could fall within a margin of error
- rather than representing a clear trend.
-\end_layout
-
-\begin_layout Standard
-Third, broader economic indicators appear inconsistent with the reported
- decline in poverty.
- Between 2019 and 2023, Afghanistan faced significant economic challenges,
- including severe GDP contraction after administrative changes and U.S.
- military withdrawal, droughts exacerbating food insecurity, reductions
- in emergency food assistance, a locust outbreak affecting key agricultural
- areas,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset citation
-LatexCommand citet
-key "WFP2023"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- and a doubling of unemployment rates.
- These factors collectively point to heightened vulnerabilities rather than
- improvements in welfare.
-\end_layout
-
-\begin_layout Standard
-The authors attribute the poverty reduction primarily to reduced conflict
- and lower food prices.
- However, the model does not directly account for conflict, leaving this
- explanation speculative.
- Any effects would need to operate indirectly through the model’s existing
- covariates, raising concerns about omitted variable bias that could compromise
- its predictions over time (see Annex 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:ann_ovb"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- for further discussion and section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Omitted-Variables"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- for simulation results).
-\end_layout
-
-\begin_layout Standard
-Additionally, the model’s reliance on consumption indicators, such as meat
- and egg consumption, introduces further uncertainty.
- Much of the welfare gains in rural areas stem from variables capturing
- these specific consumption patterns, which may be closely tied to conflict
- and other contextual factors.
- For instance, reported meat consumption increased by 30 percent and egg
- consumption doubled, with these variables contributing significantly to
- the estimated rise in real per capita consumption.
- Yet such trends seem incongruous with broader economic realities, underscoring
- the challenges in interpreting these results.
-\end_layout
-
-\begin_layout Standard
-In sum, Afghanistan’s 2023 poverty estimates highlight the difficulties
- of using S2S imputation during periods of economic upheaval.
- The case underscores the need for cautious interpretation of imputed results,
- particularly when data collection limitations, methodological assumptions,
- and contextual factors may influence the findings.
- Recognizing these complexities is critical to ensuring the reliability
- of poverty estimates in challenging contexts.
-\end_layout
-
-\begin_layout Subsection
-The Case of Zambia
-\end_layout
-
-\begin_layout Standard
-Zambia’s gap in survey data between 2015 and 2022 presented a challenge
- for monitoring poverty trends.
- Compounding this challenge, the 2022 consumption data is not directly comparabl
-e to 2015 data due to differences in survey design.
- While the 2015 survey used a fixed recall period for food consumption,
- the 2022 survey allowed respondents to choose different reference periods
- for reporting quantities and values of consumption.
- This variation in reporting likely undermines the comparability of the
- two datasets, complicating the construction of poverty trends 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "beegle2012methods"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-To address this issue, the Zambia team employed survey-to-survey (S2S) imputatio
-n referred to as a 
-\begin_inset Quotes eld
-\end_inset
-
-SWIFT approach
-\begin_inset Quotes erd
-\end_inset
-
-,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-The World Bank's Survey of Well-being via Instant and Frequent Tracking
- (SWIFT) program began as a program where for a small subset of households
- expenditure is collected and a model is trained on this small sample and
- applied to the larger sample that lacks expenditure.
- Recently, the term has been used by some as an all encompassing application
- of S2S methods.
-\end_layout
-
-\end_inset
-
- to project the 2015 welfare aggregate onto the 2022 data.
- Using this approach, they estimate that international poverty ($2.15 2017
- USD PPP) increased by nearly 4 percentage points between 2015 and 2022,
- rising from 60.8 to 64.4 percent.
- At the same time, inequality, as measured by the Gini index, is predicted
- to have decreased from 55.9 to 51.5, and average consumption fell by 15 percent,
- from $2.97 (2017 PPP) to $2.53 (2017 PPP).
- While these results suggest a worsening of economic conditions, they also
- raise questions about the broader macroeconomic context.
-\end_layout
-
-\begin_layout Standard
-Although the imputed estimates indicate declining welfare, Zambia’s GDP
- per capita in constant terms barely changed between 2015 and 2022, recovering
- to its pre-pandemic levels by 2022 and exceeding its 2018 peak by 2023.
- This divergence between household survey-based consumption estimates and
- national accounts data highlights a growing gap to national accounts that
- is not easily explained.
- Literature suggests such gaps may stem from underreporting of incomes in
- surveys 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "ravallion2003measuring"
-literal "false"
-
-\end_inset
-
-, although they tend to narrow as countries become wealthier 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "prydz2022disparities"
-literal "false"
-
-\end_inset
-
-.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Additionally, it could also reflect problems with national accounts.
-\end_layout
-
-\end_inset
-
- However, as Ravallion has emphasized, both surveys and national accounts
- can be flawed, and they often measure different aspects of economic well-being.
- As a result, they should not be expected to track each other perfectly.
- The observed divergence could therefore reflect not only underreporting
- in surveys but also potential issues with national accounts data.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Given the point of the distribution where mean welfare falls on, a drop
- in Gini and an increase in poverty are not incongruous.
- However, if average consumption indeed fell and poverty increased, as the
- predictions suggest, it is unclear why all of a sudden the gap to national
- accounts would widen.
- If the GDP measure is accurate, then the drop in mean consumption, would
- suggest that consumption must have shifted to the richest population likely
- leading to increased inequality.
- On the other hand, if the predictions are correct, then 
-\end_layout
-
-\begin_layout Plain Layout
-how inequality also dropped while the overall economy remained relatively
- unchanged as noted by the GDP per capita measures.
- On the one hand, had a larger share of welfare accumulated at the top of
- the distribution, since GDP per capita has barely changed but mean consumption
- has decreased, inequality should have increased.
- On the other hand, if it would have accumulated at the bottom of the 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The comparable components of expenditure between the 2022 and the 2015 survey
- correspond to 33.7 percent of the 2015 survey expenditure, but does not
- include food, and frequent non-food components.
- The comparable component consists mainly of health, a sub-set of education,
- clothing, financial services, durables, and housing.
- The last item, housing, corresponds to imputed rent.
- In urban areas, the comparable component suggests consumption has decreased
- in real terms.
- In rural areas there is no discernible change.
- The authors validate their results applying a method from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "deaton2003adjusted"
-literal "false"
-
-\end_inset
-
- that relies on a comparable subset of the welfare aggregate and is aligned
- to that based on the imputation model.
- The authors also validate their model by imputing on the same data as the
- one used for the model.
- Their validations already point toward a slight upward bias in their model
- for urban areas, same for their Gini predictions, both likely driven by
- the residuals not meeting the model's assumptions (Table 6).
- 
-\end_layout
-
-\begin_layout Standard
-Additional concerns about the imputation models remain.
- First, the models fit have a surprisingly high 
-\begin_inset Formula $R^{2}$
-\end_inset
-
- value – 0.8 for rural, and 0.91 for urban areas.
- Such a high 
-\begin_inset Formula $R^{2}$
-\end_inset
-
- value may be suggestive of overfitting.
- The team implemented cross-validation as part of their model selection
- and do not seem to include other model diagnostics.
- Cross-validation, although useful, does not necessarily guarantee the absence
- of overfitting (
-\begin_inset CommandInset citation
-LatexCommand citealt
-key "cawley2010over"
-literal "false"
-
-\end_inset
-
-).
- 
-\end_layout
-
-\begin_layout Standard
-The rural model includes as a covariate the natural logarithm of comparable
- consumption per adult equivalent, and its square – the coefficients for
- both are positive.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Includes health, a subset of education, clothing, financial services, durables,
- and housing.
- It has a correlation of 0.987 with total consumption and corresponds to
- 33.7 percent of consumption as noted by the authors.
-\end_layout
-
-\end_inset
-
- Inclusion of such items should be done with care and is only 
-\begin_inset Quotes eld
-\end_inset
-
-theoretically justified if and only if all Engel curves are linear for any
- realization of prices
-\begin_inset Quotes erd
-\end_inset
-
-.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-(
-\begin_inset CommandInset citation
-LatexCommand citealt
-key "ligon2020should"
-literal "false"
-
-\end_inset
-
-, abstract)
-\end_layout
-
-\end_inset
-
- The model also includes the number of members employed in agriculture,
- which was nearly halved between 2015 and 2022, from 1.2 to 0.62.
- The coefficient for the number of members employed in agriculture is negative,
- thus the reduction in employment would have increased consumption.
- However, that would not be the case if the reduction is because of a shock
- such as droughts or COVID which leaves these households without income.
- The model also includes covariates on the number of items purchased, like
- cattle, vegetables, pulses, and chicken.
- These are in natural log terms, where possibly 
-\begin_inset Formula $\ln(0)$
-\end_inset
-
- is treated as 0.
- This can lead to biased coefficients particularly when the proportion of
- 0 is large (
-\begin_inset CommandInset citation
-LatexCommand citealt
-key "battese1997note"
-literal "false"
-
-\end_inset
-
-).
- Finally, the model likely includes many covariates that are potentially
- highly correlated.
- For example, number of tubers consumed from own consumption and purchased.
- 
-\end_layout
-
-\begin_layout Standard
-The model for urban areas has an 
-\begin_inset Formula $R^{2}$
-\end_inset
-
- value of 0.91, one of the highest values observed in such an exercise.
- The high 
-\begin_inset Formula $R^{2}$
-\end_inset
-
-is suggestive of overfitting that would limit its predictive out-of-sample
- capacity, particularly when applying the model to data that is 7 years
- ahead.
- The model has multiple other potential issues.
- Like the rural model, the urban model includes number of items purchased
- in logarithms, where presumably 
-\begin_inset Formula $\ln(0)$
-\end_inset
-
- is treated as 0, but not explicitly stated in the report, and can lead
- to biased estimates.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-The authors include the nat.
- log.
- of hoes owned as well a fishing and hunting gear which likely have multiple
- 0.
-\end_layout
-
-\end_inset
-
- The model also includes the number of inactive household members, which
- 
-\shape italic
-a priori
-\shape default
- one would expect to be negatively related to consumption, but is positive
- in this case.
- Moreover, the data suggests that between 2015 and 2022 the number of inactive
- members increased by nearly 1 person, from 1.6 to 2.4.
- Beyond the issue of the inactive members, the urban and rural models share
- many of the same limitations, including the use of the natural logarithm
- of the comparable component of welfare.
- 
-\end_layout
-
-\begin_layout Standard
-In summary, Zambia’s 2023 poverty estimates underscore the challenges of
- applying S2S imputation in the context of survey design differences and
- extended time gaps.
- While the results provide useful insights, issues related to model assumptions,
- parameter stability, and data representativeness warrant careful consideration.
- This case emphasizes the importance of robust validation and sensitivity
- analyses to ensure reliable estimates when addressing data gaps.
- 
-\end_layout
-
-\begin_layout Standard
-To properly understand the limitations of S2S the following section goes
- in-depth into the basics of S2S.
 \end_layout
 
 \begin_layout Section
@@ -1726,7 +1034,12 @@ Note that if the transformation of the dependent variable is not the natural
  of being poor.
  The average probability of being poor across households corresponds to
  the national poverty rate.
- Additionally, because the only thing differing across households in Eq.
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Note that because the only thing differing across households in Eq.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1747,11 +1060,7 @@ noprefix "false"
 
  will yield the same household ranking as the survey-to-survey approach
  if the same model is used for either.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Under a PMT the threshold is chosen at a given percentile of 
+ Under a PMT, the threshold is chosen at a given percentile of 
 \begin_inset Formula $x\beta$
 \end_inset
 
@@ -1766,7 +1075,7 @@ Under a PMT the threshold is chosen at a given percentile of
 \begin_layout Standard
 The implementation of welfare predictions to the target data can follow
  different approaches.
- The mod common method, grounded in the multiple imputation literature,
+ The most common method, grounded in the multiple imputation literature,
  generates several welfare vectors to reflect prediction uncertainty.
  This approach follows what was implemented in poverty mapping through the
  PovMap software (
@@ -1922,8 +1231,8 @@ literal "false"
  the purpose is to minimize the likelihood of false positives, since normally
  the imputed vectors are then used for regression analysis.
  Alternatively, step 4 may be skipped and the imputed transformed welfare
- can be obtained from  
-\begin_inset Formula $N\left(x_{i_{target}}\beta_{m}^{*},\sigma_{e}^{2*}\left(x'x\right)^{-1}\right).$
+ can be obtained from 
+\begin_inset Formula $\ln y_{im}^{*}\sim N\left(x_{i_{target}}\beta_{m}^{*},\sigma_{e}^{2*}\right).$
 \end_inset
 
 
@@ -1933,7 +1242,7 @@ literal "false"
 An alternative approach, derived from the small area estimation literature,
  treats the source survey as the best representation of the true welfare
  distribution.
- Under this method, parameters estimated from the source survey are applied
+ Under this approach, parameters estimated from the source survey are applied
  directly to the target data through Monte Carlo simulation.
  For straightforward indicators like poverty rates, practitioners can simply
  apply the asymptotic formula for expected values (Eq.
@@ -5835,7 +5144,7 @@ nt equal to 0.4.
 \begin_layout Enumerate
 The variable is simulated as binary, taking the value 1 if a randomly drawn
  uniform number between 0 and 1 is less than 
-\begin_inset Formula $0.5x+0.5\times Conflict$
+\begin_inset Formula $0.5x-0.5\times Conflict$
 \end_inset
 
 , where 
@@ -7288,19 +6597,10 @@ name "subsec:ann_ovb"
 \end_layout
 
 \begin_layout Standard
-The Afghanistan team's discussion inadvertently demonstrates why survey-to-surve
-y imputation across time periods requires careful consideration.
- While 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "barriga2023updating"
-literal "false"
-
-\end_inset
-
- report overall poverty reduction driven by rural improvements – despite
- GDP contraction, reduced aid, and a locust outbreak – they attribute this
- to decreased conflict.
+Survey-to-survey imputation across time periods requires careful consideration.
+ For example in a conflict setting, where conflict has significantly subsided
+ between the collection of the trainign and the target data, it is crucial
+ to control for conflict in the model.
 \begin_inset Foot
 status collapsed
 
@@ -7311,8 +6611,8 @@ Note that nothing to control for those shocks was included in the original
 
 \end_inset
 
- However, since conflict is not explicitly included in their model, its
- effects would only manifest through changes in other variables.
+ In instancese where conflict is not included in the model, its effects
+ would only manifest through changes in other variables.
  This potential omitted variable bias raises concerns about the model's
  reliability for temporal predictions.
  When imputing over time, it is possible for multiple issues to arise.
@@ -7321,18 +6621,10 @@ Note that nothing to control for those shocks was included in the original
 \end_layout
 
 \begin_layout Standard
-A key aspect of the team's imputation is the inclusion of fast changing
- consumption variables, such as an indicator of whether or not the household
- consumed eggs over the past week.
- 
-\begin_inset CommandInset citation
-LatexCommand citeauthor
-key "barriga2023updating"
-literal "false"
-
-\end_inset
-
- (2023, p2) follow the proposed approach from 
+Some may argue that the inclusion of fast changing consumption variables,
+ such as an indicator of whether or not the household consumed eggs over
+ the past week, are sufficient for accurate estimates of poverty .
+ This is what 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "yoshida2022concept"
@@ -7340,17 +6632,7 @@ literal "false"
 
 \end_inset
 
- and argue that these dummies are included 
-\begin_inset Quotes eld
-\end_inset
-
-to better capture welfare changes in a context where large economic shocks
- have occurred
-\begin_inset Quotes erd
-\end_inset
-
-.
- This is what the authors refer to as the 
+ refer to as the 
 \begin_inset Quotes eld
 \end_inset
 
@@ -7362,13 +6644,15 @@ SWIFT Plus methodology
  Nevertheless, these variables are likely subject to omitted variable bias
  which can lead to biased estimates of the coefficients leading to biased
  poverty measures.
- In the case of the Afghanistan imputation the omitted variable is conflict.
- In others it may be the introduction of a cash transfer, for example.
+ In the case of the imputation example given here, the omitted variable
+ is conflict.
+ In others it may be the introduction of a cash transfer or a global pandemic,
+ for example.
  
 \end_layout
 
 \begin_layout Standard
-If conflict is negatively related to expenditure and negatively related
+Assuming conflict is negatively related to expenditure and negatively related
  to consumption of certain goods, such as meat and eggs, this would lead
  to coefficients that are upward biased.
  Assume the following, simplified, model:
@@ -7523,14 +6807,14 @@ In addition, the intercept will be underestimated.
 
 \begin_layout Standard
 we know that 
-\begin_inset Formula $\grave{\beta_{2}<0,}$
+\begin_inset Formula $\beta_{2}<0,$
 \end_inset
 
  and that 
 \begin_inset Formula $(\beta_{1}-\tilde{\beta}_{1})<0.$
 \end_inset
 
- This suggest that the intercept term is downward biased.
+ This suggests that the intercept term is downward biased.
  
 \end_layout
 

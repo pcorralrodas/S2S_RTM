@@ -351,6 +351,44 @@ import excel using "$main/1.data/Changing constant.xlsx", first clear
 	
 	graph export "$figs\constant_change_fgt0.eps", as(eps) name("Graph") replace
 	
+*===============================================================================
+// 2.5 FIgures for Cluster sims 
+// 2.run_cluster_sims.do
+*==============================================================================
+
+use "$dpath/results_micomps_cluster.dta", clear
+
+	groupfunction, mean(value) by(method reference measure)
+	gen ptile = int(real(subinstr(reference,"povline","",.)))
+	egen double true_pov = max(value*(method=="FULL")), by( reference measure)
+	
+	gen bias = 100*(value - true_pov)
+	sort ptile
+	
+	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(d)  mcolor(blue)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="One-fold", msymbol(Th)  mcolor(blue) msize(medium)) ///
+	(scatter bias ptile if measure=="fgt0"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
+	legend(label(1 "Fixed B") label(2 "MI 20") ///
+	label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
+	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	
+	graph export "$figs\mi_ebp_fgt0_cluster.eps", as(eps) name("Graph") replace
+	
+	twoway (line bias ptile if measure=="fgt1"  & method=="A la EBP", color(blue) lpattern(-)) ///
+	(scatter bias ptile if measure=="fgt1"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
+	(scatter bias ptile if measure=="fgt1"      & method=="MI 100", msymbol(d)  mcolor(blue)) ///
+	(scatter bias ptile if measure=="fgt1"      & method=="One-fold", msymbol(Th)  mcolor(blue) msize(medium)) ///
+	(scatter bias ptile if measure=="fgt1"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
+	legend(label(1 "Fixed B") label(2 "MI 20") ///
+	label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
+	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty gap")
+	
+	graph export "$figs\mi_ebp_fgt1_cluster.eps", as(eps) name("Graph") replace
+	
+
+	
 
 *===============================================================================
 // FIgures for MI comparison to EBP

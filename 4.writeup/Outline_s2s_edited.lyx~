@@ -214,9 +214,6 @@ literal "false"
 \begin_layout Standard
 Survey-to-survey (S2S) imputation has emerged as a methodological response
  to these data limitations.
- The method is often used as a way to produce poverty numbers when traditional
- welfare data collection is unavailable due to costs, complexity, conflict,
- or other reasons.
  The approach builds upon techniques originally developed for small area
  estimation (SAE) in poverty mapping, pioneered by 
 \begin_inset CommandInset citation
@@ -290,8 +287,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-This paper first examines the limitations and potential pitfalls of survey-to-su
-rvey imputation through rigorous analysis of its fundamental assumptions.
+This handbook first examines the limitations and potential pitfalls of survey-to
+-survey imputation through rigorous analysis of its fundamental assumptions.
  In these experiments, the focus is not on traditional concerns such as
  variable selection or model specification, but rather on the method's core
  limitations, particularly for measuring poverty across extended time periods
@@ -432,7 +429,7 @@ ns of these methods, with much of the criticism centered around applications
  to surveys from a different point in time.
  The fundamental challenge lies in the method's core assumptions.
  S2S imputation assumes that model parameters remain stationary over time
- – meaning that any observed changes in poverty are solely attributable
+ - meaning that any observed changes in poverty are solely attributable
  to changes in the model's covariates, rather than shifts in unobservable
  factors or changing returns to these covariates (Dang, Lanjouw and Serajuddin
  
@@ -454,10 +451,10 @@ literal "false"
 \end_inset
 
  note, such assumptions may be especially problematic in rapidly growing
- economies, where structural economic changes can alter the relationship
- between poverty and its predictors.
+ economies like India, where structural economic changes can alter the relations
+hip between poverty and its predictors.
  It can also be problematic when a strong shock has occurred between the
- periods – for example, a global pandemic or changes in a country's fragility.
+ periods – for example, a global pandemic.
 \end_layout
 
 \begin_layout Standard
@@ -501,15 +498,6 @@ The effectiveness of S2S imputation across time has been subject to empirical
  validation across various contexts, revealing both its potential and its
  limitations.
  While some studies report estimates within acceptable margins of error,
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-CITE SOME OF HAI ANH's WORK
-\end_layout
-
-\end_inset
-
  others highlight significant discrepancies between predicted and observed
  poverty rates.
  These mixed results underscore the importance of careful consideration
@@ -627,6 +615,538 @@ As of this writing, every poverty number for India after 2011 is an imputation.
  for tracking changes in well-being; and (iii) the impact of omitted variable
  bias, especially when imputing across time periods marked by significant
  economic shocks or structural changes.
+\end_layout
+
+\begin_layout Subsection
+Challenges of Survey-to-Survey (S2S) Imputation
+\end_layout
+
+\begin_layout Standard
+Survey-to-survey (S2S) imputation is a valuable tool for producing poverty
+ estimates when recent consumption or income data is unavailable.
+ However, its application can be challenging, particularly when used over
+ long time intervals, during periods of significant economic upheaval, or
+ when relying on non-representative survey data.
+ These conditions often increase the risk of biased estimates.
+\end_layout
+
+\begin_layout Standard
+One notable example of the difficulties associated with S2S imputation involves
+ poverty estimation in India.
+ Efforts to model poverty rates using parameters from the 2011 National
+ Sample Survey (NSS) have produced widely varying results (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "newhouse2019estimating,edochie2022we,sinha2022poverty"
+literal "false"
+
+\end_inset
+
+).
+ While some of these studies suggest substantial reductions in poverty,
+ others indicate much higher poverty rates for overlapping years.
+ The discrepancies between estimates arise from the use of outdated parameters
+ to impute welfare over a period characterized by substantial economic shifts,
+ exacerbating the risk of biased results.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A common limitation across these studies is their reliance on parameters
+ derived from the 2011 National Sample Survey (NSS).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The rejection of India’s 2017/18 consumption survey over validity concerns,
+ alongside leaked findings suggesting declines in rural consumption, highlights
+ the limitations of relying solely on imputation-based approaches without
+ recent, reliable data.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "https://www.thehinducentre.com/the-arena/current-issues/article30265409.ece"
+target "https://www.thehinducentre.com/the-arena/current-issues/article30265409.ece"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ The conflicting findings between imputation models indicating declining
+ poverty and unpublished reports suggesting widespread rural consumption
+ declines demonstrate the potential pitfalls of using S2S over extended
+ periods.
+\end_layout
+
+\begin_layout Standard
+The estimates from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sinha2022poverty"
+literal "false"
+
+\end_inset
+
+, available on the World Bank’s Poverty and Inequality Platform (PiP), are
+ central to the institution’s global poverty figures.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+https://pip.worldbank.org/country-profiles/IND
+\end_layout
+
+\end_inset
+
+ However, the target data source — the Consumer Pyramid Household Surveys
+ (CPHS) — has been noted for undersampling poor households.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The model is trained using the 2011 National Sample Survey (NSS)
+\end_layout
+
+\end_inset
+
+ Attempts to correct for this undersampling by re-weighting the CPHS through
+ maximum entropy methods (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "wittenberg2010introduction"
+literal "false"
+
+\end_inset
+
+) may not adequately address the bias.
+ Adjusting covariates may not fully compensate for underrepresentation of
+ the poor, and distribution-sensitive statistics like the headcount ratio
+ remain particularly vulnerable to bias (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "dreze2024weighty"
+literal "false"
+
+\end_inset
+
+).
+ If missing households are randomly distributed across observable groups,
+ re-weighting may work well – but this is difficult to ascertain in practice
+ (ibid).
+ Moreover, adjusting covariates does not necessarily correct distribution-sensit
+ive statistics like the headcount ratio, which is more relevant for poverty
+ measurement (ibid).
+ As will be illustrated in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Results_simdata"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, re-weighting, as implemented by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sinha2022poverty"
+literal "false"
+
+\end_inset
+
+ does not fully compensate for the underrepresentation of the poor and can
+ lead to biased estimates.
+\end_layout
+
+\begin_layout Standard
+Other authors have attempted to arrive at a poverty rate for India leading
+ to a wide range of predictions, leaving us to wonder what in fact is the
+ true poverty rate for the country.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+See for example: 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "lanjouw2024imputation,bhalla2022pandemic"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Additionally, a key question in these contexts is what meaning do the estimated
+ standard errors for the imputations carry? In some instances, through some
+ very elaborate statistical applications poverty numbers are presented with
+ statements of precision that may be misleading.
+ 
+\end_layout
+
+\begin_layout Standard
+Additional concerns about biased predictions arise in contexts where a considera
+bly shock has occurred between the training and the target data.
+ For example, to predict poverty in a rapidly changing fragile context 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "barriga2023updating"
+literal "false"
+
+\end_inset
+
+ rely on a phone survey (due to difficulties in collecting data in face-to-face
+ interviews) as their target data, which are prone to oversampling wealthier
+ households.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+For example, as can be seen in the World Bank's Afghanistan Welfare Survey
+ 
+\begin_inset CommandInset citation
+LatexCommand citeyearpar
+key "AWMS2023"
+literal "false"
+
+\end_inset
+
+, the share of literate household heads in the country increased to 56 percent
+ by 2023 from 31 percent in 2019.
+ 
+\end_layout
+
+\end_inset
+
+ Much like the case in India, the authors attempt to correct this issue
+ by adjusting survey weights.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+See section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Results_simdata"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for a discussion on why adjusting survey weights may not fix sampling problems.
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Beyond the need to rely on phone surveys to collect data in a difficult
+ scenario, in the presence of a considerable shock between the training
+ and target surveys, it is important to attempt to account for the shock
+ in the model.
+ Failing to account for the shock in the model risks introducing bias to
+ the predictions due to omitted variable bias.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "barriga2023updating"
+literal "false"
+
+\end_inset
+
+ primarily attribute the poverty reduction to reduced conflict and lower
+ food prices.
+ However, the applied model does not directly account for conflict.
+ 
+\begin_inset CommandInset citation
+LatexCommand citeauthor
+key "barriga2023updating"
+literal "false"
+
+\end_inset
+
+(2023, p13) claim: 
+\begin_inset Quotes eld
+\end_inset
+
+that models using the SWIFT-Plus approach can project poverty rates accurately
+ even after a large economic or climate shock.
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "yoshida2022concept"
+literal "false"
+
+\end_inset
+
+ argue that the inclusion of consumption dummies can capture welfare changes
+ in a context where a large economic shock has occurred – referred to as
+ the 
+\begin_inset Quotes eld
+\end_inset
+
+SWIFT Plus methodology.
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The World Bank's Survey of Well-being via Instant and Frequent Tracking
+ (SWIFT) program began as a specific approach that included data collection
+ and imputation, where expenditure is collected for a small subset of households
+ and a model trained on this small sample is applied to a larger sample
+ lacking expenditure.
+ While some practitioners have incorrectly begun using 'SWIFT' as a catch-all
+ term for any S2S method, this usage should be avoided as SWIFT represents
+ an application of S2S and not a general S2S imputation technique.
+\end_layout
+
+\end_inset
+
+ Since, conflict-related variables were not explicitly included in the model,
+ this key factor indirectly influences predictions through existing covariates
+ - mainly the inclusion of consumption dummies such as: meat and eggs.
+ The share of individuals consuming these goods is likely correlated to
+ conflict and consumption, raising concerns about omitted variable bias
+ that could compromise its predictions over time (see Annex 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:ann_ovb"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for further discussion and section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Omitted-Variables"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for simulation results).
+ When there are multiple potential sources of bias in an imputation of poverty,
+ the actual outcome is unknown and thus it is nearly impossible for practitioner
+s to know if the biases cancel out or compound.
+\end_layout
+
+\begin_layout Standard
+Because the knowledge of what is the true data generating process is not
+ available, much care goes into choosing the best model using the training
+ data.
+ A common approach to select the 
+\begin_inset Quotes eld
+\end_inset
+
+best
+\begin_inset Quotes erd
+\end_inset
+
+ model usually includes some combination of lasso or stepwise regression
+ coupled with cross-validation.
+ Cross-validation, although useful, does not necessarily guarantee the absence
+ of overfitting (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "cawley2010over"
+literal "false"
+
+\end_inset
+
+).
+ This potentially manifested in the imputations in Zambia.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+World Bank and ZamStats 
+\begin_inset CommandInset citation
+LatexCommand citeyearpar
+key "zamstats2022lcms"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ the models fit have a surprisingly high 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ value – 0.8 for rural, and 0.91 for urban areas.
+ Such a high 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ value may be suggestive of overfitting.
+ 
+\end_layout
+
+\begin_layout Standard
+Additionally, the inclusion of certain covariates can lead to biased estimates.
+ It is common for surveys, although not fully comparable, to include an
+ overlap of consumption items that are fully comparable.
+ The natural logarithm of the household's per capita expenditure on this
+ subset of comparable goods is frequently included as a covariate.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+See 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "newhouse2019estimating"
+literal "false"
+
+\end_inset
+
+ and World Bank and ZamStats 
+\begin_inset CommandInset citation
+LatexCommand citeyearpar
+key "zamstats2022lcms"
+literal "false"
+
+\end_inset
+
+ for 2 examples.
+\end_layout
+
+\end_inset
+
+ Inclusion of such items should be done with care and is only 
+\begin_inset Quotes eld
+\end_inset
+
+theoretically justified if and only if all Engel curves are linear for any
+ realization of prices
+\begin_inset Quotes erd
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+(
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "ligon2020should"
+literal "false"
+
+\end_inset
+
+, abstract)
+\end_layout
+
+\end_inset
+
+ In the case of Zambia, the model also includes covariates on the number
+ of items purchased, like cattle, vegetables, pulses, and chicken.
+ These are in natural log terms, where possibly 
+\begin_inset Formula $\ln(0)$
+\end_inset
+
+ is treated as 0.
+ This can lead to biased coefficients particularly when the proportion of
+ 0 is large (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "battese1997note"
+literal "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+These cases illustrate several key perils of S2S imputation:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Outdated Parameters:
+\series default
+ Imputation models trained on older datasets may not adequately capture
+ economic changes that have occurred since the original data was collected.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Non-representative Data Sources:
+\series default
+ When recent data sources (e.g., phone surveys) are used, biases related to
+ sample representativeness can compromise results even after re-weighting
+ adjustments.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Contextual Mismatches:
+\series default
+ Models trained on pre-crisis data may struggle to accurately reflect welfare
+ conditions in drastically changed economic landscapes.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Omitted Variable Bias:
+\series default
+ Failing to include key explanatory variables, such as conflict, may result
+ in biased estimates that misrepresent poverty trends.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Misleading Precision:
+\series default
+ Statements of precision derived from S2S imputation may be misleading if
+ underlying assumptions are violated.
+\end_layout
+
+\begin_layout Standard
+Recognizing these limitations is essential to improving the robustness of
+ S2S methodologies.
+ A careful examination of the potential for bias, supported by simulation-based
+ evidence, is crucial to ensure accurate poverty estimates.
+ The following sections will explore simulation results illustrating potential
+ biases arising from outdated parameters, non-representative data sources,
+ contextual mismatches, and omitted variable bias.
 \end_layout
 
 \begin_layout Section
@@ -1034,12 +1554,7 @@ Note that if the transformation of the dependent variable is not the natural
  of being poor.
  The average probability of being poor across households corresponds to
  the national poverty rate.
- 
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Note that because the only thing differing across households in Eq.
+ Additionally, because the only thing differing across households in Eq.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1060,7 +1575,11 @@ noprefix "false"
 
  will yield the same household ranking as the survey-to-survey approach
  if the same model is used for either.
- Under a PMT, the threshold is chosen at a given percentile of 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Under a PMT the threshold is chosen at a given percentile of 
 \begin_inset Formula $x\beta$
 \end_inset
 
@@ -1232,7 +1751,7 @@ literal "false"
  the imputed vectors are then used for regression analysis.
  Alternatively, step 4 may be skipped and the imputed transformed welfare
  can be obtained from 
-\begin_inset Formula $\ln y_{im}^{*}\sim N\left(x_{i_{target}}\beta_{m}^{*},\sigma_{e}^{2*}\right).$
+\begin_inset Formula $N\left(x_{i_{target}}\beta_{m}^{*},\sigma_{e}^{2*}\right).$
 \end_inset
 
 
@@ -1242,7 +1761,7 @@ literal "false"
 An alternative approach, derived from the small area estimation literature,
  treats the source survey as the best representation of the true welfare
  distribution.
- Under this approach, parameters estimated from the source survey are applied
+ Under this method, parameters estimated from the source survey are applied
  directly to the target data through Monte Carlo simulation.
  For straightforward indicators like poverty rates, practitioners can simply
  apply the asymptotic formula for expected values (Eq.
@@ -5046,10 +5565,10 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The simulations presented here take as an example the S2S application of
- Afghanistan 
+The simulations presented here take as an example the S2S application from
+ 
 \begin_inset CommandInset citation
-LatexCommand citep
+LatexCommand citet
 key "barriga2023updating"
 literal "false"
 
@@ -5144,7 +5663,7 @@ nt equal to 0.4.
 \begin_layout Enumerate
 The variable is simulated as binary, taking the value 1 if a randomly drawn
  uniform number between 0 and 1 is less than 
-\begin_inset Formula $0.5x-0.5\times Conflict$
+\begin_inset Formula $0.5x+0.5\times Conflict$
 \end_inset
 
 , where 
@@ -6586,7 +7105,7 @@ Annex
 \end_layout
 
 \begin_layout Subsection
-The Case of Afghanistan - Omitted Variable Bias
+Omitted Variable Bias
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:ann_ovb"
@@ -6597,34 +7116,81 @@ name "subsec:ann_ovb"
 \end_layout
 
 \begin_layout Standard
-Survey-to-survey imputation across time periods requires careful consideration.
- For example in a conflict setting, where conflict has significantly subsided
- between the collection of the trainign and the target data, it is crucial
- to control for conflict in the model.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Note that nothing to control for those shocks was included in the original
- model.
+Cross sectional regressions, such as those employed for S2S, can often suffer
+ from omitted variable bias (OVB), which can affect the sign and magnitude
+ of regression coefficients.
+ This is because unobservable variables may influence the outcome of interest,
+ and these unobservable variables are also correlated to other covariates
+ in the model.
+ The bias may be large depending on the strength of the relationships.
+ Because of potential bias, cross-sectional analyses are often regarded
+ as flawed, putting into question the causality of relationships between
+ one variable and another.
+ Despite S2S being a prediction exercise, where these concerns are infrequently
+ raised, in this section we show how OVB can lead to biased predictions
+ over time.
+ 
 \end_layout
+
+\begin_layout Standard
+Under some instances the issue of OVB can be more salient than in others.
+ For example, imagine a case where there has been a massive drought that
+ occurred between the traning and target data collection.
+ Assuming that the drought has led to a widespread drop in the share of
+ households engaged in agriculture, the inclusion of an indicator capturing
+ the household's participation in agriculture in the training data model
+ will likely lead to biased predictions of welfare.
+ The reason for this is that participation in agriculture is negatively
+ related to welfare (i.e.
+ the indicator will have a negative coefficient), and thus the reduction
+ in the number of households who farm could, mistakenly, lead to larger
+ income predictions if the precarity of these households is not caputred
+ by other covariates.
+ 
+\end_layout
+
+\begin_layout Standard
+The discussion in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "barriga2023updating"
+literal "false"
 
 \end_inset
 
- In instancese where conflict is not included in the model, its effects
+ demonstrates why survey-to-survey imputation across time periods requires
+ careful consideration.
+ The authors attribute the reduction in poverty to decreased conflict, despite
+ other potential factors that may have led to different results.
+ However, since conflict is not explicitly included in the model, its effects
  would only manifest through changes in other variables.
  This potential omitted variable bias raises concerns about the model's
  reliability for temporal predictions.
  When imputing over time, it is possible for multiple issues to arise.
  Since true expenditure is not available it is impossible to know if the
- model's biases cancel eachother out or compound.
+ model's biases cancel each other out or compound.
 \end_layout
 
 \begin_layout Standard
-Some may argue that the inclusion of fast changing consumption variables,
- such as an indicator of whether or not the household consumed eggs over
- the past week, are sufficient for accurate estimates of poverty .
- This is what 
+A key aspect of the imputation of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "barriga2023updating"
+literal "false"
+
+\end_inset
+
+ is the inclusion of fast changing consumption variables, such as an indicator
+ of whether or not the household consumed eggs over the past week.
+ 
+\begin_inset CommandInset citation
+LatexCommand citeauthor
+key "barriga2023updating"
+literal "false"
+
+\end_inset
+
+ (2023, p2) follow the proposed approach from 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "yoshida2022concept"
@@ -6632,7 +7198,17 @@ literal "false"
 
 \end_inset
 
- refer to as the 
+ and argue that these dummies are included 
+\begin_inset Quotes eld
+\end_inset
+
+to better capture welfare changes in a context where large economic shocks
+ have occurred
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This is what the authors refer to as the 
 \begin_inset Quotes eld
 \end_inset
 
@@ -6644,15 +7220,25 @@ SWIFT Plus methodology
  Nevertheless, these variables are likely subject to omitted variable bias
  which can lead to biased estimates of the coefficients leading to biased
  poverty measures.
- In the case of the imputation example given here, the omitted variable
- is conflict.
- In others it may be the introduction of a cash transfer or a global pandemic,
- for example.
  
 \end_layout
 
 \begin_layout Standard
-Assuming conflict is negatively related to expenditure and negatively related
+In the case of the imputation of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "barriga2023updating"
+literal "false"
+
+\end_inset
+
+, the omitted variable is conflict.
+ In others it may be the introduction of a cash transfer, for example.
+ 
+\end_layout
+
+\begin_layout Standard
+If conflict is negatively related to expenditure and negatively related
  to consumption of certain goods, such as meat and eggs, this would lead
  to coefficients that are upward biased.
  Assume the following, simplified, model:
@@ -6807,14 +7393,14 @@ In addition, the intercept will be underestimated.
 
 \begin_layout Standard
 we know that 
-\begin_inset Formula $\beta_{2}<0,$
+\begin_inset Formula $\grave{\beta_{2}<0,}$
 \end_inset
 
  and that 
 \begin_inset Formula $(\beta_{1}-\tilde{\beta}_{1})<0.$
 \end_inset
 
- This suggests that the intercept term is downward biased.
+ This suggest that the intercept term is downward biased.
  
 \end_layout
 
@@ -6901,7 +7487,7 @@ and downward biased if:
 \end_layout
 
 \begin_layout Standard
-and while they could cancel eachother out, it is unlikely.
+and while they could cancel each other out, it is unlikely.
 \end_layout
 
 \begin_layout Standard
@@ -6920,7 +7506,15 @@ Note that since poverty also depends on the model's predicted root mean
 \end_inset
 
 , lowering the poverty likelihood of households but would be ignored in
- theexample provided here.
+ the exercise of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "barriga2023updating"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard

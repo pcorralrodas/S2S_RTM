@@ -88,6 +88,38 @@ use "$dpath/srs_sample_t.dta", clear
 	}
 	
 	mata: st_view(la_y=.,.,tokens("`the_y'"),"touse")
+	mata: la_y[.,.] = exp(J(1, cols(la_y), xb))
+	
+	gen all=1
+	
+	sp_groupfunction, poverty(y_1 - y_100)  povertyline(`mypovlines') gini(y_1 - y_100) by(all)
+	groupfunction, by(measure reference) mean(value)
+	
+	gen method = "rforest_noerr"
+tempfile rforest
+save `rforest_n'
+mata: mata drop xb e
+
+*===============================================================================
+// STep 2: Follow rforest
+*===============================================================================
+use "$dpath/srs_sample_t.dta", clear
+	sort hhid
+	rforest Y_B x1-x5, type(reg) numvars(5) iter(200) lsize(5)
+	predict xb
+	gen double res = Y_B - xb
+	gen touse = !missing(res)
+	putmata e      = res if touse==1
+	putmata xb     = xb  if touse==1
+	//Simulate vector a la EBP
+	local the_y
+	forval z=1/100{
+		qui:gen double y_`z' = .
+		local the_y `the_y'  y_`z'
+		local nv = `z'
+	}
+	
+	mata: st_view(la_y=.,.,tokens("`the_y'"),"touse")
 	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(e),e))
 	
 	gen all=1
@@ -309,6 +341,7 @@ save `ebp'
 
 append using `hetmireg'
 append using `rforest'
+append using `rforest_n'
 append using `lasso'
 append using `ebp'
 append using `full'

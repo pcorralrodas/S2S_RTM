@@ -5053,17 +5053,9 @@ Consider a plausible application of survey-to-survey (S2S) imputation in
  reduced conflict.
  However, if the model does not explicitly control for conflict, this interpreta
 tion may be misleading.
- In line with guidance from SWIFT (
-\begin_inset CommandInset citation
-LatexCommand citealt
-key "yoshida2022concept"
-literal "false"
-
-\end_inset
-
-), the model might include fast-changing consumption indicators—such as
- whether households consumed meat, eggs, or chocolate—as proxies for welfare
- changes.
+ In line with guidance from SWIFT , the model might include fast-changing
+ consumption indicators—such as whether households consumed meat, eggs,
+ or chocolate—as proxies for welfare changes.
  Yet, if conflict both reduces consumption of these goods and suppresses
  household expenditure, then omitting conflict from the model could introduce
  omitted variable bias (OVB).

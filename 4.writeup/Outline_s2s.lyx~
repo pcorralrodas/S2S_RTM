@@ -999,7 +999,7 @@ noprefix "false"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-FGT0_{i}=Φ\,\left(\frac{\ln z-x_{i}\beta}{\sqrt{\sigma_{e}^{2}}}\right)\label{eq:cum prob}
+Prob\left(poor_{i}\right)=Φ\,\left(\frac{\ln z-x_{i}\beta}{\sqrt{\sigma_{e}^{2}}}\right)\label{eq:cum prob}
 \end{equation}
 
 \end_inset
@@ -1300,7 +1300,7 @@ Each transformed welfare for household
  in the Monte Carlo simulation is given by – note how the coefficients remain
  constant across Monte Carlo simulations:
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Monte Carlo simulations are not always necessary and for poverty one could
@@ -6920,7 +6920,7 @@ Note that since poverty also depends on the model's predicted root mean
 \end_inset
 
 , lowering the poverty likelihood of households but would be ignored in
- the Afghanistan exercise.
+ theexample provided here.
 \end_layout
 
 \begin_layout Standard

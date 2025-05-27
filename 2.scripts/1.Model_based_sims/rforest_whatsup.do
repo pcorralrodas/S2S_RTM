@@ -34,7 +34,7 @@ end
 *===============================================================================
 // STep 2: Follow rforest
 *===============================================================================
-use "$dpath/srs_sample_t.dta", clear
+use "$dpath/srs_sample.dta", clear
 	sort hhid
 	rforest Y_B x1-x5, type(reg) numvars(5) iter(200) lsize(5)
 	predict xb

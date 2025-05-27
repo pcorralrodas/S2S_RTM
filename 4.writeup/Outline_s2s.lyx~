@@ -5046,46 +5046,28 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-The simulations presented here take as an example the S2S application of
- Afghanistan 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "barriga2023updating"
-literal "false"
-
-\end_inset
-
-.
- The authors presume that the decrease in poverty predicted in rural areas
- is driven by a reduction in conflict.
- The models do not control for conflict.
- Additionally, the authors follow recommendations of the SWIFT program and
- include 
-\begin_inset Quotes eld
-\end_inset
-
-fast-changing consumption variables to better capture welfare changes during
- shocks
-\begin_inset Quotes erd
-\end_inset
-
- (
+Consider a plausible application of survey-to-survey (S2S) imputation in
+ a conflict-affected rural setting.
+ Suppose the model predicts a decline in poverty between two survey years.
+ One potential interpretation might be that poverty fell as a result of
+ reduced conflict.
+ However, if the model does not explicitly control for conflict, this interpreta
+tion may be misleading.
+ In line with guidance from SWIFT (
 \begin_inset CommandInset citation
 LatexCommand citealt
-key "barriga2023updating"
+key "yoshida2022concept"
 literal "false"
 
 \end_inset
 
-, p6).
- Among the variables the authors include in the model are a list of food
- consumption dummies that include meat, eggs, and chocolate.
- However, it is quite likely that the model used by the authors suffers
- from omitted variable bias.
- Mainly, conflict is likely negatively correlated to expenditure and is
- also likely to be negatively correlated to these consumption dummies as
- it may affect the availability of these goods.
- The discussion in the annex (Annex 
+), the model might include fast-changing consumption indicators—such as
+ whether households consumed meat, eggs, or chocolate—as proxies for welfare
+ changes.
+ Yet, if conflict both reduces consumption of these goods and suppresses
+ household expenditure, then omitting conflict from the model could introduce
+ omitted variable bias (OVB).
+ As discussed in the annex (Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:ann_ovb"
@@ -5095,10 +5077,9 @@ noprefix "false"
 
 \end_inset
 
-) illustrates that in this case, the omission of conflict from the model
- is likely to lead to biased predicted estimates of poverty due to omitted
- variable bias (OVB).
- 
+), this kind of misspecification can distort poverty estimates, particularly
+ when key explanatory variables are correlated with both the outcome and
+ unobserved shocks like insecurity.
 \end_layout
 
 \begin_layout Standard
@@ -6586,7 +6567,7 @@ Annex
 \end_layout
 
 \begin_layout Subsection
-The Case of Afghanistan - Omitted Variable Bias
+The Case of Omitted Variable Bias
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:ann_ovb"

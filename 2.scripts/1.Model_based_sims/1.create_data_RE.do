@@ -117,6 +117,7 @@ preserve
 	merge m:1 dom tdom using `tdoms'
 		keep if _m==3
 		sample 20, by(dom tdom)
+		clonevar laverdad = Y_B
 	drop Y_B
 	count	
 	save "$dpath/srs_sample_cluster_target.dta", replace

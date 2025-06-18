@@ -43,9 +43,9 @@ cap: github install pcorralrodas/wentropy
 		*Run necessary ado files
 *===============================================================================
 
-run "$main\2.scripts\0.ado_files\rforest.ado"
+//run "$main\2.scripts\0.ado_files\rforest.ado"
 * Runs processes
-forval z=1/100	{
+forval z=1/1000	{
 	
 	* Displays current simulation
 	global zed = `z'

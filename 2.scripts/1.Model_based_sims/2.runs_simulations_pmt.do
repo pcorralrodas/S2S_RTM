@@ -20,7 +20,6 @@ append using "$dpath\srs_sample_cluster_target.dta", gen(lamuestra)
 	reg Y_B x1-x5 if lamuestra==0, r
 	predict xb_ols, xb	
 	drop if lamuestra==0
-	sss
 	
 	xtile true = laverdad, nq(5)
 	xtile qrf = xb, nq(5)

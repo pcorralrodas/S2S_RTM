@@ -44,7 +44,7 @@ cap: github install pcorralrodas/wentropy
 *===============================================================================
 
 * Runs processes
-forval z=1/1000	{
+forval z=1/2	{
 	
 	* Displays current simulation
 	global zed = `z'
@@ -52,9 +52,14 @@ forval z=1/1000	{
 	 
 	// A. Creates the data
 	run "$thedo/1.creates_data_nonnormal.do" 
-
+	
 	// B. Runs the simulations
-	run "$thedo/2.runs_simulations_nonnormal.do"
+	do "$thedo/2.runs_simulations_nonnormal.do"
+	
+	// B. Runs the simulations
+	run "$thedo/2.runs_simulations_nonnormal_oos.do"
+	
+	
 
 } 
 

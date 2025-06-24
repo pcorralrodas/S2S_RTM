@@ -126,7 +126,14 @@ status collapsed
 
 \begin_layout Plain Layout
 The 75th round of the NSO Survey of Consumption Expenditure was collected
- in 2017-18 but was not released.
+ in 2017-18 but was not released until after 2024: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://www.mospi.gov.in/unit-level-data-report-nss-75th-round-july-2017-june-2018-schedule-250social-consumption-health"
+
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -292,6 +299,7 @@ literal "false"
 \begin_layout Standard
 This paper first examines the limitations and potential pitfalls of survey-to-su
 rvey imputation through rigorous analysis of its fundamental assumptions.
+ This is a technical paper that relies on simulated data to conduct experiments.
  In these experiments, the focus is not on traditional concerns such as
  variable selection or model specification, but rather on the method's core
  limitations, particularly for measuring poverty across extended time periods
@@ -312,6 +320,32 @@ Standard sampling bias-correction techniques, such as re-weighting to match
 \begin_layout Enumerate
 The method's tendency to replicate the welfare distribution of the source
  survey can make it unreliable for measuring changes in inequality and poverty.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The model captures the joint distribution between 
+\begin_inset Formula $y$
+\end_inset
+
+ and 
+\begin_inset Formula $x$
+\end_inset
+
+ in the source data.
+ The parameters corresponding to the source data are then applied to the
+ target data, where the only difference is the distribution of covariates,
+ 
+\begin_inset Formula $x$
+\end_inset
+
+.
+ Thus, unless all the change is captured by changes in the covariates the
+ method will likely give biased estimates.
+\end_layout
+
+\end_inset
+
  Thus, better communication behind the limitations of the methods are crucial.
  These insights are particularly relevant given the increasing reliance
  on survey-to-survey imputation to fill data gaps in poverty monitoring.
@@ -348,8 +382,8 @@ literal "false"
 
 \begin_layout Standard
 Through systematic examination of these limitations using simplified examples,
- the handbook provides practitioners with a framework for understanding
- when and why S2S methods may produce misleading results.
+ the paper provides practitioners with a framework for understanding when
+ and why S2S methods may produce misleading results.
  The results here are of relevance since survey-to-survey imputation has
  become more prevalent in recent times to overcome data scarcity.
 \end_layout
@@ -370,13 +404,60 @@ T One example is the multiple applications in India, where survey data useful
 \end_layout
 
 \begin_layout Section
-Survey-to-Survey Imputation in Action
+Survey-to-Survey Imputation 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Survey-to-Survey-Imputation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Survey-to-survey imputation has become a widely used tool for poverty estimation
- when consumption or income data are unavailable.
- The method builds upon the idea proposed by 
+Collecting household consumption data is costly and complex.
+ Consumption modules typically span multiple domains—food, housing, health,
+ education, and more—each requiring detailed recall and careful categorization.
+ As 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "deaton1998consumption"
+literal "false"
+
+\end_inset
+
+ observe, these modules are among the most demanding components of household
+ surveys, often encompassing hundreds of items and multiple recall periods.
+ This not only increases respondent burden but also drives up implementation
+ costs.
+ Ensuring accuracy adds another layer of complexity: respondents may forget
+ or misreport expenditures, and cultural and regional differences often
+ require localized adaptations in survey design.
+ Moreover, as 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "beegle2012methods"
+literal "false"
+
+\end_inset
+
+ demonstrate, even small changes in how surveys are administered can yield
+ significant differences in reported poverty and consumption levels.
+\end_layout
+
+\begin_layout Standard
+Because of these challenges, few countries collect comparable welfare data
+ frequently.
+ Long-term, harmonized consumption trends are the exception, not the norm.
+ Yet, policymakers, donors, and development practitioners continually need
+ up-to-date poverty statistics.
+ To fill this gap, survey-to-survey imputation has become an increasingly
+ used method for estimating poverty when consumption or income data are
+ unavailable.
+\end_layout
+
+\begin_layout Standard
+S2S builds upon the idea proposed by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "elbers2003micro,jesko1998"
@@ -386,9 +467,9 @@ literal "false"
 
  where a linear regression model is fit on a survey where expenditure or
  income are available to determine the joint distribution of expenditure
- or income, and a given set of household characteristics – typically referred
- to as the source of training data.
- The model parameters are then applied to a second data source (the target
+ or income, and a given set of household characteristics – this survey is
+ typically referred to as the source or training data.
+ The model parameters are then applied to a separate dataset (the target
  data) where the same set of household characteristics can be found with
  the aim of replicating the welfare distribution via imputation.
  With a simulated welfare in hand, poverty estimates and other welfare indicator
@@ -399,9 +480,23 @@ ng to a different point in time.
 \end_layout
 
 \begin_layout Standard
+The method is useful when applied to contemporaneous surveys to obtain statistic
+s across the welfare distribution for indicators that are not available
+ in the living standards survey.
+ For example, the Demographic and Health Surveys (DHS) provide a litany
+ of health related indicators that are not available in most living standards
+ surveys.
+ This is where S2S comes into play.
+ A model trained on the living standards survey and applied to the DHS can
+ help us inform about the difference in stunting rates between poor and
+ none poor households or determine how it varies across the welfare distribution.
+ 
+\end_layout
+
+\begin_layout Standard
 The method is often treated as a prediction exercise and unlike much of
- econometrics the parameters of the linear regression are not intended to
- capture only the direct effect of the characteristics on welfare (
+ econometrics, the parameters of the linear regression are not intended
+ to capture only the direct effect of the characteristics on welfare (
 \begin_inset CommandInset citation
 LatexCommand citealt
 key "elbers2003micro"
@@ -427,13 +522,14 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Evidence from country applications has revealed both the potential and limitatio
-ns of these methods, with much of the criticism centered around applications
- to surveys from a different point in time.
- The fundamental challenge lies in the method's core assumptions.
- S2S imputation assumes that model parameters remain stationary over time
- – meaning that any observed changes in poverty are solely attributable
- to changes in the model's covariates, rather than shifts in unobservable
+When imputing to a different year, the method rests on the assumption that
+ model parameters remain stable—that is, the relationship between household
+ characteristics and welfare has not changed.
+ This assumption becomes tenuous in settings experiencing structural change,
+ economic growth, or major shocks.
+ In other words, the method assumes that model parameters remain stationary
+ over time – meaning that any observed changes in poverty are solely attributabl
+e to changes in the model's covariates, rather than shifts in unobservable
  factors or changing returns to these covariates (Dang, Lanjouw and Serajuddin
  
 \begin_inset CommandInset citation
@@ -462,7 +558,7 @@ literal "false"
 
 \begin_layout Standard
 Researchers and practitioners have proposed various approaches to address
- these limitations.
+ the limitations of S2S in predicting poverty over time.
  
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -481,7 +577,8 @@ literal "false"
 
 \end_inset
 
- suggest incorporating variables that track economic conditions more directly.
+ suggest incorporating variables that track economic conditions more directly,
+ like indicators on whether the household consumed a given good.
  However, as 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -493,34 +590,104 @@ literal "false"
  emphasize, without updated training data to re-estimate model parameters,
  the risk of missing significant economic changes remains substantial, even
  with these additional covariates.
- 
-\end_layout
-
-\begin_layout Standard
-The effectiveness of S2S imputation across time has been subject to empirical
- validation across various contexts, revealing both its potential and its
- limitations.
- While some studies report estimates within acceptable margins of error,
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-CITE SOME OF HAI ANH's WORK
-\end_layout
+ A similar point is raised by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mathiassen2009model"
+literal "false"
 
 \end_inset
 
- others highlight significant discrepancies between predicted and observed
- poverty rates.
- These mixed results underscore the importance of careful consideration
- when applying S2S imputation across different temporal and economic contexts.
+ who emphasizes that the validity of imputations rests on a strong assumption
+ of parameter stability and explicitly warns against extrapolating too far
+ across time or applying the method when significant changes in welfare
+ dynamics or survey design are likely.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "dang2025poverty"
+literal "false"
+
+\end_inset
+
+ further note that evidence on the utility of granular consumption predictors
+ remains inconclusive, and instead advocate for parsimonious models that
+ are easier to implement in surveys and in challenging field conditions.
  
 \end_layout
 
 \begin_layout Standard
-The bias of estimates obtained with data that correspond to very different
- time periods or data where the covariates are considerably different has
- mostly been studied using real world data.
+The effectiveness of S2S imputation across time has been tested in a range
+ of contexts, with results showing both its potential and its limitations.
+ While some studies report estimates within acceptable margins of error
+ (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "dang2025poverty"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "https://doi.org/10.1111/roiw.12007"
+literal "false"
+
+\end_inset
+
+), others find significant discrepancies between predicted and observed
+ poverty rates (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "newhouse2014survey"
+literal "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "https://doi.org/10.1111/roiw.12007"
+literal "false"
+
+\end_inset
+
+).
+ These mixed findings highlight the need for caution when applying S2S imputatio
+n across different periods and economic environments.
+ A useful example comes from Malawi, where 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mathiassen2021predicting"
+literal "false"
+
+\end_inset
+
+ document their efforts to produce comparable poverty estimates between
+ 2004 and 2014.
+ While their method performed well within individual surveys and with careful
+ seasonal adjustment, comparability across survey rounds proved fragile.
+ Shifts in survey design and implementation such as shorter questionnaires,
+ periods of data collection, changing field protocols, and others led to
+ unstable predictor relationships and inconsistent poverty trends over time.
+ Even in this relatively well-structured case, the authors conclude that
+ S2S imputation should only be used when comparability of predictors and
+ survey instruments can be assured (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "mathiassen2021predicting"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Most evidence on bias in cross-time S2S estimates comes from real-world
+ applications where time gaps are large or covariate distributions differ
+ substantially.
  For example, Dang, Lanjouw and Serajuddin (
 \begin_inset CommandInset citation
 LatexCommand citebyear
@@ -529,8 +696,8 @@ literal "false"
 
 \end_inset
 
-) conduct experiments using the Household Expenditure and Income Survey
- and the Unemployment and Employment Survey in Jordan; 
+) evaluate S2S using Jordan’s Household Expenditure and Income Survey and
+ the Employment and Unemployment Survey; 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "stifel2007tracking"
@@ -538,27 +705,18 @@ literal "false"
 
 \end_inset
 
- rely on survey data for Kenya to conduct experiments; Dang et al.
+ conduct similar tests for Kenya; and Dang et al.
  (
 \begin_inset CommandInset citation
 LatexCommand citebyear
-key "dang2021poverty"
+key "dang2025poverty"
 literal "false"
 
 \end_inset
 
-) applies the method to several countries and note that estimates are well
- within margins of error.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-The countries are: Ethiopia, Malawi, Nigeria, Tanzania, and Vietnam
-\end_layout
-
-\end_inset
-
- 
+) apply the method across multiple countries—including Ethiopia, Malawi,
+ Nigeria, Tanzania, and Vietnam—reporting estimates generally within acceptable
+ error margins.
 \end_layout
 
 \begin_layout Standard
@@ -591,7 +749,7 @@ true
  percentage points.
  For the Chinese regions where the method was tested, the authors also find
  that the methods work relatively well.
- However, depending on the model used differences between predicted and
+ However, depending on the model used, differences between predicted and
  observed rates were considerable.
  This highlights the method's conundrum: different models may generate different
  findings, and at least some models may get it right.
@@ -605,6 +763,8 @@ true
 \begin_layout Standard
 Applications of survey to survey imputation have also made their way to
  global poverty monitoring.
+ For example, until recently every poverty number for India after 2011 is
+ an imputation.
 \begin_inset Foot
 status collapsed
 
@@ -612,21 +772,19 @@ status collapsed
 As of this writing, every poverty number for India after 2011 is an imputation.
  These numbers are reported in the World Bank's Poverty and Inequality Platform
  with no warning to visitors on the origins of the numbers.
+ The previous Household Consumption Expenditure Survey was conducted in
+ 2011, and a new round was not completed until 2023.
 \end_layout
 
 \end_inset
 
- This is mostly due to India's lack of recent survey data.
- The following case studies not only demonstrate specific instances where
- S2S applications have contributed to the World Bank's global poverty metrics,
- but they also highlight the mechanisms that can generate biased estimates
- as discussed in the introduction.
- These mechanisms include: (i) challenges arising when source and target
- surveys differ fundamentally; (ii) the method's propensity to replicate
- the welfare distribution of the source survey, which undermines its reliability
- for tracking changes in well-being; and (iii) the impact of omitted variable
- bias, especially when imputing across time periods marked by significant
- economic shocks or structural changes.
+ These numbers are reported in the World Bank's Poverty and Inequality Platform
+ with no warning to visitors on the imputed origins of the numbers.
+ To better understand how such estimates are produced, and the assumptions
+ underpinning them, the next section outlines the foundations of survey-to-surve
+y imputation, tracing its origins in the broader field of missing data methodolo
+gies and clarifying its application in the context of poverty measurement.
+ 
 \end_layout
 
 \begin_layout Section
@@ -712,9 +870,9 @@ literal "false"
 \end_inset
 
 ).
- The goal of the multiple imputation approach is not to create a single
- imputation, but multiple imputations to reflect the uncertainty around
- the actual value (
+ The goal of multiple imputation is not to create a single prediction, but
+ rather multiple imputations to reflect the uncertainty around the actual
+ value (
 \begin_inset CommandInset citation
 LatexCommand citealt
 key "van2018flexible"
@@ -723,8 +881,8 @@ literal "false"
 \end_inset
 
 ).
- Multiple imputation's goal is to create imputations for observations with
- missing data to obtain a valid estimand with adequate confidence intervals
+ By generating plausible values for missing data, multiple imputation allows
+ for valid estimation and the construction of appropriate confidence intervals
  
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -775,7 +933,7 @@ literal "false"
 
 ).
  Perhaps the first instance of survey-to-survey imputation, as is applied
- in the World Bank, comes from the work of 
+ in this paper, comes from the work of 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "jesko1998"
@@ -854,7 +1012,11 @@ literal "false"
 \begin_layout Standard
 Survey-to-survey (S2S) imputation for poverty measurement relies on the
  assumption that a population's welfare distribution can be captured by
- a linear model.
+ a linear model which is estimated on the 
+\begin_inset Formula $source$
+\end_inset
+
+ data.
  For simplicity, the subscript 
 \begin_inset Formula $target$
 \end_inset
@@ -974,7 +1136,7 @@ noprefix "false"
 
 \end_inset
 
-, although can be relaxed as later illustrated, for any given household
+, although this can be relaxed as later illustrated, for any given household
  
 \begin_inset Formula $i$
 \end_inset
@@ -984,7 +1146,7 @@ noprefix "false"
 \begin_inset Formula $x_{i}\beta,$
 \end_inset
 
- and its error, 
+ and the distribution of its idiosyncratic term, 
 \begin_inset Formula $e_{i}$
 \end_inset
 
@@ -992,7 +1154,6 @@ noprefix "false"
 \begin_inset Formula $e_{i}\sim N(0,σ_{e}^{2})$
 \end_inset
 
-.
  
 \end_layout
 
@@ -1034,7 +1195,6 @@ Note that if the transformation of the dependent variable is not the natural
  of being poor.
  The average probability of being poor across households corresponds to
  the national poverty rate.
- 
 \begin_inset Foot
 status collapsed
 
@@ -1077,8 +1237,8 @@ The implementation of welfare predictions to the target data can follow
  different approaches.
  The most common method, grounded in the multiple imputation literature,
  generates several welfare vectors to reflect prediction uncertainty.
- This approach follows what was implemented in poverty mapping through the
- PovMap software (
+ This approach is aligned to what was implemented in poverty mapping through
+ the PovMap software (
 \begin_inset CommandInset citation
 LatexCommand citealt
 key "zhao2006user"
@@ -1094,10 +1254,40 @@ mi regress
 ).
  Under this approach, each imputed welfare vector is generated through a
  five-step process:
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Taken from 
+\family typewriter
+mi regress
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "StataCorp2023"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
-From ordinary least squares fit on the training data (Eq.
+Obtain model parameter estimates for 
+\begin_inset Formula $\beta$
+\end_inset
+
+, and 
+\begin_inset Formula $\sigma_{e}^{2}$
+\end_inset
+
+ via ordinary least squares fit on the training data (Eq.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1108,15 +1298,7 @@ noprefix "false"
 
 \end_inset
 
- ) obtain model parameter estimates for 
-\begin_inset Formula $\beta$
-\end_inset
-
-, and 
-\begin_inset Formula $\sigma_{e}^{2}$
-\end_inset
-
-, noted below as 
+ ), noted below as 
 \begin_inset Formula $\hat{\beta}$
 \end_inset
 
@@ -1133,7 +1315,7 @@ The distribution of the error terms is drawn from its posterior Chi-square
 \begin_inset Formula $n$
 \end_inset
 
- is the number of observations in the training data, and 
+ is the number of observations in the training or source data, and 
 \begin_inset Formula $K$
 \end_inset
 
@@ -1210,7 +1392,7 @@ Hence, for each imputed vector, a new
 \begin_inset Formula $\sigma_{e}^{2*}$
 \end_inset
 
- is drawn and that is used to draw 
+ is drawn and used to draw 
 \begin_inset Formula $\beta^{*}$
 \end_inset
 
@@ -1229,7 +1411,7 @@ literal "false"
 \end_inset
 
  the purpose is to minimize the likelihood of false positives, since normally
- the imputed vectors are then used for regression analysis.
+ the imputed vectors are frequently used for regression analysis.
  Alternatively, step 4 may be skipped and the imputed transformed welfare
  can be obtained from 
 \begin_inset Formula $\ln y_{im}^{*}\sim N\left(x_{i_{target}}\beta_{m}^{*},\sigma_{e}^{2*}\right).$
@@ -1261,8 +1443,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Enumerate
-From ordinary least squares fit on the training data Eq.
- 
+Fit Equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:welfare model"
@@ -1272,16 +1453,8 @@ noprefix "false"
 
 \end_inset
 
- to obtain model parameter estimates for 
-\begin_inset Formula $\beta$
-\end_inset
-
-, and 
-\begin_inset Formula $\sigma_{e}^{2}$
-\end_inset
-
-.
- Noted below as 
+ to the training data using ordinary least squares to obtain estimates of
+ the model parameters, 
 \begin_inset Formula $\hat{\beta}$
 \end_inset
 
@@ -1300,7 +1473,7 @@ Each transformed welfare for household
  in the Monte Carlo simulation is given by – note how the coefficients remain
  constant across Monte Carlo simulations:
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Monte Carlo simulations are not always necessary and for poverty one could
@@ -1342,7 +1515,15 @@ Recent methodological advances have expanded model fitting options to include
  term distributions, they cannot directly replicate the multiple imputation
  approach described above.
  Nevertheless, bootstrap-based alternatives exist where draws from the empirical
- residuals are used to obtain a welfare vector.
+ residuals are used to obtain a welfare vector (
+\begin_inset Formula $e_{i}^{*}=\hat{e}_{j},$
+\end_inset
+
+where 
+\begin_inset Formula $j\sim\mathrm{Uniform}\{1,2,\ldots,n\}$
+\end_inset
+
+).
  These were implemented in both PovMap (
 \begin_inset CommandInset citation
 LatexCommand citealt
@@ -1385,15 +1566,21 @@ https://github.com/pcorralrodas/lassopmm
 
  and may be extended to other ML methods such as gradient boosting, random
  forests, or Bayesian additive regression trees.
- An additional approach available for these techniques is predictive mean
- matching.
- The method relies on comparing the linear fit (
-\begin_inset Formula $x\beta$
+ 
+\end_layout
+
+\begin_layout Standard
+An additional method that can be paired with machine learning techniques
+ as well as OLS, is predictive mean matching (PMM).
+ The approach compares the predicted values from the target data to those
+ from the training data, specifically by minimizing the absolute difference
+ between linear predictors 
+\begin_inset Formula $|x_{i_{target}}\hat{\beta}-x_{i}\hat{\beta}|$
 \end_inset
 
-) of the target data to the training data.
- Once a set of nearest neighbors are found the approach randomly draws one
- of the actual welfare values 
+.
+ Once a specified number of nearest neighbors is identified, one of the
+ actual observed welfare values is randomly drawn 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "van2018flexible"
@@ -1402,7 +1589,43 @@ literal "false"
 \end_inset
 
 .
- 
+ PMM is notably less sensitive to model misspecification and is robust to
+ back transformation (ibid).
+ For instance, models estimated on 
+\begin_inset Formula $\log(y)$
+\end_inset
+
+ typically yield similar results to those based on 
+\begin_inset Formula $\exp(y)$
+\end_inset
+
+ (
+\begin_inset CommandInset citation
+LatexCommand citealt
+key "van2018flexible"
+literal "false"
+
+\end_inset
+
+), although differences in explained variance can still affect poverty estimates.
+ The number of donors (i.e.
+ neighbors) is determined by the practitioner.
+ While setting this number to one can result in repeated values—especially
+ when model fit is weak—
+\begin_inset CommandInset citation
+LatexCommand citet
+key "van2018flexible"
+literal "false"
+
+\end_inset
+
+ recommends using five neighbors.
+ He also emphasizes that this choice should be adaptive, depending on the
+ sample size and the model’s explanatory power, as measured by its 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1478,6 +1701,48 @@ name "subsec:sametime"
 \end_layout
 
 \begin_layout Standard
+Imputation of poverty to a contemporaneous survey can be a useful tool.
+ For example, assume a country collects a living standard survey annually
+ as and has also collected a Demographic and Health Survey (DHS).
+ If one would like to determine how do nutritional indicators among children
+ vary across the welfare distribution, survey to survey imputation may be
+ of use to determine this.
+ Nevertheless, practitioners could also impute the indicator of interest
+ to the living standards survey.
+ For example, with the goal of determining energy poverty in Bulgaria, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "rude2024statistical"
+literal "false"
+
+\end_inset
+
+ impute energy spending from the household budget survey (HBS) to the European
+ Survey of Income and Living Conditions to determine profiles of the energy
+ poor.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+These applications resemble a problem considered by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "rubin1986statistical"
+literal "false"
+
+\end_inset
+
+ where no single data set contains the complete set of variables for inference,
+ where imputations are made both ways.
+ 
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
 The successful application of survey-to-survey imputation depends on meeting
  several critical preconditions, first outlined by 
 \begin_inset CommandInset citation
@@ -1512,8 +1777,9 @@ Covariate comparability
 
 \begin_layout Standard
 The variables used to predict welfare must be present and measured consistently
- in both source and target surveys.
- This requirement extends beyond simple presence to encompass:
+ in both source and target surveys, they should be representative of the
+ same population for a given period.
+ This requirement extends beyond simple presence of the covariates to encompass:
 \end_layout
 
 \begin_layout Enumerate
@@ -1537,8 +1803,8 @@ Distribution Alignment
 \end_layout
 
 \begin_layout Standard
-Distribution Alignment For the method to work effectively, both surveys
- must exhibit three types of consistency:
+For the method to work effectively, both surveys must exhibit three types
+ of consistency:
 \end_layout
 
 \begin_layout Enumerate
@@ -1561,16 +1827,26 @@ Stable structural relationships between variables
 
 \begin_deeper
 \begin_layout Enumerate
-The correlation patterns between predictors must be preserved 
+The correlation patterns between predictors should be preserved
 \end_layout
 
+\begin_deeper
 \begin_layout Enumerate
 Example: If education strongly predicts formal employment in the source
  survey, this relationship should hold in the target survey.
  Changes in these relationships may indicate structural economic changes
- that could invalidate the model's predictions
+ that could invalidate the model's predictions.
 \end_layout
 
+\begin_layout Enumerate
+For predictions in the same time period this is a desirable feature as it
+ will allow for an accurate replication of the welfare distribution.
+ In the case of imputing to a Demographic and Health Survey (DHS) it would
+ allow for accurate estimation of stunting rates across welfare quantiles.
+ 
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Standard
 A consistent definition of covariates across training and target surveys
@@ -1594,37 +1870,13 @@ The reliability of welfare predictions depends critically on meeting the
 \end_layout
 
 \begin_layout Enumerate
-Normal distribution of residuals, although this can be relaxed as discussed
+Normal distribution of residuals, although this can be relaxed as noted
  in the previous section 
 \end_layout
 
+\begin_deeper
 \begin_layout Enumerate
-Homoscedasticity of error terms, although this can be relaxed by modeling
- for heteroskedasticity following the methods from 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "elbers2002micro"
-literal "false"
-
-\end_inset
-
- or 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "harvey1976estimating"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-Linear relationships between predictors and welfare
-\end_layout
-
-\begin_layout Standard
-When these assumptions are violated, 
+When the normality assumptions are violated, 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "corral2022guidelines"
@@ -1637,31 +1889,95 @@ literal "false"
  In cases where transformations prove insufficient, practitioners may draw
  residuals from their empirical distribution, though this requires the assumptio
 n of symmetric errors around zero.
+ 
 \end_layout
 
+\end_deeper
+\begin_layout Enumerate
+Homoscedasticity of error terms, although this can be relaxed by modeling
+ for heteroskedasticity
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Both 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "elbers2002micro"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "harvey1976estimating"
+literal "false"
+
+\end_inset
+
+ offer methods that allow for modelling heteroskedasticity
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Linear relationships between predictors and welfare, this too can be relaxed
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Using polynomials in a linear model or the use of methods like random forest
+ or gradient boosting can help relax the linearity assumption
+\end_layout
+
+\end_deeper
 \begin_layout Subsection
 Imputing across time
 \end_layout
 
 \begin_layout Standard
-Survey-to-survey (S2S) imputation provides a valuable tool for addressing
- gaps in welfare data, but its application over time demands careful scrutiny.
- The core assumption – that changes in welfare stem solely from shifts in
- observable characteristics while their relationship with welfare remains
- stable – becomes increasingly fragile as the time span between surveys
- grows.
- Structural changes in the economy, shifts in labor markets, and evolving
- household behaviors can all undermine this assumption, leading to imputation
- errors that distort true welfare dynamics.
- Moreover, S2S methods often replicate the welfare distribution of the source
- survey, making them less reliable for capturing real changes in inequality
- and poverty over time.
- This limitation is particularly concerning given the growing reliance on
- S2S for poverty monitoring, where even subtle distortions can misinform
- policy decisions.
- Thus, practitioners must apply these methods with greater caution, rigorously
- testing their validity across different time periods, and ensuring transparent
- communication about their limitations to avoid misleading conclusions.
+Survey-to-survey (S2S) imputation provides a valuable tool for filling gaps
+ in welfare data, but its use over time requires greater caution than for
+ contemporaneous applications as discussed in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Survey-to-Survey-Imputation"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The core assumption—that changes in welfare reflect only shifts in observable
+ characteristics, with stable relationships between covariates and welfare—becom
+es increasingly fragile as the time between surveys grows.
+ Structural economic change, evolving labor markets, and shifting household
+ behaviors can all violate this assumption, leading to imputation errors
+ that distort actual welfare dynamics.
+ Moreover, S2S methods tend to reproduce the welfare distribution of the
+ source survey: coefficients capture the joint distribution of 
+\begin_inset Formula $y$
+\end_inset
+
+ and 
+\begin_inset Formula $x$
+\end_inset
+
+ from the source period, and errors are drawn from that same model in the
+ source data.
+ As a result, households with identical characteristics in the source and
+ target periods are assigned identical poverty probabilities, regardless
+ of contextual changes.
+ The same limitations that affect contemporaneous S2S imputation—chiefly,
+ its tendency to replicate the structure of the source data—are likely to
+ be amplified when imputing across time, further constraining the method’s
+ ability to track true changes in poverty and inequality.
+ Given the growing reliance on S2S for poverty monitoring, even subtle distortio
+ns can mislead policy.
+ Practitioners should therefore apply these methods with caution, rigorously
+ test validity across time periods, and clearly communicate the method's
+ limitations.
 \end_layout
 
 \begin_layout Standard
@@ -1722,21 +2038,16 @@ When imputing across time, practitioners must rely on an error distribution
 \begin_inset Formula $\sigma_{e}^{2}$
 \end_inset
 
-) estimated from historical data.
- This implicitly assumes that households with similar predicted welfare
- face the same probability of being poor across different time periods,
- even if the relationship between welfare and the covariates, i.e.
- the 
+) estimated from historical data, same as 
 \begin_inset Formula $\beta$
 \end_inset
 
-, remains unchanged.
+.
+ This implicitly assumes that households with the same characteristics face
+ the same probability of being poor across different time periods.
  However, a critical limitation arises from the assumption of constant parameter
 s over time.
-\end_layout
-
-\begin_layout Standard
-In reality, parameters often change, especially in rapidly developing countries
+ In reality, parameters often change, especially in rapidly developing countries
  or over long time horizons, as highlighted in micro decomposition techniques
  such as those of 
 \begin_inset CommandInset citation
@@ -1753,9 +2064,37 @@ literal "false"
  In other words, instead of measuring the true welfare distribution, the
  method may only capture the effect of compositional shifts – how the population
 ’s characteristics are changing over time.
- When characteristics change significantly, the assumption of stable parameters
+ The assumption of stable parameters when characteristics change significantly
  becomes increasingly restrictive, leading to potential bias in predicted
  welfare levels.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This concern can also be seen directly from the regression equation: 
+\begin_inset Formula $\beta=\left(X'X\right)^{-1}X'y$
+\end_inset
+
+.
+ When the distribution of covariates 
+\begin_inset Formula $X$
+\end_inset
+
+ changes substantially (whether due to structural transformation, demographic
+ shifts, or policy reforms) both 
+\begin_inset Formula $\left(X'X\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $X'y$
+\end_inset
+
+ change.
+ 
+\end_layout
+
+\end_inset
+
  
 \end_layout
 
@@ -1771,6 +2110,8 @@ A possible avenue for improvement is to explore methods that allow for parameter
  Such an approach could help relax the assumption of constant coefficients
  and possibly improve the reliability of survey-to-survey imputations in
  dynamic contexts.
+ However, such an approach is not readily found in the literature.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1796,7 +2137,15 @@ The assumed consistency of unobserved factors affecting welfare
 \end_layout
 
 \begin_layout Standard
-Assuming log-normality, for the population, poverty is given by: 
+Assuming that welfare is log-normal and independence between the mean (
+\begin_inset Formula $\bar{X}\beta$
+\end_inset
+
+) and the idiosyncratic component, 
+\begin_inset Formula $e$
+\end_inset
+
+, then for the population, poverty is given by: 
 \end_layout
 
 \begin_layout Standard
@@ -1875,7 +2224,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset citation
 LatexCommand citealt
-key "dang2021poverty"
+key "dang2025poverty"
 literal "false"
 
 \end_inset
@@ -1923,7 +2272,7 @@ Implications for Inequality Measurement
 \end_layout
 
 \begin_layout Standard
-The challenges extend to inequality measurement.
+The challenges noted in previous sections extend to inequality measurement.
  The reliance on error distributions obtained from a different point in
  time, particularly affects inequality measurement.
  Under the common assumption of log-normally distributed welfare, the Gini
@@ -1961,7 +2310,7 @@ where
 \begin_inset Formula $σ$
 \end_inset
 
- is the standard deviation of 
+ is the empirical standard deviation of 
 \begin_inset Formula $\ln y$
 \end_inset
 
@@ -1970,12 +2319,13 @@ where
 \begin_inset Formula $\hat{σ}{}_{e}^{2}$
 \end_inset
 
-, which is estimated in an older survey and the resulting 
+, which is estimated in an older survey and the resulting empirical variance
+ of the linear fit,
 \begin_inset Formula $\mathrm{var}\left[x\hat{\beta}\right]$
 \end_inset
 
- in the target survey since the empirical variance of the lognormally distribute
-d 
+, in the target survey since the empirical variance of the lognormally distribut
+ed 
 \begin_inset Formula $y$
 \end_inset
 
@@ -1994,8 +2344,8 @@ d
 \end_layout
 
 \begin_layout Standard
-and consequently, also subject to changes in the sample’s distribution of
- the observed characteristics used in the model.
+and consequently, is also subject to changes in the sample’s distribution
+ of the observed characteristics used in the model.
 \end_layout
 
 \begin_layout Standard
@@ -2078,7 +2428,7 @@ where
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset Formula $x_{i}$
+\begin_inset Formula $x_{1}$
 \end_inset
 
  is a discrete variable, simulated as the rounded integer value of the maximum
@@ -2125,15 +2475,43 @@ where
 \end_layout
 
 \begin_layout Standard
-The Gini for this distribution is 0.38, and the covariates explain roughly
+The Gini for this distribution is ~0.38, and the covariates explain roughly
  47 percent of the variation of 
 \begin_inset Formula $\ln y_{i}$
 \end_inset
 
 .
- For the examples presented in the following sections, training and target
+ For the examples presented in the following sections, source and target
  sample data will be taken from each population.
- 
+ In this experiment, we take a grid of 20 poverty thresholds, corresponding
+ to every 5th percentile up to the 95th percentile of each population.
+\end_layout
+
+\begin_layout Standard
+In Annex 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP_cluster"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we present a different DGP which follows an assumed double nested error
+ model similar to that of small area estimation based on 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ea7f7e4f-7381-39b0-abdd-8da14c150408"
+literal "false"
+
+\end_inset
+
+ although covariate generation has been updated to follow the one presented
+ here.
+ This adjusted DGP is used to illustrate the limited impact on bias when
+ the DGP clearly follows a clustered or nested error yet the modeling ignores
+ this.
 \end_layout
 
 \begin_layout Subsection
@@ -2143,8 +2521,8 @@ How to Impute?
 \begin_layout Standard
 The typical imputation approach undertaken for S2S work done to predict
  poverty, follows the literature on multiple imputation (MI).
- A similar methof was followed in the original software implementation of
- small area estimation method proposed by 
+ A similar method was followed in the original software implementation of
+ small area estimation proposed by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "elbers2003micro"
@@ -2199,7 +2577,7 @@ status collapsed
 See a detailed discussion in 
 \begin_inset CommandInset citation
 LatexCommand citet
-key "rodas2021pull"
+key "rodas2021pull,corral2021map"
 literal "false"
 
 \end_inset
@@ -2234,19 +2612,28 @@ noprefix "false"
 
 \end_inset
 
- is used as both training and target data.
+ is used as both source and target data.
  In the results presented in this section, the same dataset is used for
- both training and prediction.
+ both model development and prediction.
  This approach eliminates potential additional noise introduced by sampling
  variability, allowing for a more controlled assessment of imputation performanc
-e.
+e that is entirely driven by the model fit and its assumptions.
  The process is applied across 1,000 generated populations allowing us to
  assess the method's empirical bias.
 \end_layout
 
+\begin_layout Subsubsection
+Under a normal error DGP
+\end_layout
+
 \begin_layout Standard
 The baseline imputation methods assume that welfare is linearly related
- to a set of characteristics and that errors follow a normal distribution.
+ to a set of characteristics and that errors follow a normal distribution
+ with same variance, 
+\begin_inset Formula $\sigma^{2}$
+\end_inset
+
+.
  The data generation process (DGP) used to simulate the dataset adheres
  to these assumptions.
 \end_layout
@@ -2280,7 +2667,7 @@ noprefix "false"
  Even in the most biased case observed in this simulation, the discrepancy
  is less than 0.025 percentage points.
  Additionally, the number of imputations performed under multiple imputation
- (MI) appears to have little to no impact on bias (Eq.
+ (MI) appears to have minimal impact on bias (Eq.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2292,6 +2679,7 @@ noprefix "false"
 \end_inset
 
 ).
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2391,6 +2779,10 @@ noprefix "false"
 
 \end_layout
 
+\begin_layout Subsubsection
+Under non-normally distributed errors
+\end_layout
+
 \begin_layout Standard
 It is essential to ensure the imputation method chosen is the one best aligned
  to the data at hand.
@@ -2398,12 +2790,12 @@ It is essential to ensure the imputation method chosen is the one best aligned
  (
 \begin_inset CommandInset citation
 LatexCommand citealt
-key "corral2022guidelines"
+key "rojas2020data,corral2021map"
 literal "false"
 
 \end_inset
 
-), but there are instances where transformations may not help.
+), but there are instances where transformations are of little use.
  If the residuals do not follow a normal distribution, an alternative is
  to draw from the empirical residuals.
  Stata's 
@@ -2420,7 +2812,11 @@ literal "false"
 
 \end_inset
 
- mi impute regress p2.).
+ 
+\family typewriter
+mi impute regress
+\family default
+ p2.).
  Similarly, the 
 \family typewriter
 hetmireg
@@ -2434,7 +2830,17 @@ status collapsed
 \family typewriter
 hetmireg
 \family default
- command by Corral (mimeo) - https://github.com/pcorralrodas/hetmireg
+ (Corral - mimeo) command supports heteroskedasticity following the alpha
+ model described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "elbers2002micro"
+literal "false"
+
+\end_inset
+
+.
+ Corral (mimeo) - https://github.com/pcorralrodas/hetmireg
 \end_layout
 
 \end_inset
@@ -2447,16 +2853,8 @@ literal "false"
 
 \end_inset
 
-), supports heteroskedasticity following the alpha model described in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "elbers2002micro"
-literal "false"
-
-\end_inset
-
- and generates bootstrap samples with errors drawn from the empirical distributi
-on, though it omits the area random effect required for area-level estimates
+), generates bootstrap samples with errors drawn from the empirical distribution
+, though it omits the area random effect required for area-level estimates
  necessary for small area estimation.
  
 \end_layout
@@ -2497,6 +2895,16 @@ literal "false"
 .
  These methods could be extended to other ML approaches, including gradient
  boosting, random forests, and Bayesian additive regression trees.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "verme2024predicting"
+literal "false"
+
+\end_inset
+
+ offers a useful primer on the performance of random forests and other ML
+ approaches in poverty prediction.
 \end_layout
 
 \begin_layout Standard
@@ -2718,7 +3126,7 @@ noprefix "false"
  and 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "tab:rforest_matrix-1"
+reference "tab:ols_matrix"
 plural "false"
 caps "false"
 noprefix "false"
@@ -2813,6 +3221,128 @@ hetmireg
 \end_layout
 
 \begin_layout Standard
+Motivated by the unexpectedly poor performance of random forests in predicting
+ poverty levels, particularly given the results presented in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "verme2024predicting"
+literal "false"
+
+\end_inset
+
+, we also examined their classification ability in a separate simulation
+ using normally distributed errors.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The data used follows those presented in Annex 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP_cluster"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ This distinction is relevant for Proxy Means Testing (PMT), where the goal
+ is not to predict continuous consumption or income, but rather to assign
+ households to eligibility categories.
+ As 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "grosh1995proxy"
+literal "false"
+
+\end_inset
+
+ emphasize, PMT prioritizes classification accuracy over predictive precision.
+\end_layout
+
+\begin_layout Standard
+In this context, when evaluated in-sample, random forests outperform OLS
+ in classification tasks—even though OLS is more closely aligned with the
+ true data-generating process (Tables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:rforest_matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:ols_matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ When applied to the same data used for modeling, random forests classifies
+ households with notably higher accuracy.
+ However, this advantage disappears when applied to the entire population
+ (i.e., from where the SRS sample was taken from) where the classification
+ performance of random forests closely matches that of OLS (Tables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:rforest_matrix-oos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:ols_matrix-oos"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ This suggests that random forests in this example is overfitting in the
+ training sample, underscoring the importance of cross-validation.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+In the simulations conducted here, given that the true DGP is known, model
+ selection and tuning is not undertaken.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The pattern is also evident in the mean squared residuals: in-sample, random
+ forests achieve a low mean squared residual of 0.075, compared to 0.20 for
+ OLS.
+ When looking at out-of-sample results, however, the random forest residuals
+ increase to 0.19, converging toward the OLS out-of-sample value of 0.20.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Under heteroskedastic errors
+\end_layout
+
+\begin_layout Standard
 An additional simulation is conducted where the error distribution of the
  DGP is modified to follow heteroskedastic errors.
  The errors are designed to mimic a situation where the uncertainty or variabili
@@ -2844,7 +3374,15 @@ noprefix "false"
 
 \end_inset
 
-).
+), and are aligned to the statement made by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "betti2024attempt"
+literal "false"
+
+\end_inset
+
+ who point out that ignoring heteroskedasticity can lead to biased estimates.
  It seems like the best answer for heteroskedasticity is to address it directly
  via the model.
  However, the alpha model from 
@@ -2900,12 +3438,25 @@ literal "false"
 hetregress
 \family default
  command.
+ While the alpha model from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "elbers2002micro"
+literal "false"
+
+\end_inset
+
+ is applied using 
+\family typewriter
+hetmireg.
 \end_layout
 
 \end_inset
 
  Finally, a lasso model coupled with residuals drawn from their empirical
  distribution also yields solid results.
+ This last result suggests that drawing from the empirical distribution
+ may be a robust option when one is uncertain about the distribution.
 \end_layout
 
 \begin_layout Standard
@@ -3113,13 +3664,203 @@ noprefix "false"
 
 \end_layout
 
+\begin_layout Subsubsection
+Under a two-fold double nested normal error DGP 
+\end_layout
+
+\begin_layout Standard
+Clustering is unlikely to have an impact on the estimates' bias.
+ In this instance the source and target data differ.
+ This is done to see the impact of applying a model estimated on a given
+ set of clusters and applied to a possibly different set of clusters.
+\end_layout
+
+\begin_layout Standard
+In small area estimation, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ea7f7e4f-7381-39b0-abdd-8da14c150408"
+literal "false"
+
+\end_inset
+
+ suggest that modeling cluster effects at a level misaligned with the level
+ of reporting can bias noise estimates.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+ reinforce this point using model-based simulations but show that the bias
+ of point estimates remains unaffected.
+ In our case, since we report national-level estimates, ignoring random
+ location effects does not compromise validity.
+ This is evident in the simulation of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bias_eb_mi-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which uses a two-stage sample drawn from a clustered data-generating process
+ (see Annex 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP_cluster"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ The figure compares models that account for clustering (one-fold and two-fold)
+ with a model that ignores it (“Fixed-B”, 
+\begin_inset Quotes eld
+\end_inset
+
+MI 20
+\begin_inset Quotes erd
+\end_inset
+
+, and 
+\begin_inset Quotes eld
+\end_inset
+
+MI 100
+\begin_inset Quotes erd
+\end_inset
+
+) and shows that all three produce similar bias profiles.
+ All result in low bias, at worst it is a little under 0.06 percentage points.
+ The result shown here underscore that accounting for clustering is not
+ critical for point estimates at the national level, though it does matter
+ for the precision of subnational estimates which is not relevant for this
+ work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Bias in FGT0 under a two-fold DGP 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bias_eb_mi-2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/mi_ebp_fgt0_cluster.eps
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size footnotesize
+Note: Data are generated as described in Annex 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP_cluster"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Bias is assessed at various poverty lines across the welfare distribution.
+ Specifically, these lines correspond to percentiles that are multiples
+ of 5.
+ 
+\series bold
+Fixed B
+\series default
+: uses the method described in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fixed"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to generate predictions.
+ For each of 100 Monte Carlo (MC) simulations, poverty is estimated at each
+ threshold and then averaged across simulations to produce the final estimate.
+ 
+\series bold
+MI X
+\series default
+: implements X imputations following Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:MI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\series bold
+One-fold
+\series default
+ and 
+\series bold
+Two-fold
+\series default
+ follow small area estimation methods accounting for clusteing in the data.
+ Poverty is estimated for each threshold under each imputed vector, and
+ the results are averaged across simulations to obtain the final estimate.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+PMM - A flexible imputation approach 
+\end_layout
+
 \begin_layout Standard
 A common alternative imputation approach, predictive mean matching (PMM),
  differs in its simulation strategy.
  Rather than drawing residuals or estimating parameters from a posterior
- distribution, PMM matches observations from the training dataset to those
+ distribution, PMM matches observations from the source dataset to those
  in the target dataset based on predicted values, ensuring that imputed
- values remain within the observed range of the training data.
+ values remain within the observed range of the source data.
 \begin_inset Foot
 status collapsed
 
@@ -3148,13 +3889,14 @@ literal "false"
 
 .
  However, its reliance on observed values limits its ability to capture
- shifts in economic conditions between periods.
+ shifts in economic conditions between periods, similar to other approaches
+ presented in the section.
 \end_layout
 
 \begin_layout Standard
 To illustrate PMM’s limitations, a simulation is conducted where a covariate
  distribution in the target dataset is altered, creating a mismatch with
- the training data.
+ the source data.
  Under the simulation, the 
 \begin_inset Formula $x_{2}$
 \end_inset
@@ -3182,7 +3924,7 @@ status collapsed
 
 \begin_layout Plain Layout
 The only change introduced is a change in the constant term, everything
- else remains equal between training and target data.
+ else remains equal between source and target data.
 \end_layout
 
 \end_inset
@@ -3198,22 +3940,9 @@ noprefix "false"
 \end_inset
 
 ).
- This highlights a critical limitation of PMM: when substantial economic
- or structural changes occur between data collection periods, PMM may not
- be appropriate for imputing poverty estimates.
-\end_layout
-
-\begin_layout Standard
-These findings emphasize that no single imputation approach is universally
- optimal.
- The choice of method should be guided by the underlying data properties,
- the distribution of errors, and the extent of economic or social changes
- between surveys.
- While parametric methods can introduce bias when assumptions are violated,
- empirical residual drawing and heteroskedasticity-aware models offer more
- robust alternatives.
- Finally, machine learning techniques coupled with bootstrapping could provide
- promising extensions for future work.
+ This highlights a critical limitation of PMM as well as other methods illustrat
+ed: when substantial economic or structural changes occur between data collectio
+n periods, the methods may not be appropriate for imputing poverty estimates.
 \end_layout
 
 \begin_layout Standard
@@ -3396,6 +4125,46 @@ impute pmm
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+These findings underscore that no single imputation method is universally
+ optimal.
+ The choice of approach should be guided by the data’s properties, the error
+ distribution, and the degree of economic and social change between surveys.
+ Parametric methods can introduce bias when their assumptions are violated,
+ while empirical residual drawing and heteroskedasticity-aware models tend
+ to offer more robust alternatives.
+ Machine learning techniques, particularly when combined with bootstrapping,
+ also show promise for future applications.
+\end_layout
+
+\begin_layout Standard
+The simulation results demonstrate that while many imputation methods perform
+ well under ideal conditions, their effectiveness varies considerably when
+ faced with different error structures and data characteristics.
+ Direct application of parameters ("Fixed B") yields low bias under normal
+ error distributions, but when assumptions are violated—as with Student’s
+ t-distributed or heteroskedastic errors—methods using empirical residual
+ drawing perform better.
+ Machine learning approaches, such as lasso regression combined with empirical
+ residuals, show potential but require careful implementation.
+ Conversely, the limitations of Predictive Mean Matching (PMM) become more
+ pronounced when economic conditions change between the training and target
+ periods—though, such instability can affect all models.
+\end_layout
+
+\begin_layout Standard
+Overall, these results highlight the importance of selecting imputation
+ methods that are well-suited to the specific data context, error distribution,
+ and stability of conditions across surveys.
+ Future work could usefully extend bootstrap-based techniques to a wider
+ range of machine learning methods, while ensuring robust error estimation
+ remains central.
+\end_layout
+
+\begin_layout Subsection
+Noise estimation
 \end_layout
 
 \begin_layout Standard
@@ -3586,7 +4355,7 @@ noprefix "false"
 
 .
  A random sample of 30 percent is marked as the target survey, and a random
- sample of 20 percent is marked as the training data.
+ sample of 20 percent is marked as the source data for training the model.
  To compare the noise estimates of each method, 10,000 populations are created.
  Under each population a new error is drawn from its assumed distribution
  and predictions are made, as well as noise is estimated – following a parametri
@@ -3635,9 +4404,9 @@ The method's MSE/variance is the average from the 10,000 imputations.
  based on the target survey which is smaller than the population.
  The MSE is equal to the sum of the squared bias and the variance of the
  indicator of interest.
- Since both methods are unbiased, it mostly boils down to the variance and
- given that the target survey is much smaller than the population the variance
- parameter of the MSE is larger (see Annex 
+ Since both methods are nearly unbiased, it mostly boils down to the variance
+ and given that the target survey is much smaller than the population the
+ variance parameter of the MSE is larger (see Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:sample_size_mse"
@@ -3648,29 +4417,9 @@ noprefix "false"
 \end_inset
 
 ).
- 
-\end_layout
-
-\begin_layout Standard
-The simulation results presented here demonstrate that while various imputation
- approaches can be effective under ideal conditions, their performance varies
- significantly when faced with different error distributions and data characteri
-stics.
- Direct application of parameters ("Fixed B") shows minimal bias under normal
- error distributions, but when assumptions are violated - as with Student's
- t-distributed or heteroskedastic errors - methods that draw from empirical
- residual distributions tend to perform better.
- Machine learning approaches, particularly lasso regression combined with
- empirical residual drawing, show promise but require careful implementation.
- The limitations of Predictive Mean Matching (PMM) become especially apparent
- when economic conditions shift between training and target periods, although
- as will be illustrated this may affect all models.
- These findings underscore the importance of carefully selecting imputation
- methods based on the specific properties of the data, the nature of the
- error distribution, and the stability of economic conditions between surveys.
- Future research might productively explore extensions of bootstrap-based
- approaches to other machine learning methods while maintaining robust error
- estimation procedures.
+ However, further caution is warranted in instances where the estimates
+ are likely biased since the variance estimated following Rubin's rules
+ will yield a downward biased estimate of the true noise.
 \end_layout
 
 \begin_layout Subsection
@@ -3681,7 +4430,7 @@ Imputations under biased samples
 Survey-to-survey (S2S) imputation methods are often applied to biased samples,
  such as when specific population segments are systematically underrepresented.
  To address this issue, practitioners commonly attempt two corrective strategies
-: re-weighting the sample and standardizing covariates.
+: re-weighting the sample or standardizing covariates.
  This section examines these methods and evaluates their effectiveness using
  simulations.
 \end_layout
@@ -3816,7 +4565,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-To test the problems with under-sampling and re-weighting, two sampling
+To test the problems with biased samples and re-weighting, two sampling
  scenarios are used as an illustrative example.
  The samples are taken from a population created as described in section
  
@@ -3830,7 +4579,7 @@ noprefix "false"
 \end_inset
 
 .
- For the re-weighting exercise, three possible re-weighting scenarios are
+ For the biased sample exercise, three possible re-weighting scenarios are
  considered:
 \begin_inset Foot
 status collapsed
@@ -3865,7 +4614,8 @@ maxentropy
 \family typewriter
 wentropy
 \family default
- providing solutions to instances where 
+ adding more flexibility and because it provides solutions to instances
+ where 
 \family typewriter
 maxentropy
 \family default
@@ -3977,7 +4727,7 @@ noprefix "false"
  normality.
  The adjustment process involves scaling and centering the covariates from
  the target survey so that their means and variances align with those of
- the source survey, as demonstrated in the following formula:
+ the source survey, as shown in the following formula:
 \end_layout
 
 \begin_layout Standard
@@ -4034,7 +4784,7 @@ mean
 standard deviation
 \series default
  of the simple random sample are used to standardize the linear fit of the
- biased samples.
+ biased target samples.
  
 \end_layout
 
@@ -4050,9 +4800,9 @@ name "subsec:Results_simdata"
 \end_layout
 
 \begin_layout Standard
-To isolate the impact of biased sampling and assess the effectiveness of
- correction methods, the analysis avoids introducing additional sources
- of error by using the true values for the coefficients (
+To isolate the impact of biased sampling in the target data and assess the
+ effectiveness of correction methods, the analysis avoids introducing additional
+ sources of error by using the true values for the coefficients (
 \begin_inset Formula $\beta$
 \end_inset
 
@@ -4135,7 +4885,11 @@ Results and Discussion
 \begin_layout Standard
 Standard sampling bias-correction techniques, such as re-weighting to match
  population means, may be insufficient when source and target surveys differ
- fundamentally.
+ fundamentally—i.e., when they do not appear to capture the same underlying
+ population, with differing moments of the covariate distributions and altered
+ relationships (covariances) between covariates and outcomes.
+ In such cases, large differences in the covariate distributions suggest
+ that the two surveys do not represent the same underlying population.
  This limitation becomes evident in bottom-biased samples, where the poorest
  segments of the population were underrepresented, leading to systematic
  underestimation of poverty levels across the welfare distribution (Figure
@@ -4153,7 +4907,7 @@ noprefix "false"
 \begin_inset Quotes eld
 \end_inset
 
-unadjusted
+Unadjusted
 \begin_inset Quotes erd
 \end_inset
 
@@ -4219,7 +4973,6 @@ name "fig:bias_reweight"
 \align center
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/weights_std_bb_fgt0.eps
-	lyxscale 80
 	scale 80
 
 \end_inset
@@ -4378,6 +5131,12 @@ noprefix "false"
 \end_inset
 
 .
+ However, it is important to note that the adjustments made here mimic the
+ moments of the source data, thus when applied to other data would just
+ replicate the source data's welfare distribution.
+ Consequently the approaches would be of use for contemporaneous S2S, but
+ not for S2S over time.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -4401,6 +5160,7 @@ noprefix "false"
  Biases that appeared negligible at certain thresholds, such as the 40th
  percentile, became pronounced elsewhere, highlighting the importance of
  evaluating imputations across the full distribution.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -4607,75 +5367,92 @@ name "subsec:over-time"
 \end_layout
 
 \begin_layout Standard
-Despite the encouraging results for correcting biased cross-sectional samples,
+Despite encouraging results for correcting bias in cross-sectional samples,
  these methods cannot be directly applied to S2S imputation across time.
- This limitation arises from the unavailability of true or reliable estimates
- for the mean and variance of the dependent variable in the target period.
- Without these benchmarks, the ability to standardize or re-weight effectively
- diminishes, compounding the challenges of imputing poverty estimates in
- dynamic contexts.
+ The main limitation is the lack of reliable estimates for the mean and
+ variance of the dependent variable in the target period.
+ Without these benchmarks, standardization or reweighting becomes ineffective,
+ compounding the challenges of imputing poverty estimates in dynamic contexts.
 \end_layout
 
 \begin_layout Standard
-For accurate poverty measurement, countries frequently resort to collect
- surveys on the living standards of its population.
- These surveys are costly and their implementation is complex.
- Thus, data is infrequently collected for the world's poorest economies.
- It is for these instances where S2S's appeal is heightened.
- The main applications of S2S over time attempt to:
+Moreover, when applying S2S to real-world data, the model used is just one
+ of many possible choices.
+ The implicit assumption is that this model represents the true data-generating
+ process (DGP).
+ In practice, there are few clear criteria to select one model over another
+ for poverty imputation.
+ Even a model that fits the source data well offers little guarantee of
+ robust performance when applied across time.
+ Assuming that the estimated model remains valid over time is a particularly
+ strong assumption.
+ As noted by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "dang2025poverty"
+literal "false"
+
+\end_inset
+
+, a high model 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ does not necessarily translate into accurate poverty predictions.
+ As this section will show, multiple potential sources of bias can arise
+ when applying S2S over time.
+\end_layout
+
+\begin_layout Standard
+Because household living standards surveys are costly and infrequently collected
+—especially in low-income countries—S2S has become an appealing option in
+ many contexts.
+ Its main applications over time include::
 \end_layout
 
 \begin_layout Enumerate
-Produce a poverty estimate that is comparable.
- There are many instances where a country may collect data on living standards,
- however due to any number of issues, the welfare aggregate is not comparable
- to a previous one.
- S2S has been applied in these scenarios by training a model on the original
- welfare aggregate and applying this to more recent survey (see the imputation
- of Zambia – 
+Producing comparable poverty estimates: In many countries, surveys may exist,
+ but the welfare aggregate is not comparable across rounds.
+ S2S has been used to bridge this gap by training a model on the original
+ welfare aggregate and applying it to a more recent survey (e.g., Zambia as
+ noted by 
 \begin_inset CommandInset citation
-LatexCommand citet
+LatexCommand citealt
 key "yoshida2024enabling"
 literal "false"
 
 \end_inset
 
 ).
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Note that this could also be done backwards.
- If the preferred welfare aggregate corresponds to the new survey then the
- model could be trained on the new data and its parameters applied to the
- old data to predict poverty (see the imputation of Nigeria – 
+ This process can also be reversed—if the preferred welfare aggregate is
+ from the newer survey, the model can be trained on that data and applied
+ retrospectively (e.g., Nigeria, 
 \begin_inset CommandInset citation
-LatexCommand citet
+LatexCommand citealt
 key "lain2022estimating"
 literal "false"
 
 \end_inset
 
-)
-\end_layout
-
-\end_inset
-
- 
+).
 \end_layout
 
 \begin_layout Enumerate
-Produce a poverty estimate when data on living standards is unavailable.
- In most instances where S2S is applied the country has recently collected
- data that does not include a comparable welfare aggregate, e.g., a recent
- Demographic Health Survey or a Labor Force Survey.
- In these instances, the model is trained on the last existing living standards
- survey with an adequate welfare aggregate and its estimated parameters
- are applied to the more recent survey – i.e.
- the target survey.
- The target survey is assumed to be nationally representative, but this
- is not always the case – for example, due to sampling bias (see the work
- of 
+Generating poverty estimates when no living standards data are available:
+ In many cases, a recent survey (e.g., a DHS or labor force survey) does not
+ include an adequate welfare aggregate.
+ Here, a model trained on the last available living standards survey is
+ used to impute poverty in the new survey (For example, see 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "edochie2022we,lanjouw2024imputation,newhouse2019estimating"
+literal "false"
+
+\end_inset
+
+).
+ The target survey is often assumed to be nationally representative, though
+ this is not always true—sampling bias can distort results (see 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "sinha2022poverty"
@@ -4731,8 +5508,8 @@ literal "false"
  Furthermore, restricting the eligible covariates for the model can result
  in insufficient explanation of the variation in welfare.
  This, in turn, increases reliance on the distribution of unobservables,
- which is based on the training data and may not reflect the target period
- accurately.
+ which is based on the source data used for the model and may not reflect
+ the target period accurately.
  
 \end_layout
 
@@ -4814,7 +5591,7 @@ noprefix "false"
 , and illustrate how poverty rates change under different lines determined
  at the percentile of the original welfare.
  Hence, if the original poverty rate was 20 percent, and using that same
- threshold when increasing the value of 
+ corresponding poverty line when increasing the value of 
 \begin_inset Formula $\sigma_{e}$
 \end_inset
 
@@ -4831,7 +5608,7 @@ on.
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -5050,8 +5827,9 @@ name "subsec:Omitted-Variables"
 Omitted variables and endogeneity have traditionally not been major concerns
  in predictions such as S2S or small area estimation.
  This is because, in the current period, any omitted variables are accounted
- for by the constant term, which adjusts to ensure that OLS predictions
- of the dependent variable remain unbiased.
+ for by the constant term and coefficients of covariates correlated to the
+ omitted variable, which are adjusted to ensure that OLS predictions of
+ the dependent variable remain unbiased.
  However, over time, the effects of omitted variables can influence predictions
  considerably.
  For a more detailed discussion, see the annex (Annex 
@@ -5076,17 +5854,81 @@ Consider a plausible application of survey-to-survey (S2S) imputation in
  reduced conflict.
  However, if the model does not explicitly control for conflict, this interpreta
 tion may be misleading.
- In line with guidance from SWIFT (
+ In line with guidance from 
 \begin_inset CommandInset citation
-LatexCommand citealt
+LatexCommand citet
 key "yoshida2022concept"
 literal "false"
 
 \end_inset
 
-), the model might include fast-changing consumption indicators—such as
- whether households consumed meat, eggs, or chocolate—as proxies for welfare
- changes.
+, the model might include fast-changing consumption indicators—such as whether
+ households consumed meat, eggs, or chocolate—as proxies for welfare changes,
+ the authors refer to this as the SWIFT+ methodology.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The exact meaning of the "SWIFT methodology" and what it actually entails
+ is unclear.
+ The original meaning behind the Survey of Well-being via Instant and Frequent
+ Tracking (SWIFT) referred to a framework in which a specifically designed
+ short survey was fielded for the purpose of conducting survey-to-survey
+ (S2S) imputation (
+\begin_inset CommandInset citation
+LatexCommand citet
+key "yoshida2015swift,yoshida2022concept"
+literal "false"
+
+\end_inset
+
+).
+ The strength of the original approach was that the target survey was intentiona
+lly designed to include covariates that aligned well with the imputation
+ model.
+\end_layout
+
+\begin_layout Plain Layout
+However, over time, the term “SWIFT” appears to have been used more loosely,
+ often as a general label for any S2S application, without clear explanation
+ of the underlying assumptions or how the imputations are implemented.
+ Nevertheless, 
+\begin_inset CommandInset citation
+LatexCommand citet
+after "p3"
+key "yoshida2022poverty"
+literal "false"
+
+\end_inset
+
+ says: “The SWIFT methodology is a rapid poverty monitoring tool which applies
+ machine learning and multiple imputations techniques to project household
+ expenditure/income and poverty using the data from 10 to 15 simple questions
+ from household surveys.” Where the key component mentioned before, the intention
+ally designed survey, is not mentioned and now seems to suggest that the
+ SWIFT methodology is just S2S.
+ This seems to have carried over to applications in specific countries,
+ for example 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "yoshida2024enabling"
+literal "false"
+
+\end_inset
+
+ note several countries where 
+\begin_inset Quotes eld
+\end_inset
+
+SWIFT
+\begin_inset Quotes erd
+\end_inset
+
+ has been implemented yet it seems to refer to just regular S2S.
+\end_layout
+
+\end_inset
+
  Yet, if conflict both reduces consumption of these goods and suppresses
  household expenditure, then omitting conflict from the model could introduce
  omitted variable bias (OVB).
@@ -6466,7 +7308,23 @@ Enhance Validation Practices:
  Additionally, external validation – comparing results with broader indicators
  such as GDP and unemployment, while incorporating country-specific knowledge
  – enhances reliability.
- 
+ Good examples of these can be seen in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sinha2022poverty"
+literal "false"
+
+\end_inset
+
+ as well as 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "lain2022estimating"
+literal "false"
+
+\end_inset
+
+ who rely on auxiliary data to lend durther credence to their S2S estimates.
 \end_layout
 
 \begin_layout Enumerate
@@ -6486,15 +7344,17 @@ Incorporate Structural and Temporal Dynamics:
 \begin_layout Enumerate
 
 \series bold
-Promote Transparent Communication:
+Foster Transparency in Methodology and Communication: 
 \series default
- The limitations of S2S imputation should be clearly communicated, particularly
- in contexts with high economic volatility.
- Uncertainty intervals should go beyond noise estimates and incorporate
+Practitioners must pursue clear and transparent reporting of assumptions,
+ validation efforts, and uncertainties in S2S applications.
+ Practitioners should thoroughly document how imputations are implemented—how
+ errors and parameters are applied—and clearly communicate the limitations
+ of the method, especially in contexts with high economic volatility.
+ Uncertainty intervals should go beyond simple noise estimates and incorporate
  scenario analyses to contextualize findings for stakeholders.
- This could involve adjusting key parameters by a certain percentage to
- illustrate how results may shift under different assumptions.
- 
+ This may include sensitivity analyses that adjust key parameters to illustrate
+ how results might shift under different assumptions.
 \end_layout
 
 \begin_layout Enumerate
@@ -6515,20 +7375,27 @@ on and avoids misrepresentation.
 \series bold
 Invest in Data and Research:
 \series default
- Greater investment in regular and high-quality data collection is essential
- for reducing reliance on imputation and improving poverty measurement.
- 
-\end_layout
+ Greater investment in regular, high-quality data collection is essential
+ for reducing over-reliance on imputation methods and for improving the
+ accuracy of poverty measurement.
+ S2S methods ultimately depend on the quality and representativeness of
+ the data they are built upon—weak or outdated data will naturally compromise
+ the quality of imputed estimates.
+ As the costs of data collection rise, there is a growing temptation to
+ substitute imputation for new data.
+ However, imputation should complement—not replace—regular survey programs.
+ Sustained investment in data is necessary to ensure that models remain
+ valid and are regularly recalibrated to reflect real-world changes.
+ This point is also highlighted in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fujii2020predicted"
+literal "false"
 
-\begin_layout Enumerate
+\end_inset
 
-\series bold
-Foster Methodological Transparency:
-\series default
- Policymakers should demand clear and transparent reporting of assumptions,
- validation efforts, and uncertainties in S2S applications.
- Practitioners should thoroughly document how imputations are implemented,
- including how errors and parameters are applied.
+, who caution against replacing genuine data with modelled estimates in
+ contexts where underlying conditions are evolving.
  
 \end_layout
 
@@ -7109,7 +7976,7 @@ Consequently, the variance of an indicator is dependent on the true finite
 \end_layout
 
 \begin_layout Subsection
-Additional material
+Random forest and OLS classification
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:add_material"
@@ -7123,13 +7990,13 @@ name "subsec:add_material"
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Random forest confusion matrix
+Random forest confusion matrix - in sample prediction 
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:rforest_matrix"
@@ -7254,7 +8121,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-78.62
+77.3
 \end_layout
 
 \end_inset
@@ -7276,7 +8143,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-19.62
+20.4
 \end_layout
 
 \end_inset
@@ -7298,7 +8165,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-1.62
+2.2
 \end_layout
 
 \end_inset
@@ -7320,7 +8187,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-0.12
+0.1
 \end_layout
 
 \end_inset
@@ -7342,7 +8209,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-0
+0.0
 \end_layout
 
 \end_inset
@@ -7388,7 +8255,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-20
+20.6
 \end_layout
 
 \end_inset
@@ -7410,7 +8277,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-53.37
+50.3
 \end_layout
 
 \end_inset
@@ -7432,7 +8299,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-24.25
+25.0
 \end_layout
 
 \end_inset
@@ -7454,7 +8321,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-2.38
+4.0
 \end_layout
 
 \end_inset
@@ -7476,7 +8343,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-0
+0.1
 \end_layout
 
 \end_inset
@@ -7522,7 +8389,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-1.38
+2.2
 \end_layout
 
 \end_inset
@@ -7544,7 +8411,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-24.62
+25.4
 \end_layout
 
 \end_inset
@@ -7566,7 +8433,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-49.38
+45.4
 \end_layout
 
 \end_inset
@@ -7588,7 +8455,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-22.5
+24.9
 \end_layout
 
 \end_inset
@@ -7610,7 +8477,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-2.12
+2.1
 \end_layout
 
 \end_inset
@@ -7656,7 +8523,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-0
+0.1
 \end_layout
 
 \end_inset
@@ -7678,7 +8545,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-2.38
+3.9
 \end_layout
 
 \end_inset
@@ -7700,7 +8567,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-23.25
+25.3
 \end_layout
 
 \end_inset
@@ -7722,7 +8589,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-57.25
+50.5
 \end_layout
 
 \end_inset
@@ -7744,7 +8611,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-17.12
+20.3
 \end_layout
 
 \end_inset
@@ -7790,7 +8657,7 @@ Richest
 \uwave off
 \noun off
 \color none
-0
+0.0
 \end_layout
 
 \end_inset
@@ -7812,7 +8679,7 @@ Richest
 \uwave off
 \noun off
 \color none
-0
+0.1
 \end_layout
 
 \end_inset
@@ -7834,7 +8701,7 @@ Richest
 \uwave off
 \noun off
 \color none
-1.5
+2.1
 \end_layout
 
 \end_inset
@@ -7856,7 +8723,7 @@ Richest
 \uwave off
 \noun off
 \color none
-17.75
+20.5
 \end_layout
 
 \end_inset
@@ -7878,7 +8745,7 @@ Richest
 \uwave off
 \noun off
 \color none
-80.75
+77.3
 \end_layout
 
 \end_inset
@@ -7894,10 +8761,13 @@ Richest
 \begin_layout Plain Layout
 
 \size footnotesize
-Note: The table presents a transition matrix estimated from simulated data.
+Note: The table reports a transition matrix estimated from simulated data.
  Each row sums to 100 and indicates the percentage of individuals originally
- in the quintile specified by the row who were classified into each predicted
- quintile by the model's linear fit.
+ in the given quintile who were classified into each predicted quintile
+ based on the model’s linear fit.
+ The values represent averages across 1,000 simulated populations; for each,
+ a sample was drawn, the model was estimated on the sample, and subsequently
+ used to classify households.
 \end_layout
 
 \end_inset
@@ -7909,16 +8779,16 @@ Note: The table presents a transition matrix estimated from simulated data.
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-OLS confusion matrix
+OLS confusion matrix - in sample prediction 
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:rforest_matrix-1"
+name "tab:ols_matrix"
 
 \end_inset
 
@@ -8040,7 +8910,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-60.25
+58.8
 \end_layout
 
 \end_inset
@@ -8062,7 +8932,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-24.38
+25.8
 \end_layout
 
 \end_inset
@@ -8084,7 +8954,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-11.75
+11.2
 \end_layout
 
 \end_inset
@@ -8106,7 +8976,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-2.62
+3.7
 \end_layout
 
 \end_inset
@@ -8128,7 +8998,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-1
+0.5
 \end_layout
 
 \end_inset
@@ -8174,7 +9044,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-25.12
+25.9
 \end_layout
 
 \end_inset
@@ -8196,7 +9066,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-35.25
+32.1
 \end_layout
 
 \end_inset
@@ -8218,7 +9088,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-25
+24.6
 \end_layout
 
 \end_inset
@@ -8240,7 +9110,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-12.38
+13.9
 \end_layout
 
 \end_inset
@@ -8262,7 +9132,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-2.25
+3.6
 \end_layout
 
 \end_inset
@@ -8308,7 +9178,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-10.88
+11.3
 \end_layout
 
 \end_inset
@@ -8330,7 +9200,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-24.75
+24.7
 \end_layout
 
 \end_inset
@@ -8352,7 +9222,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-31
+28.9
 \end_layout
 
 \end_inset
@@ -8374,7 +9244,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-22.25
+24.5
 \end_layout
 
 \end_inset
@@ -8396,7 +9266,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-11.12
+10.7
 \end_layout
 
 \end_inset
@@ -8442,7 +9312,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-3.5
+3.7
 \end_layout
 
 \end_inset
@@ -8464,7 +9334,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-12.5
+13.8
 \end_layout
 
 \end_inset
@@ -8486,7 +9356,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-22.62
+24.6
 \end_layout
 
 \end_inset
@@ -8508,7 +9378,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-38.62
+32.5
 \end_layout
 
 \end_inset
@@ -8530,7 +9400,7 @@ Poorest
 \uwave off
 \noun off
 \color none
-22.75
+25.4
 \end_layout
 
 \end_inset
@@ -8576,7 +9446,7 @@ Richest
 \uwave off
 \noun off
 \color none
-0.25
+0.5
 \end_layout
 
 \end_inset
@@ -8598,7 +9468,7 @@ Richest
 \uwave off
 \noun off
 \color none
-3.12
+3.7
 \end_layout
 
 \end_inset
@@ -8620,7 +9490,7 @@ Richest
 \uwave off
 \noun off
 \color none
-9.62
+10.8
 \end_layout
 
 \end_inset
@@ -8642,7 +9512,7 @@ Richest
 \uwave off
 \noun off
 \color none
-24.12
+25.4
 \end_layout
 
 \end_inset
@@ -8664,7 +9534,7 @@ Richest
 \uwave off
 \noun off
 \color none
-62.88
+59.6
 \end_layout
 
 \end_inset
@@ -8680,10 +9550,13 @@ Richest
 \begin_layout Plain Layout
 
 \size footnotesize
-Note: The table presents a transition matrix estimated from simulated data.
+Note: The table reports a transition matrix estimated from simulated data.
  Each row sums to 100 and indicates the percentage of individuals originally
- in the quintile specified by the row who were classified into each predicted
- quintile by the model's linear fit.
+ in the given quintile who were classified into each predicted quintile
+ based on the model’s linear fit.
+ The values represent averages across 1,000 simulated populations; for each,
+ a sample was drawn, the model was estimated on the sample, and subsequently
+ used to classify households.
 \end_layout
 
 \end_inset
@@ -8692,56 +9565,7 @@ Note: The table presents a transition matrix estimated from simulated data.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-<IN PROGRESS - Need to update with simulations comparing MI noise and PBS
- noise estimation.
- I was just testing this for EU SAE team>
-\end_layout
-
-\begin_layout Plain Layout
-Many teams engaged in poverty measurement and welfare analysis face challenges
- when performing Small Area Estimation (SAE) using datasets that are not
- derived from a full population census.
- These challenges often require the use of alternative data sources, such
- as a 10 percent sample of the census or a larger survey representative
- at the desired geographic or administrative level.
- Historically, such tasks were approached as a survey-to-survey imputation
- exercise, which accounted for both within-survey variation (arising from
- sampling) and between-survey variation accounting for the imputation.
-\end_layout
-
-\begin_layout Plain Layout
-However, recent updates to the censusEB methodology have introduced changes
- in noise estimation that warrant careful reconsideration of this approach.
- To understand the potential bias in noise estimation, simulations are to
- evaluate the extent to which noise is over- or underestimated when imputing
- to a sample of the population.
- Key findings emerged from two distinct experiments:
-\end_layout
-
-\begin_layout Plain Layout
-
-\series bold
-Parametric Bootstrap Noise Estimation
-\end_layout
-
-\begin_layout Plain Layout
-Using multiple samples from a simulated census as the target data, welfare
- is imputed to these and poverty rates are estimated.
- The source data, i.e.
- the training data, is a 5% sample.
- The multiple samples taken from the census are then used as the target
- data used to simulate income and estimate poverty.
- The estimated MSE(x10000) is presented below, the column represent the
- sample size of the target survey.
- 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
+\begin_inset Float table
 wide false
 sideways false
 status collapsed
@@ -8750,10 +9574,10 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Resulting poverty prediction under OVB in the same period 
+Random forest confusion matrix - out of sample prediction 
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:pb_mse"
+name "tab:rforest_matrix-oos"
 
 \end_inset
 
@@ -8768,10 +9592,744 @@ name "fig:pb_mse"
 \begin_layout Plain Layout
 \noindent
 \align center
-\begin_inset Graphics
-	filename C:/Users/WB378870/OneDrive - WBG/S2S_RTM_guidelines/5.figures/pb_mse_estimate.png
-	lyxscale 25
-	scale 50
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="6">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+True
+\backslash
+RF Linear fit
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Poorest
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Richest
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Poorest
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+57.7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+4.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+32.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+13.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+4.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+28.9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+4.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+13.9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+32.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Richest
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+4.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+58.6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
@@ -8780,22 +10338,14 @@ name "fig:pb_mse"
 
 \begin_layout Plain Layout
 
-\size small
-Source: Based on simulated data illustrated in Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Creating-populations"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- with added covariates.
- Predictions are assessed at various poverty lines across the welfare distributi
-on.
- Specifically, these lines correspond to percentiles that are multiples
- of 5.
+\size footnotesize
+Note: The table reports a transition matrix estimated from simulated data.
+ Each row sums to 100 and indicates the percentage of individuals originally
+ in the given quintile who were classified into each predicted quintile
+ based on the model’s linear fit.
+ The values represent averages across 1,000 simulated populations; for each,
+ a sample was drawn, the model was estimated on the sample, and subsequently
+ used to classify households in a separate sample.
 \end_layout
 
 \end_inset
@@ -8803,30 +10353,8 @@ on.
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\series bold
-Model-Based Noise Estimation
-\end_layout
-
-\begin_layout Plain Layout
-A more comprehensive simulation was conducted to derive "true" noise estimates:
- Step 1: Generated 5,000 populations with fixed covariates.
- Step 2: Extracted a 5% sample from each population to represent the survey.
- Step 3: Drew additional smaller samples (e.g., 10%, 20%, etc.) as target datasets,
- imputed poverty rates using the SAE model, and compared these to the true
- census-derived poverty rates.
- Findings revealed that the true Mean Squared Error (MSE) was consistently
- smaller than the MSE estimated using parametric bootstrap methods.
- <The key to understand what is driving this is the MSE formula which is
- a function of the variance and the bias.
- Under the true census, the variance is smaller since the N is larger, and
- when using a smaller data as the target data for the imputation the variance
- is overestimated while bias is unaffected.>
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Float figure
+\begin_layout Standard
+\begin_inset Float table
 wide false
 sideways false
 status collapsed
@@ -8835,10 +10363,10 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Resulting poverty prediction under OVB in the same period 
+OLS confusion matrix - out of sample prediction 
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:pb_mse-1"
+name "tab:ols_matrix-oos"
 
 \end_inset
 
@@ -8853,10 +10381,744 @@ name "fig:pb_mse-1"
 \begin_layout Plain Layout
 \noindent
 \align center
-\begin_inset Graphics
-	filename C:/Users/WB378870/OneDrive - WBG/S2S_RTM_guidelines/5.figures/pb_mse_true.png
-	lyxscale 25
-	scale 50
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="6">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+True
+\backslash
+OLS Linear fit
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Poorest
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Richest
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Poorest
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+58.7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+3.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+32.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+13.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+3.6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+28.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10.7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+3.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+13.9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+24.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+32.4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Richest
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+3.7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+10.8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+25.4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+59.6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
 
 \end_inset
 
@@ -8865,22 +11127,14 @@ name "fig:pb_mse-1"
 
 \begin_layout Plain Layout
 
-\size small
-Source: Based on simulated data illustrated in Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Creating-populations"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- with added covariates.
- Predictions are assessed at various poverty lines across the welfare distributi
-on.
- Specifically, these lines correspond to percentiles that are multiples
- of 5.
+\size footnotesize
+Note: The table reports a transition matrix estimated from simulated data.
+ Each row sums to 100 and indicates the percentage of individuals originally
+ in the given quintile who were classified into each predicted quintile
+ based on the model’s linear fit.
+ The values represent averages across 1,000 simulated populations; for each,
+ a sample was drawn, the model was estimated on the sample, and subsequently
+ used to classify households in a separate sample.
 \end_layout
 
 \end_inset
@@ -8888,56 +11142,226 @@ on.
 
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Subsection
+Data generation under a two-fold nested error model
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:DGP_cluster"
 
-\series bold
-Implications for Practice 
+\end_inset
+
+
 \end_layout
 
+\begin_layout Standard
+Data is generated for the simulations following the assumed double nested
+ error model.
+\begin_inset Foot
+status collapsed
+
 \begin_layout Plain Layout
-The consistent overestimation of noise using parametric bootstrap is significant.
- While overestimating noise may appear conservative, it introduces inefficiencie
-s that could undermine the precision of SAE outcomes.
- Encouragingly, the model-based approach provides more accurate noise estimates,
- aligning predictions more closely with true values derived from the census.
+Data is simulated following the same approach as 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2022guidelines"
+literal "false"
+
+\end_inset
+
+ which adapts the DGP from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ea7f7e4f-7381-39b0-abdd-8da14c150408"
+literal "false"
+
+\end_inset
+
+.
+ The write-up here is also borrowed from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2022guidelines"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
 
-\series bold
-Practical Considerations
-\series default
+ The simulated population consists of 
+\begin_inset Formula $N=20,000$
+\end_inset
+
+, distributed across 
+\begin_inset Formula $A=40$
+\end_inset
+
+ areas 
+\begin_inset Formula $\left(a=1,\ldots,A\right)$
+\end_inset
+
+.
+ Within each area 
+\begin_inset Formula $a$
+\end_inset
+
+, observations are uniformly allocated over 
+\begin_inset Formula $c=10$
+\end_inset
+
+ clusters 
+\begin_inset Formula $\left(c_{a}=1,\ldots,C_{a}\right)$
+\end_inset
+
+.
+ Each cluster 
+\begin_inset Formula $c$
+\end_inset
+
+ consists of 
+\begin_inset Formula $N_{ac}=50$
+\end_inset
+
+ observations and each area consists of 
+\begin_inset Formula $N_{a}=500$
+\end_inset
+
+ observations.
+\end_layout
+
+\begin_layout Standard
+The outcome variable 
+\begin_inset Formula $Y$
+\end_inset
+
+ is generated is generated from a linear model with additive random effects
+ at the area and PSU level, and household-specific error:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\ln y_{aci}=3+0.1x_{1_{i}}+0.5x_{2_{i}}-0.25x_{3_{i}}+0.2x_{4_{i}}-0.15x_{5_{i}}++\eta_{a}+\eta_{ac}+\varepsilon_{aci}\label{eq:dgp_model-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ is a binary variable, taking value 1 when a random uniform number between
+ 0 and 1, at the household-level, is less than or equal to 
+\begin_inset Formula $0.3+0.5\frac{a}{40}+0.2\frac{c}{10}$
+\end_inset
+
+.
  
 \end_layout
 
-\begin_layout Plain Layout
-For practitioners leveraging Stata SAE, it is worth noting that the tool
- allows incorporation of sample weights (e.g., for labor force surveys) through
- the pwcensus() option.
- Ensuring proper specification of weights can further improve the reliability
- of SAE results.
+\begin_layout Enumerate
+\begin_inset Formula $x_{2}$
+\end_inset
+
+ is a binary variable, taking value 1 when a random uniform number between
+ 0 and 1 is less than 0.2.
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Enumerate
+\begin_inset Formula $x_{3}$
+\end_inset
 
-\series bold
-Why This Matters
+ is a binary variable, taking value 1 when a random uniform number between
+ 0 and 1 is less than 0.5 as long as 
+\begin_inset Formula $x_{2}=1$
+\end_inset
+
+, otherwise it is equal to 0.
 \end_layout
 
-\begin_layout Plain Layout
-Accurate estimation of welfare and poverty indicators at granular levels
- is critical for effective policymaking and resource allocation.
- Misestimated noise—whether underestimated or overestimated—can distort
- the interpretation of SAE outputs, potentially leading to misguided interventio
-ns.
- By refining noise estimation approaches and leveraging robust methodologies,
- we can ensure that small area estimation delivers actionable insights that
- align with the realities of vulnerable populations.
+\begin_layout Enumerate
+\begin_inset Formula $x_{4}$
+\end_inset
+
+ is a binary variable, taking value 1 when a random uniform number between
+ 0 and 1, at the household-level, is less than or equal to 
+\begin_inset Formula $0.5+0.3\frac{a}{40}+0.1\frac{c}{10}$
+\end_inset
+
+.
+ 
 \end_layout
 
+\begin_layout Enumerate
+\begin_inset Formula $x_{5}$
+\end_inset
+
+ is a variable drawn from a Student’s t distribution with 5 degrees of freedom
+ and scaled by 0.25.
+\end_layout
+
+\begin_layout Standard
+Random effects are generated as follows:
+\end_layout
+
+\begin_layout Itemize
+Cluster effects are simulated as 
+\begin_inset Formula $\eta_{ac}\stackrel{iid}{\sim}N\left(0,0.1\right)$
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+Area effects as 
+\begin_inset Formula $\eta_{a}\stackrel{iid}{\sim}N\left(0,0.15^{2}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Household specific residuals as 
+\begin_inset Formula $e_{aci}\overset{iid}{{\sim}}N\left(0,0.5^{2}\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $c=1,\ldots,C_{a}$
+\end_inset
+
+, 
+\begin_inset Formula $a=1,\ldots,A$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+For each of the 1,000 simulated populations, a two-stage sampling process
+ is used to draw the source sample (used to train the model):
+\end_layout
+
+\begin_layout Enumerate
+In the first stage, 4 clusters are selected at random (without replacement)
+ within each area.
+\end_layout
+
+\begin_layout Enumerate
+In the second stage, 10 observations are randomly selected from each selected
+ cluster.
+\end_layout
+
+\begin_layout Standard
+This results in a sample of 1,600 observations per population.
+ The target data is drawn using the same sampling procedure, so the target
+ sample may include entirely different clusters and observations than the
+ source sample.
 \end_layout
 
 \end_body

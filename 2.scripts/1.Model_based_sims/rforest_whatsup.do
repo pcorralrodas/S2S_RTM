@@ -12,6 +12,8 @@ clear all
 set maxvar 10000
 local sigmaeps = 0.5      //Sigma eps
 
+set seed 73730
+
 
 local mypovlines 
 forval z=5(5)95{
@@ -34,23 +36,32 @@ end
 *===============================================================================
 // STep 2: Follow rforest
 *===============================================================================
-use "$dpath/srs_sample.dta", clear
-	sort hhid
-	rforest Y_B x1-x5, type(reg) numvars(5) iter(200) lsize(5)
+//use "$dpath/srs_sample_t.dta", clear
+use "$dpath/srs_sample_t.dta", clear
+append using "$dpath\full_sample_t.dta", gen(lamuestra)
+	rforest Y_B x1-x5 in 1/4000, type(reg) numvars(3) iter(200) lsize(5)
 	predict xb
 	gen double res = Y_B - xb
 	gen touse = !missing(res)
 	putmata e      = res if touse==1
 	putmata xb     = xb  if touse==1
 	
-	reg Y_B x1-x5, r
+	reg Y_B x1-x5 if lam==0, r
 	predict xb_ols, xb
 	predict res_ols, res
 	
 	putmata e_ols      = res_ols if touse==1
 	putmata xb_ols     = xb_ols  if touse==1
-
-		
+	
+	gen lny = ln(e_y)
+	gen res_RF = lny - xb
+	gen res_OLS = lny-xb_ols
+	gen mse_RF = res_RF ^2
+	gen mse_OLS = res_OLS ^2	
+	
+	tabstat mse_RF mse_OLS, by(lamuestra )
+	
+	
 	
 	//Simulate vector a la EBP
 	local the_y

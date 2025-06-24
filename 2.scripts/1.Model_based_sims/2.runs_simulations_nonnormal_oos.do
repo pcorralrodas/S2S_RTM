@@ -48,7 +48,7 @@ save `full'
 // Het MI Reg
 *===============================================================================
 	use "$dpath/srs_sample_t.dta", clear
-	expand 2, generate(new)
+	append using  "$dpath/full_sample_t.dta", gen(new)
 	replace Y_B = . if new==1
 	sort new hhid
 	mi set wide
@@ -72,13 +72,16 @@ save `hetmireg'
 // STep 2: Follow rforest
 *===============================================================================
 use "$dpath/srs_sample_t.dta", clear
-	sort hhid
-	rforest Y_B x1-x5, type(reg) numvars(3) iter(200) lsize(5)
+	append using  "$dpath/full_sample_t.dta", gen(new)
+	sort new hhid
+	count if new==0
+	replace Y_B=. if new==1
+	rforest Y_B x1-x5 in 1/`r(N)', type(reg) numvars(3) iter(200) lsize(5)
 	predict xb
 	gen double res = Y_B - xb
 	gen touse = !missing(res)
 	putmata e      = res if touse==1
-	putmata xb     = xb  if touse==1
+	putmata xb     = xb  if new==1
 	//Simulate vector a la EBP
 	local the_y
 	forval z=1/100{
@@ -86,41 +89,10 @@ use "$dpath/srs_sample_t.dta", clear
 		local the_y `the_y'  y_`z'
 		local nv = `z'
 	}
+	drop if new==0
 	
-	mata: st_view(la_y=.,.,tokens("`the_y'"),"touse")
-	mata: la_y[.,.] = exp(J(1, cols(la_y), xb))
-	
-	gen all=1
-	
-	sp_groupfunction, poverty(y_1 - y_100)  povertyline(`mypovlines') gini(y_1 - y_100) by(all)
-	groupfunction, by(measure reference) mean(value)
-	
-	gen method = "rforest_noerr"
-tempfile rforest_n
-save `rforest_n'
-mata: mata drop xb e
-
-*===============================================================================
-// STep 2: Follow rforest
-*===============================================================================
-use "$dpath/srs_sample_t.dta", clear
-	sort hhid
-	rforest Y_B x1-x5, type(reg) numvars(3) iter(200) lsize(5)
-	predict xb
-	gen double res = Y_B - xb
-	gen touse = !missing(res)
-	putmata e      = res if touse==1
-	putmata xb     = xb  if touse==1
-	//Simulate vector a la EBP
-	local the_y
-	forval z=1/100{
-		qui:gen double y_`z' = .
-		local the_y `the_y'  y_`z'
-		local nv = `z'
-	}
-	
-	mata: st_view(la_y=.,.,tokens("`the_y'"),"touse")
-	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(e),e))
+	mata: st_view(la_y=.,.,tokens("`the_y'"))
+	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(xb),e))
 	
 	gen all=1
 	
@@ -136,14 +108,15 @@ mata: mata drop xb e
 // STep 2: Follow LASSO approach
 *===============================================================================
 use "$dpath/srs_sample_t.dta", clear
-	sort hhid
-	lasso linear Y_B x1-x5, selection(cv)
-	
+	append using  "$dpath/full_sample_t.dta", gen(new)
+	replace Y_B=. if new==1
+	sort new hhid
+	lasso linear Y_B x1-x5 if new==0, selection(cv)	
 	predict xb, xb
 	gen double res = Y_B - xb
 	gen touse = !missing(res)
 	putmata e      = res if touse==1
-	putmata xb     = xb  if touse==1
+	putmata xb     = xb  if new==1
 	//Simulate vector a la EBP
 	local the_y
 	forval z=1/100{
@@ -151,9 +124,10 @@ use "$dpath/srs_sample_t.dta", clear
 		local the_y `the_y'  y_`z'
 		local nv = `z'
 	}
+	drop if new==0
 	
-	mata: st_view(la_y=.,.,tokens("`the_y'"),"touse")
-	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(e),e))
+	mata: st_view(la_y=.,.,tokens("`the_y'"))
+	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(xb),e))
 	
 	gen all=1
 	
@@ -169,14 +143,15 @@ mata: mata drop xb e
 //Select by lowest BIC
 *===============================================================================
 use "$dpath/srs_sample_t.dta", clear
-	sort hhid
-	lasso linear Y_B x1-x5, selection(bic)
-	
+	append using  "$dpath/full_sample_t.dta", gen(new)
+	replace Y_B=. if new==1
+	sort new hhid
+	lasso linear Y_B x1-x5 if new==0, selection(bic)	
 	predict xb, xb
 	gen double res = Y_B - xb
 	gen touse = !missing(res)
 	putmata e      = res if touse==1
-	putmata xb     = xb  if touse==1
+	putmata xb     = xb  if new==1
 	//Simulate vector a la EBP
 	local the_y
 	forval z=1/100{
@@ -184,9 +159,10 @@ use "$dpath/srs_sample_t.dta", clear
 		local the_y `the_y'  y_`z'
 		local nv = `z'
 	}
+	drop if new==0
 	
-	mata: st_view(la_y=.,.,tokens("`the_y'"),"touse")
-	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(e),e))
+	mata: st_view(la_y=.,.,tokens("`the_y'"))
+	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(xb),e))
 	
 	gen all=1
 	
@@ -204,14 +180,15 @@ mata: mata drop xb e
 *===============================================================================
 
 use "$dpath/srs_sample_t.dta", clear
-	sort hhid
-	lasso linear Y_B x1-x5, selection(adaptive)
-	
+	append using  "$dpath/full_sample_t.dta", gen(new)
+	replace Y_B=. if new==1
+	sort new hhid
+	lasso linear Y_B x1-x5 if new==0, selection(adaptive)	
 	predict xb, xb
 	gen double res = Y_B - xb
 	gen touse = !missing(res)
 	putmata e      = res if touse==1
-	putmata xb     = xb  if touse==1
+	putmata xb     = xb  if new==1
 	//Simulate vector a la EBP
 	local the_y
 	forval z=1/100{
@@ -219,9 +196,10 @@ use "$dpath/srs_sample_t.dta", clear
 		local the_y `the_y'  y_`z'
 		local nv = `z'
 	}
+	drop if new==0
 	
-	mata: st_view(la_y=.,.,tokens("`the_y'"),"touse")
-	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(e),e))
+	mata: st_view(la_y=.,.,tokens("`the_y'"))
+	mata: la_y[.,.] = exp(xb:+_f_sampleepsi(`nv', rows(xb),e))
 	
 	gen all=1
 	
@@ -240,10 +218,12 @@ mata: mata drop xb e
 // STep 2: Follow EBP approach - no fixe
 *===============================================================================
 use "$dpath/srs_sample_t.dta", clear
-	sort hhid
-	reg Y_B  x1 x2 x3 x4 x5, r
+	append using  "$dpath/full_sample_t.dta", gen(new)
+	sort new hhid
+	reg Y_B  x1 x2 x3 x4 x5 if new==0, r
 	predict xb, xb
 	local SiGma = e(rmse)
+	drop if new==0
 	
 	//Simulate vector a la EBP
 	forval z=1/100{
@@ -263,12 +243,15 @@ save `ebp'
 // STep 2: lnskew fix
 *===============================================================================
 use "$dpath/srs_sample_t.dta", clear
-	sort hhid
-	lnskew0 newY = e_y
+	append using  "$dpath/full_sample_t.dta", gen(new)
+	sort new hhid
+	lnskew0 newY = e_y if new==0
 	local G = r(gamma)
-	reg newY x1 x2 x3 x4 x5, r
+	reg newY x1 x2 x3 x4 x5 if new==0, r
 	predict xb, xb
 	local SiGma = e(rmse)
+	
+	drop if new==0
 	
 	//Simulate vector a la EBP
 	forval z=1/100{
@@ -288,12 +271,15 @@ save `ebp'
 // bcox fix
 *===============================================================================
 use "$dpath/srs_sample_t.dta", clear
-	sort hhid
+	append using  "$dpath/full_sample_t.dta", gen(new)
+	sort new hhid
 	bcskew0 newY = e_y
 	local G = r(lambda)
-	reg newY x1 x2 x3 x4 x5, r
+	reg newY x1 x2 x3 x4 x5 if new==0, r
 	predict xb, xb
 	local SiGma = e(rmse)
+	
+	drop if new==0
 	
 	//Simulate vector a la EBP
 	forval z=1/100{
@@ -314,8 +300,8 @@ save `ebp'
 // STep 3: Follow MI approach
 *===============================================================================
 
-	use "$dpath/srs_sample_t.dta", clear
-	expand 2, generate(new)
+use "$dpath/srs_sample_t.dta", clear
+	append using  "$dpath/full_sample_t.dta", gen(new)
 	replace Y_B = . if new==1
 	sort new hhid
 	mi set wide
@@ -341,7 +327,6 @@ save `ebp'
 
 append using `hetmireg'
 append using `rforest'
-append using `rforest_n'
 append using `lasso'
 append using `ebp'
 append using `full'
@@ -352,8 +337,8 @@ save `uno'
 // STep 4: Follow MI approach - bootstrap
 *===============================================================================
 
-	use "$dpath/srs_sample_t.dta", clear
-	expand 2, generate(new)
+use "$dpath/srs_sample_t.dta", clear
+	append using  "$dpath/full_sample_t.dta", gen(new)
 	replace Y_B = . if new==1
 	sort new hhid
 	mi set wide

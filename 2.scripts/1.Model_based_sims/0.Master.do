@@ -44,7 +44,7 @@ cap: github install pcorralrodas/wentropy
 *===============================================================================
 
 * Runs processes
-forval z=1/100	{
+forval z=1/1000{
 	
 	* Displays current simulation
 	global zed = `z'

@@ -12,25 +12,33 @@ clear
 *===============================================================================
 // STep 2: Follow rforest
 *===============================================================================
-use "$dpath/srs_sample_cluster.dta", clear
-append using "$dpath\srs_sample_cluster_target.dta", gen(lamuestra)
+use "$dpath/srs_sample_t.dta", clear
+append using "$dpath\full_sample_t.dta", gen(lamuestra)
 	sort lamuestra hhid
-	rforest Y_B x1-x5 in 1/1600, type(reg) numvars(3) iter(200) lsize(5)
+	count if lamuestra==0
+	rforest Y_B x1-x5 in 1/`r(N)', type(reg) numvars(3) iter(200) lsize(5)
 	predict xb
+		
 	reg Y_B x1-x5 if lamuestra==0, r
 	predict xb_ols, xb	
-	drop if lamuestra==0
 	
-	xtile true = laverdad, nq(5)
-	xtile qrf = xb, nq(5)
-	xtile qols = xb_ols, nq(5)
+	gen mse_ols = (ln(e_y) - xb_ols)^2
+	gen mse_rf  = (ln(e_y) - xb)^2
+
 	
-	tab true,gen(true_)
+	xtile qrf    = xb     if lamuestra==1, nq(5)
+	xtile qols   = xb_ols if lamuestra==1, nq(5)
+	
+	xtile qrf_in    = xb     if lamuestra==0, nq(5)
+	xtile qols_in   = xb_ols if lamuestra==0, nq(5)
+		
 	tab qrf, gen(qrf_)
 	tab qols, gen(qols_)
+	tab qrf_in, gen(qrf_in_)
+	tab qols_in, gen(qols_in_)
 	
 	
-	groupfunction, mean(qrf_* qols_*) by(true)
+	groupfunction, mean(qrf_* qols_* mse_*) by(lamuestra) xtile(e_y) nq(5)
 	
 	gen sim = $zed
 	

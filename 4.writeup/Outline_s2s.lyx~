@@ -90,10 +90,49 @@
 \begin_layout Title
 The why, the how, and the when to impute: a practitioners’ guide to survey-to-su
 rvey imputation of poverty
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The authors acknowledge financial support from the World Bank.
+ We thank Chris Elbers, Roy van der Weide, Sergio Olivieri, Hai-Anh Dang,
+ and Nobuo Yoshida for comments.
+ We also thank participants of the S2S workshop held at the World Bank.
+ Additionally, we thank Luis-Felipe Lopez Calva, Gabriela Inchauste and
+ Maria Eugenia Genoni for providing support and space to pursue this work.
+ Any error or omission is the authors’ responsibility alone.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Author
 Paul Corral, Andres Ham, Peter Lanjouw, Leonardo Lucchetti, and Henry Stemmler
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Paul Corral, Leonardo Lucchetti, and Henry Stemmler are part of the World
+ Bank.
+ Andres Ham is of Universidad de los Andes, and Peter Lanjouw is part of
+ Vrije Universiteit Amsterdam.
+ Corresponding author: Paul Andres Corral Rodas, 
+\begin_inset CommandInset href
+LatexCommand href
+name "pcorralrodas@worldbank.org"
+target "pcorralrodas@worldbank.org"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -106,11 +145,11 @@ The measurement and monitoring of poverty are central to assessing global
  For the World Bank, whose twin goals include ending extreme poverty, the
  ability to track poverty reduction is fundamental to measuring institutional
  effectiveness and guiding policy decisions.
- Yet a persistent challenge hampers this crucial task: the limited availability
+ Yet, a persistent challenge hampers this crucial task: the limited availability
  of recent, high-quality household survey data that includes information
  that allows for comparable measures of expenditure or income across time.
- This challenge is particularly acute in countries where poverty is concentrated
- 
+ This challenge is particularly acute in countries where poverty is most
+ concentrated 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "DangJolliffeCarletto"
@@ -119,8 +158,16 @@ literal "false"
 \end_inset
 
 .
- For instance, India, home to a significant share of the global poor, did
- not release official consumption survey data between 2011 and 2022.
+ 
+\end_layout
+
+\begin_layout Standard
+In large, poverty-affected countries, such as India and Nigeria, gaps in
+ household survey data have hindered global poverty monitoring.
+ Together, these two economies account for a substantial share of the world's
+ poor, meaning that they heavily influence global poverty trends.
+ In India, official consumption survey data was unavailable between 2011
+ and 2022.
 \begin_inset Foot
 status collapsed
 
@@ -138,11 +185,11 @@ target "https://www.mospi.gov.in/unit-level-data-report-nss-75th-round-july-2017
 
 \end_inset
 
- Similarly, Nigeria lacked household survey data for poverty monitoring
- between 2009 and 2018.
+ In Nigeria comparable survey data for poverty monitoring was absent between
+ 2009 and 2018.
  These data gaps not only affect our understanding of poverty at the country
- level but can significantly impact global poverty estimates and our assessment
- of progress toward poverty reduction targets.
+ level but compromise our ability to produce reliable global poverty estimates
+ and assess progress toward poverty reduction goals.
 \end_layout
 
 \begin_layout Standard
@@ -489,7 +536,7 @@ s across the welfare distribution for indicators that are not available
  This is where S2S comes into play.
  A model trained on the living standards survey and applied to the DHS can
  help us inform about the difference in stunting rates between poor and
- none poor households or determine how it varies across the welfare distribution.
+ non-poor households or determine how it varies across the welfare distribution.
  
 \end_layout
 
@@ -729,8 +776,8 @@ literal "false"
 
  undertakes an empirical validation of survey-to-survey imputation methods
  over time.
- The authors perform survey-to-survey imputation over time in scenarios
- where there is comparable expenditure data which provides a 
+ The authors perform survey-to-survey imputation in scenarios where there
+ is comparable expenditure data which provides a 
 \begin_inset Quotes eld
 \end_inset
 
@@ -739,7 +786,7 @@ true
 \end_inset
 
  estimate of poverty.
- The authors validate their approach using data for Vietnam and for China
+ The authors validate their approach with data for Vietnam and for China
  using rural household panel data.
  In Vietnam, the authors obtain a model using the 1992/93 data and predict
  poverty using the 1997/98 data.
@@ -764,22 +811,19 @@ true
 Applications of survey to survey imputation have also made their way to
  global poverty monitoring.
  For example, until recently every poverty number for India after 2011 is
- an imputation.
+ based on an imputation.
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
 As of this writing, every poverty number for India after 2011 is an imputation.
  These numbers are reported in the World Bank's Poverty and Inequality Platform
- with no warning to visitors on the origins of the numbers.
- The previous Household Consumption Expenditure Survey was conducted in
- 2011, and a new round was not completed until 2023.
+ and the source of the poverty rates for the country are not always obvious
+ to visitors.
 \end_layout
 
 \end_inset
 
- These numbers are reported in the World Bank's Poverty and Inequality Platform
- with no warning to visitors on the imputed origins of the numbers.
  To better understand how such estimates are produced, and the assumptions
  underpinning them, the next section outlines the foundations of survey-to-surve
 y imputation, tracing its origins in the broader field of missing data methodolo
@@ -953,9 +997,8 @@ literal "false"
  predicted the variable of interest, consumption, at the household level
  and from that they obtained aggregate statistics based on the prediction
  of consumption.
- Nevertheless, earlier examples exist where data from different sources
- are combined to predict a variable of interest at the household level (for
- example, Arellano and Meghir 
+ While earlier examples exist of combining data from different sources to
+ predict household-level variables (e.g., Arellano and Meghir 
 \begin_inset CommandInset citation
 LatexCommand citebyear
 key "arellano1992female"
@@ -963,8 +1006,7 @@ literal "false"
 
 \end_inset
 
-).
- Nevertheless, what is innovative of the work from 
+), the innovation in 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "jesko1998"
@@ -972,10 +1014,10 @@ literal "false"
 
 \end_inset
 
- is that the authors apply models fit on survey data to the census with
- the goal of replicating the entire consumption distribution and from that
- distribution obtain estimates of poverty and other welfare indicators as
- if one had welfare in the census.
+ lies in applying models estimated from survey data to census data to replicate
+ the full consumption distribution.
+ This approach allows for the estimation of poverty and other welfare indicators
+ as if welfare data were available in the census itself.
  After refinements by 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -987,9 +1029,8 @@ literal "false"
 , the work became the basis of what later was referred to as poverty mapping
  in the World Bank.
  The key difference between survey-to-survey imputation and small area estimatio
-n is that small area estimation aims to replicate the welfare distribution
- for each specific area or group of interest, rather than only for the entire
- population.
+n is that the latter aims to replicate the welfare distribution for each
+ specific area or group of interest, rather than only for the entire population.
  One of the first applications of the methods from 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -1076,23 +1117,7 @@ where
 \end_inset
 
  is a vector of independent variables common to the source survey and the
- target survey,
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-the source survey is the one used to fit equation 1, and the target survey
- is where the parameters estimated in the source survey are applied to impute
- 
-\begin_inset Formula $\ln y_{i}$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
- and 
+ target survey, and 
 \begin_inset Formula $e_{i}$
 \end_inset
 
@@ -1247,7 +1272,7 @@ literal "false"
 \end_inset
 
 ) and is similar to the methodology used in Stata's multiple imputation
- commands ( 
+ commands (
 \family typewriter
 mi regress
 \family default
@@ -1703,8 +1728,8 @@ name "subsec:sametime"
 \begin_layout Standard
 Imputation of poverty to a contemporaneous survey can be a useful tool.
  For example, assume a country collects a living standard survey annually
- as and has also collected a Demographic and Health Survey (DHS).
- If one would like to determine how do nutritional indicators among children
+ and has also collected a Demographic and Health Survey (DHS).
+ If one would like to determine how nutritional indicators among children
  vary across the welfare distribution, survey to survey imputation may be
  of use to determine this.
  Nevertheless, practitioners could also impute the indicator of interest
@@ -2283,7 +2308,8 @@ The challenges noted in previous sections extend to inequality measurement.
 \end_layout
 
 \begin_layout Standard
-Assuming that welfare is lognormally distributed then Gini is equal to (
+Assuming that welfare is log-normally distributed then Gini is equal to
+ (
 \begin_inset CommandInset citation
 LatexCommand citealt
 key "crow1987lognormal"
@@ -2620,6 +2646,171 @@ noprefix "false"
 e that is entirely driven by the model fit and its assumptions.
  The process is applied across 1,000 generated populations allowing us to
  assess the method's empirical bias.
+\end_layout
+
+\begin_layout Subsubsection
+Why simulate the errors?
+\end_layout
+
+\begin_layout Standard
+Survey-to-survey (S2S) imputation of poverty is not simply about predicting
+ the dependent variable.
+ Relying solely on the predicted value of welfare to derive poverty rates
+ often yields poor results.
+ This section uses the synthetic population introduced in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Creating-populations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to illustrate this point.
+\end_layout
+
+\begin_layout Standard
+We fit a linear model on a simple random sample (SRS) comprising 20 percent
+ of the population.
+ This model is then used to generate two sets of predicted values for the
+ full data:
+\end_layout
+
+\begin_layout Enumerate
+The linear prediction, 
+\begin_inset Formula $\hat{y_{i}}=x_{i}\hat{\beta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The linear prediction plus a randomly drawn error: 
+\begin_inset Formula $y_{i}^{*}=x_{i}\hat{\beta}+e_{i}^{*}$
+\end_inset
+
+, where 
+\begin_inset Formula $e_{i}^{*}$
+\end_inset
+
+ is drawn from 
+\begin_inset Formula $N(0,\hat{\sigma}^{2})$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:why_errors"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ hows that relying solely on the linear prediction, 
+\begin_inset Formula $x_{i}\hat{\beta},$
+\end_inset
+
+ fails to replicate the true distribution of welfare.
+ For example, if the true poverty line is 2.39—corresponding to a 20 percent
+ poverty rate in the actual data—then the linear prediction alone would
+ imply a poverty rate of only 10 percent.
+ This gap persists despite the fact that the linear prediction has a lower
+ mean squared error (MSE = 0.25) than the version with stochastic error (MSE
+ = 0.5).
+ This demonstrates that minimizing MSE is not sufficient for reproducing
+ the distributional properties needed to estimate poverty accurately.
+ Moreover, the Spearman rank correlation is higher for the linear prediction
+ than for the version with added error.
+ In other words, correctly ranking households is also not enough to replicate
+ the full welfare distribution or derive accurate poverty statistics.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Replicating the actual distribution, with and without simulated errors 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:why_errors"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/why_errors.eps
+	lyxscale 80
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size footnotesize
+Note: Data are generated as described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Creating-populations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ True values correspond to those generated following Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:dgp_model"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, XB are the predicted linear fit on to the full data, and XB+e is the predicted
+ linear fit plus a random error following the estimated distribution from
+ the model.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This underscores a central point: accurate estimation of poverty through
+ S2S imputation requires more than good point predictions or rankings.
+ It requires replicating the underlying distribution of welfare.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -3289,7 +3480,7 @@ noprefix "false"
 \end_inset
 
 ).
- When applied to the same data used for modeling, random forests classifies
+ When applied to the same data used for modeling, random forest classifies
  households with notably higher accuracy.
  However, this advantage disappears when applied to the entire population
  (i.e., from where the SRS sample was taken from) where the classification
@@ -3331,10 +3522,10 @@ In the simulations conducted here, given that the true DGP is known, model
 
 \begin_layout Standard
 The pattern is also evident in the mean squared residuals: in-sample, random
- forests achieve a low mean squared residual of 0.09, compared to 0.23 for
+ forests achieve a low mean squared residual of 0.075, compared to 0.20 for
  OLS.
  When looking at out-of-sample results, however, the random forest residuals
- increase to 0.25, converging toward the OLS out-of-sample value of 0.24.
+ increase to 0.19, converging toward the OLS out-of-sample value of 0.20.
  
 \end_layout
 
@@ -3739,10 +3930,17 @@ MI 100
 
 ) and shows that all three produce similar bias profiles.
  All result in low bias, at worst it is a little under 0.06 percentage points.
- The result shown here underscore that accounting for clustering is not
+ The results shown here underscore that accounting for clustering is not
  critical for point estimates at the national level, though it does matter
- for the precision of subnational estimates which is not relevant for this
- work.
+ for the precision of subnational estimates (see 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ea7f7e4f-7381-39b0-abdd-8da14c150408,corral2021map"
+literal "false"
+
+\end_inset
+
+ ).
 \end_layout
 
 \begin_layout Standard
@@ -3865,7 +4063,7 @@ A common alternative imputation approach, predictive mean matching (PMM),
 status collapsed
 
 \begin_layout Plain Layout
-Usually OLS, see 
+Predictions typically rely on OLS, see 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "lucchetti2024application"
@@ -4356,6 +4554,15 @@ noprefix "false"
 .
  A random sample of 30 percent is marked as the target survey, and a random
  sample of 20 percent is marked as the source data for training the model.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The samples are selected separately and may have an overlap in observations.
+\end_layout
+
+\end_inset
+
  To compare the noise estimates of each method, 10,000 populations are created.
  Under each population a new error is drawn from its assumed distribution
  and predictions are made, as well as noise is estimated – following a parametri
@@ -4710,8 +4917,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-However, the method's efficacy depends on the assumption that covariates
- follow a normal distribution – an assumption that may not hold universally.
+The method's efficacy depends on the assumption that covariates follow a
+ normal distribution – an assumption that may not hold universally.
  To assess the robustness of this approach, the samples described in Section
  
 \begin_inset CommandInset ref
@@ -4872,14 +5079,6 @@ Note that the true value is used and not its estimate
  and bias was determined by comparing these estimates to the true population
  values across the 1,000 populations, resulting in a robust evaluation of
  the methods.
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-Results and Discussion
-\series default
- 
 \end_layout
 
 \begin_layout Standard
@@ -5863,76 +6062,13 @@ literal "false"
 \end_inset
 
 , the model might include fast-changing consumption indicators—such as whether
- households consumed meat, eggs, or chocolate—as proxies for welfare changes,
- the authors refer to this as the SWIFT+ methodology.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-The exact meaning of the "SWIFT methodology" and what it actually entails
- is unclear.
- The original meaning behind the Survey of Well-being via Instant and Frequent
- Tracking (SWIFT) referred to a framework in which a specifically designed
- short survey was fielded for the purpose of conducting survey-to-survey
- (S2S) imputation (
-\begin_inset CommandInset citation
-LatexCommand citet
-key "yoshida2015swift,yoshida2022concept"
-literal "false"
-
-\end_inset
-
-).
- The strength of the original approach was that the target survey was intentiona
-lly designed to include covariates that aligned well with the imputation
- model.
-\end_layout
-
-\begin_layout Plain Layout
-However, over time, the term “SWIFT” appears to have been used more loosely,
- often as a general label for any S2S application, without clear explanation
- of the underlying assumptions or how the imputations are implemented.
- Nevertheless, 
-\begin_inset CommandInset citation
-LatexCommand citet
-after "p3"
-key "yoshida2022poverty"
-literal "false"
-
-\end_inset
-
- says: “The SWIFT methodology is a rapid poverty monitoring tool which applies
- machine learning and multiple imputations techniques to project household
- expenditure/income and poverty using the data from 10 to 15 simple questions
- from household surveys.” Where the key component mentioned before, the intention
-ally designed survey, is not mentioned and now seems to suggest that the
- SWIFT methodology is just S2S.
- This seems to have carried over to applications in specific countries,
- for example 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "yoshida2024enabling"
-literal "false"
-
-\end_inset
-
- note several countries where 
-\begin_inset Quotes eld
-\end_inset
-
-SWIFT
-\begin_inset Quotes erd
-\end_inset
-
- has been implemented yet it seems to refer to just regular S2S.
-\end_layout
-
-\end_inset
-
+ households consumed meat, eggs, or chocolate—as proxies for welfare changes.
  Yet, if conflict both reduces consumption of these goods and suppresses
  household expenditure, then omitting conflict from the model could introduce
  omitted variable bias (OVB).
- As discussed in the annex (Annex 
+ This kind of misspecification can distort poverty estimates, particularly
+ when key explanatory variables are correlated with both the outcome and
+ unobserved shocks like insecurity (refer to Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:ann_ovb"
@@ -5942,9 +6078,7 @@ noprefix "false"
 
 \end_inset
 
-), this kind of misspecification can distort poverty estimates, particularly
- when key explanatory variables are correlated with both the outcome and
- unobserved shocks like insecurity.
+).
 \end_layout
 
 \begin_layout Standard
@@ -7223,37 +7357,6 @@ The magnitude and direction of the bias that arises due to OVB is often
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Concerningly, 
-\begin_inset CommandInset citation
-LatexCommand citeauthor
-key "barriga2023updating"
-literal "false"
-
-\end_inset
-
-(2023, p13) claim: 
-\begin_inset Quotes eld
-\end_inset
-
-However, the empirical assessment shows that models using the SWIFT-Plus
- approach can project poverty rates accurately even after a large economic
- or climate shock.
-\begin_inset Quotes erd
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Conclusions
 \end_layout
@@ -7324,7 +7427,7 @@ literal "false"
 
 \end_inset
 
- who rely on auxiliary data to lend durther credence to their S2S estimates.
+ who rely on auxiliary data to lend further credence to their S2S estimates.
 \end_layout
 
 \begin_layout Enumerate
@@ -7470,7 +7573,7 @@ name "subsec:ann_ovb"
 \begin_layout Standard
 Survey-to-survey imputation across time periods requires careful consideration.
  For example in a conflict setting, where conflict has significantly subsided
- between the collection of the trainign and the target data, it is crucial
+ between the collection of the training and the target data, it is crucial
  to control for conflict in the model.
 \begin_inset Foot
 status collapsed
@@ -7482,36 +7585,19 @@ Note that nothing to control for those shocks was included in the original
 
 \end_inset
 
- In instancese where conflict is not included in the model, its effects
- would only manifest through changes in other variables.
+ In instances where conflict is not included in the model, its effects would
+ only manifest through changes in other variables.
  This potential omitted variable bias raises concerns about the model's
  reliability for temporal predictions.
  When imputing over time, it is possible for multiple issues to arise.
  Since true expenditure is not available it is impossible to know if the
- model's biases cancel eachother out or compound.
+ model's biases cancel each other out or compound.
 \end_layout
 
 \begin_layout Standard
 Some may argue that the inclusion of fast changing consumption variables,
  such as an indicator of whether or not the household consumed eggs over
  the past week, are sufficient for accurate estimates of poverty .
- This is what 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "yoshida2022concept"
-literal "false"
-
-\end_inset
-
- refer to as the 
-\begin_inset Quotes eld
-\end_inset
-
-SWIFT Plus methodology
-\begin_inset Quotes erd
-\end_inset
-
-.
  Nevertheless, these variables are likely subject to omitted variable bias
  which can lead to biased estimates of the coefficients leading to biased
  poverty measures.
@@ -7791,7 +7877,7 @@ Note that since poverty also depends on the model's predicted root mean
 \end_inset
 
 , lowering the poverty likelihood of households but would be ignored in
- theexample provided here.
+ the example provided here.
 \end_layout
 
 \begin_layout Standard

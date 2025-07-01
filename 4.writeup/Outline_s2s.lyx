@@ -135,6 +135,40 @@ literal "false"
 
 \end_layout
 
+\begin_layout Abstract
+Accurate and timely poverty measurement is central to development policy,
+ yet the availability of high-quality household survey data remains limited—part
+icularly in countries where poverty is most concentrated.
+ Survey-to-survey (S2S) imputation has emerged as a practical response to
+ this challenge, allowing practitioners to estimate poverty using surveys
+ that lack direct welfare measures by borrowing information from other comprehen
+sive surveys.
+ A technical guide to the method is provided, revisiting its statistical
+ underpinnings and testing its limitations through extensive model-based
+ simulations.
+ Through model-based simulations, the analysis demonstrates how violations
+ of parameter stability, omitted variable bias, and shifts in survey design
+ can introduce substantial errors—particularly when imputing across time
+ or under economic and structural change.
+ Results show that standard corrections such as re-weighting or covariate
+ standardization may fail to eliminate these biases, especially when imputing
+ across time or under structural change.
+ The performance of alternative model specifications is also evaluated under
+ various methods, including performance under heteroskedastic errors, non-normal
+ity.
+ The findings offer practical guidance for practitioners on when S2S imputation
+ is likely to succeed, when it should be reconsidered, and how to communicate
+ its limitations transparently in the context of poverty monitoring and
+ policy design.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Introduction
 \end_layout
@@ -169,7 +203,7 @@ In large, poverty-affected countries, such as India and Nigeria, gaps in
  In India, official consumption survey data was unavailable between 2011
  and 2022.
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The 75th round of the NSO Survey of Consumption Expenditure was collected
@@ -1166,8 +1200,11 @@ noprefix "false"
 \begin_inset Formula $i$
 \end_inset
 
- in the target survey, the probability of being poor is entirely dependent
- on its expected welfare, 
+ in the target survey, the probability of being poor for household 
+\begin_inset Formula $i$
+\end_inset
+
+ is entirely dependent on its expected welfare, 
 \begin_inset Formula $x_{i}\beta,$
 \end_inset
 
@@ -1464,7 +1501,7 @@ noprefix "false"
 \end_inset
 
 ).
- The steps are straight froward:
+ The steps are straight forward:
 \end_layout
 
 \begin_layout Enumerate
@@ -1788,7 +1825,7 @@ literal "false"
 .
  These preconditions ensure that the fundamental assumption – both surveys
  represent the same underlying population – holds true.
- Having 2 contemporaneous surveys who represent the same population are
+ Having 2 contemporaneous surveys which represent the same population are
  needed for the approach to work well.
  In this instance, the tendency of S2S methods to replicate the distribution
  of the source data in the target data is considered an advantage.
@@ -2713,7 +2750,7 @@ noprefix "false"
 
 \end_inset
 
- hows that relying solely on the linear prediction, 
+ shows that relying solely on the linear prediction, 
 \begin_inset Formula $x_{i}\hat{\beta},$
 \end_inset
 
@@ -4038,7 +4075,7 @@ One-fold
 \series bold
 Two-fold
 \series default
- follow small area estimation methods accounting for clusteing in the data.
+ follow small area estimation methods accounting for clustering in the data.
  Poverty is estimated for each threshold under each imputed vector, and
  the results are averaged across simulations to obtain the final estimate.
 \end_layout

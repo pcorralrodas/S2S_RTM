@@ -102,11 +102,11 @@ use `full', replace
 //predict linear fit
 predict xb, xb
 
-gen mse = (Y_B - xb)^2
+gen mse_xb = (Y_B - xb)^2
 
 gen xb_e = rnormal(xb,`rmse')
 
-gen mse_yy = (Y_B - xb_e)^2
+gen mse_xb_e = (Y_B - xb_e)^2
 
 //so xb minimizes the MSE, by a LOT!
 sum mse*
@@ -114,7 +114,7 @@ sum mse*
 spearman Y_B xb xb_e //The spearman rank is highest for xb 
 
 //But, look at what matches the distribution better
-tabstat Y_B xb xb_e, stat(min p5 p10 p25 p50 p75 p90 p95 mean max)
+tabstat Y_B xb xb_e, stat(min p5 p10 p25 p50 p75 p90 p95 mean sd max)
 
 //Produce figure
 foreach x in Y_B xb xb_e{
@@ -131,7 +131,22 @@ legend(label(1 "True values") label(2 "XB values") label(3 "XB+e values")) ytitl
 graph export "$figs\why_errors.eps", as(eps) name("Graph") replace
 
 
-gen pov20 = xb<ln(povline20)
+forval z=5(5)95{
+	foreach w in Y_B xb xb_e{
+		gen pov`z'_`w' = `w'<ln(`pline`z'')
+	}
+}
 
-sum pov20
-di ln(povline20)
+groupfunction, mean(pov*Y_B pov*xb* mse*) 
+
+foreach w in xb xb_e{
+	gen diff2_`w' = 0
+	forval z= 5(5)95{
+		replace diff2_`w' = diff2_`w' + (pov`z'_Y_B-pov`z'_`w')^2 
+	}
+	gen rmse_pov_`w' = sqrt(diff2_`w'/19)
+	gen rmse_`w' = sqrt(mse_`w')
+}
+
+sum rmse_pov*
+sum rmse_xb*

@@ -37,7 +37,7 @@ global figs    "$main/5.figures"
 // Prep data
 *===============================================================================
 
-forval z=1/500	{
+forval z=1/1000	{
 	
 	* Displays current simulation
 	global zed = `z'

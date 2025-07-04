@@ -196,14 +196,15 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-In large, poverty-affected countries, such as India and Nigeria, gaps in
- household survey data have hindered global poverty monitoring.
- Together, these two economies account for a substantial share of the world's
+The issue affects many countries, and has become problematic for poverty
+ monitoring due to the lack of data in some of the world's most populous
+ and poverty afflicted economies.
+ For example, India and Nigeria account for a substantial share of the world's
  poor, meaning that they heavily influence global poverty trends.
  In India, official consumption survey data was unavailable between 2011
  and 2022.
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The 75th round of the NSO Survey of Consumption Expenditure was collected
@@ -220,7 +221,7 @@ target "https://www.mospi.gov.in/unit-level-data-report-nss-75th-round-july-2017
 \end_inset
 
  In Nigeria comparable survey data for poverty monitoring was absent between
- 2009 and 2018.
+ 2009 and 2018, and as of 2025 has no new consumption survey data.
  These data gaps not only affect our understanding of poverty at the country
  level but compromise our ability to produce reliable global poverty estimates
  and assess progress toward poverty reduction goals.
@@ -2761,8 +2762,8 @@ noprefix "false"
  This gap persists despite the fact that the linear prediction has a lower
  mean squared error (MSE = 0.25) than the version with stochastic error (MSE
  = 0.5).
- This demonstrates that minimizing MSE is not sufficient for reproducing
- the distributional properties needed to estimate poverty accurately.
+ This suggests that minimizing MSE is not sufficient for reproducing the
+ distributional properties needed to estimate poverty accurately.
  Moreover, the Spearman rank correlation is higher for the linear prediction
  than for the version with added error.
  In other words, correctly ranking households is also not enough to replicate
@@ -6257,7 +6258,7 @@ The reason for this is that even in the presence of OVB
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -6336,7 +6337,7 @@ OVB Model
 \uwave off
 \noun off
 \color none
-True Model
+Complete Model
 \end_layout
 
 \end_inset
@@ -6382,7 +6383,7 @@ x1
 \uwave off
 \noun off
 \color none
-0.1022
+0.0989
 \end_layout
 
 \end_inset
@@ -6404,7 +6405,7 @@ x1
 \uwave off
 \noun off
 \color none
-0.1017
+0.0989
 \end_layout
 
 \end_inset
@@ -6450,7 +6451,7 @@ x2
 \uwave off
 \noun off
 \color none
-0.4965
+0.488
 \end_layout
 
 \end_inset
@@ -6472,7 +6473,7 @@ x2
 \uwave off
 \noun off
 \color none
-0.4970
+0.490
 \end_layout
 
 \end_inset
@@ -6518,7 +6519,7 @@ x3
 \uwave off
 \noun off
 \color none
--0.2492
+-0.247
 \end_layout
 
 \end_inset
@@ -6540,7 +6541,7 @@ x3
 \uwave off
 \noun off
 \color none
--0.2481
+-0.244
 \end_layout
 
 \end_inset
@@ -6586,7 +6587,7 @@ x4
 \uwave off
 \noun off
 \color none
--0.1997
+-0.201
 \end_layout
 
 \end_inset
@@ -6608,7 +6609,7 @@ x4
 \uwave off
 \noun off
 \color none
--0.1995
+-0.201
 \end_layout
 
 \end_inset
@@ -6654,7 +6655,7 @@ x5
 \uwave off
 \noun off
 \color none
--0.1423
+-0.160
 \end_layout
 
 \end_inset
@@ -6676,7 +6677,7 @@ x5
 \uwave off
 \noun off
 \color none
--0.1462
+-0.157
 \end_layout
 
 \end_inset
@@ -6722,7 +6723,7 @@ eggs
 \uwave off
 \noun off
 \color none
-0.5745
+0.577
 \end_layout
 
 \end_inset
@@ -6744,7 +6745,7 @@ eggs
 \uwave off
 \noun off
 \color none
-0.3927
+0.402
 \end_layout
 
 \end_inset
@@ -6799,7 +6800,7 @@ conflict
 \uwave off
 \noun off
 \color none
--0.3182
+-0.307
 \end_layout
 
 \end_inset
@@ -6845,7 +6846,7 @@ Intercept
 \uwave off
 \noun off
 \color none
-2.8264
+2.838
 \end_layout
 
 \end_inset
@@ -6867,7 +6868,7 @@ Intercept
 \uwave off
 \noun off
 \color none
-3.0092
+3.012
 \end_layout
 
 \end_inset
@@ -6913,7 +6914,7 @@ R2
 \uwave off
 \noun off
 \color none
-0.5327
+0.536
 \end_layout
 
 \end_inset
@@ -6935,7 +6936,7 @@ R2
 \uwave off
 \noun off
 \color none
-0.5634
+0.565
 \end_layout
 
 \end_inset
@@ -6968,20 +6969,7 @@ RMSE
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-0.5120
+0.509
 \end_layout
 
 \end_inset
@@ -6990,20 +6978,7 @@ RMSE
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-0.4949
+0.492
 \end_layout
 
 \end_inset
@@ -7107,7 +7082,7 @@ Observations
 \uwave off
 \noun off
 \color none
-2.9826
+2.976
 \end_layout
 
 \end_inset
@@ -7129,7 +7104,7 @@ Observations
 \uwave off
 \noun off
 \color none
-2.9826
+2.976
 \end_layout
 
 \end_inset

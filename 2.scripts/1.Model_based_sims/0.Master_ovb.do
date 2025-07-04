@@ -30,5 +30,5 @@ global thedo   "$main/2.scripts/1.Model_based_sims"
 global theado  "$main/2.scripts/0.ados"
 global figs    "$main/5.figures"
 
-run "$thedo\1.Model_based_sims\1.create_ovb_data.do"
-run "$thedo\1.Model_based_sims\2.ovb_sim_new.do"
+do "$thedo\1.create_ovb_data.do"
+run "$thedo\2.ovb_sim_new.do"

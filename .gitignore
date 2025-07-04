@@ -1,2 +1,3 @@
-# Ignore all Stata data files
+# Stata Data
 *.dta
+

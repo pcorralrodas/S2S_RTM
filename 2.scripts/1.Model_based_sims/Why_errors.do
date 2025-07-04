@@ -101,12 +101,12 @@ use `full', replace
 
 //predict linear fit
 predict xb, xb
-
 gen mse_xb = (Y_B - xb)^2
-
 gen xb_e = rnormal(xb,`rmse')
-
 gen mse_xb_e = (Y_B - xb_e)^2
+
+
+
 
 //so xb minimizes the MSE, by a LOT!
 sum mse*

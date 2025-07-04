@@ -6258,7 +6258,7 @@ The reason for this is that even in the presence of OVB
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -6337,7 +6337,7 @@ OVB Model
 \uwave off
 \noun off
 \color none
-True Model
+Complete Model
 \end_layout
 
 \end_inset
@@ -6383,7 +6383,7 @@ x1
 \uwave off
 \noun off
 \color none
-0.1022
+0.0989
 \end_layout
 
 \end_inset
@@ -6405,7 +6405,7 @@ x1
 \uwave off
 \noun off
 \color none
-0.1017
+0.0989
 \end_layout
 
 \end_inset
@@ -6451,7 +6451,7 @@ x2
 \uwave off
 \noun off
 \color none
-0.4965
+0.488
 \end_layout
 
 \end_inset
@@ -6473,7 +6473,7 @@ x2
 \uwave off
 \noun off
 \color none
-0.4970
+0.490
 \end_layout
 
 \end_inset
@@ -6519,7 +6519,7 @@ x3
 \uwave off
 \noun off
 \color none
--0.2492
+-0.247
 \end_layout
 
 \end_inset
@@ -6541,7 +6541,7 @@ x3
 \uwave off
 \noun off
 \color none
--0.2481
+-0.244
 \end_layout
 
 \end_inset
@@ -6587,7 +6587,7 @@ x4
 \uwave off
 \noun off
 \color none
--0.1997
+-0.201
 \end_layout
 
 \end_inset
@@ -6609,7 +6609,7 @@ x4
 \uwave off
 \noun off
 \color none
--0.1995
+-0.201
 \end_layout
 
 \end_inset
@@ -6655,7 +6655,7 @@ x5
 \uwave off
 \noun off
 \color none
--0.1423
+-0.160
 \end_layout
 
 \end_inset
@@ -6677,7 +6677,7 @@ x5
 \uwave off
 \noun off
 \color none
--0.1462
+-0.157
 \end_layout
 
 \end_inset
@@ -6723,7 +6723,7 @@ eggs
 \uwave off
 \noun off
 \color none
-0.5745
+0.577
 \end_layout
 
 \end_inset
@@ -6745,7 +6745,7 @@ eggs
 \uwave off
 \noun off
 \color none
-0.3927
+0.402
 \end_layout
 
 \end_inset
@@ -6800,7 +6800,7 @@ conflict
 \uwave off
 \noun off
 \color none
--0.3182
+-0.307
 \end_layout
 
 \end_inset
@@ -6846,7 +6846,7 @@ Intercept
 \uwave off
 \noun off
 \color none
-2.8264
+2.838
 \end_layout
 
 \end_inset
@@ -6868,7 +6868,7 @@ Intercept
 \uwave off
 \noun off
 \color none
-3.0092
+3.012
 \end_layout
 
 \end_inset
@@ -6914,7 +6914,7 @@ R2
 \uwave off
 \noun off
 \color none
-0.5327
+0.536
 \end_layout
 
 \end_inset
@@ -6936,7 +6936,7 @@ R2
 \uwave off
 \noun off
 \color none
-0.5634
+0.565
 \end_layout
 
 \end_inset
@@ -6970,19 +6970,6 @@ RMSE
 
 \begin_layout Plain Layout
 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-0.5120
 \end_layout
 
 \end_inset
@@ -6992,19 +6979,6 @@ RMSE
 
 \begin_layout Plain Layout
 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-0.4949
 \end_layout
 
 \end_inset

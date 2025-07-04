@@ -63,11 +63,15 @@ drop ptiles
 *===============================================================================
 // Now do the prediction model base on the baseline data
 *===============================================================================
-	
+	reg Y_B x1 x2 x3 x4 x5 eggs conflict, r
+	cap:outreg2 using "$figs\ovb_model.xls", replace  noaster
+	predict complete,xb
 	reg Y_B x1 x2 x3 x4 x5 eggs, r //we omit conflict
+	cap:outreg2 using "$figs\ovb_model.xls", append  noaster
 	predict res, res
 	//predicted original
 	predict yb_pred, xb
+	sum yb_pred complete
 	local RMSE = e(rmse)
 	replace yb_pred = yb_pred + rnormal(0,`RMSE')
 	//Plot residuals to illustrate that model residuals will still be normal

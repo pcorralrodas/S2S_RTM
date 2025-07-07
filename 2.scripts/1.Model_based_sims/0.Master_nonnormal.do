@@ -13,7 +13,7 @@ clear all
 
 * Do not change to obtain exact results
 set seed 94131
-
+set maxvar 15000
 
 *===============================================================================
 		*Run necessary ado files

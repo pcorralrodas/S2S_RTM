@@ -15,7 +15,7 @@ clear all
 
 * Do not change to obtain exact results
 set seed 94131
-
+set maxvar 15000
 * Paths
 *** CHANGE THE FIRST GLOBAL TO THE DIRECTORY WHERE YOU DOWNLOADED THE REPLICATION FILES ***
 if (lower("`c(username)'")=="ham_andres"){

@@ -15,7 +15,7 @@ clear all
 
 * Do not change to obtain exact results
 set seed 94131
-
+set maxvar 15000
 
 run "$thedo\1.create_ovb_data.do"
 run "$thedo\2.ovb_sim_new.do"

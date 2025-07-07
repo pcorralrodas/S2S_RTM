@@ -11,10 +11,6 @@
 set more off
 clear 
 
-global main    "/Users/ham_andres/Library/CloudStorage/Dropbox/research/wb/S2S/"
-global dpath   "$main\1.data"
-global thedo   "$main\2.scripts\1.Model_based_sims"
-
 
 use "$dpath/results_micomps.dta", clear
 	replace reference = "gini" if measure=="gini"

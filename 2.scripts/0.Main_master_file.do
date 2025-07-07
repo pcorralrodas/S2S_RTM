@@ -62,9 +62,9 @@ run "$thedo\0.Master_het.do"
 run "$thedo\0.Master_RE.do"
 run "$thedo\PMM_tests.do"
 run "$thedo\MSE_BS_MI.do"
-run "$thedo\0.Master.do"
 run "$thedo\0.Master_ovb.do"
 run "$thedo\0.Master_PMT.do"
+run "$thedo\0.Master.do"
 
 *===============================================================================
 // FIGURES

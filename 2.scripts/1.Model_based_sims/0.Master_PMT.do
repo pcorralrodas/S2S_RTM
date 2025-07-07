@@ -15,30 +15,10 @@ clear all
 
 * Do not change to obtain exact results
 set seed 94131
-
+set maxvar 15000
 * Paths
 *** CHANGE THE FIRST GLOBAL TO THE DIRECTORY WHERE YOU DOWNLOADED THE REPLICATION FILES ***
-if (lower("`c(username)'")=="ham_andres"){
-	global main    "/Users/ham_andres/Library/CloudStorage/Dropbox/research/wb/S2S/"
-}
-if (lower("`c(username)'")=="wb378870"){
-	global main    "C:/Users//`c(username)'//Github/S2S_RTM/"
-}
-if (lower("`c(username)'")=="paul corral"){
-	global main "C:\Users\Paul Corral\Documents\GitHub\S2S_RTM\"
-}
 
-global dpath   "$main/1.data"
-global thedo   "$main/2.scripts/1.Model_based_sims"
-global theado  "$main/2.scripts/0.ados"
-global figs    "$main/5.figures"
-/*
-* Required packages and files
-cap: net install github, from(https://haghish.github.io/github/)
-cap: ssc install groupfunction, replace
-cap: github install pcorralrodas/sp_groupfunction
-cap: github install pcorralrodas/wentropy
-*/
 *===============================================================================
 		*Run necessary ado files
 *===============================================================================

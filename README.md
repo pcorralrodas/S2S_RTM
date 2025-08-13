@@ -6,6 +6,12 @@ This repository contains the replication code for the paper "The why, the how, a
 
 Survey-to-survey (S2S) imputation has become an essential tool for poverty measurement when traditional household consumption or income surveys are unavailable. This repository provides code to replicate the model-based simulations and analyses presented in our paper, which examines the methodological challenges and potential pitfalls of S2S imputation.
 
+##Files to run:
+
+1. \2.scripts\0.Main_master_file.do
+
+See "Path_for_reproduction.xlsx" to see where all figures and tables are created.
+
 ## Key Features
 
 - Simulation of populations with controlled properties for methodological testing

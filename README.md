@@ -6,7 +6,7 @@ This repository contains the replication code for the paper "The why, the how, a
 
 Survey-to-survey (S2S) imputation has become an essential tool for poverty measurement when traditional household consumption or income surveys are unavailable. This repository provides code to replicate the model-based simulations and analyses presented in our paper, which examines the methodological challenges and potential pitfalls of S2S imputation.
 
-##Files to run:
+## Files to run:
 
 1. \2.scripts\0.Main_master_file.do
 
@@ -30,6 +30,11 @@ The code mainly uses Stata for analysis. We recommend:
   - `lassopmm` (for lasso with predictive mean matching)
   - `spgroupfunction` (for aggregation of indicators)
   - - `groupfunction` (for aggregation of indicators)
+
+## Data Access
+
+All data utilized is simulated and created in the underlying scripts.
+
 
 ## Citation
 

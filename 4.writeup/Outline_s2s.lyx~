@@ -88,8 +88,8 @@
 \begin_body
 
 \begin_layout Title
-The why, the how, and the when to impute: a practitioners’ guide to survey-to-su
-rvey imputation of poverty
+Stress‑Testing Survey‑to‑Survey Imputation: Understanding When Poverty Predictio
+ns Can Fail
 \begin_inset Foot
 status collapsed
 
@@ -98,7 +98,7 @@ The authors acknowledge financial support from the World Bank.
  We thank Chris Elbers, Roy van der Weide, Sergio Olivieri, Hai-Anh Dang,
  and Nobuo Yoshida for comments.
  We also thank participants of the S2S workshop held at the World Bank.
- Additionally, we thank Luis-Felipe Lopez Calva, Gabriela Inchauste and
+ Additionally, we thank Luis-Felipe Lopez Calva, Gabriela Inchauste, and
  Maria Eugenia Genoni for providing support and space to pursue this work.
  Any error or omission is the authors’ responsibility alone.
 \end_layout
@@ -127,7 +127,7 @@ literal "false"
 
 \end_inset
 
-
+.
 \end_layout
 
 \end_inset
@@ -137,13 +137,13 @@ literal "false"
 
 \begin_layout Abstract
 Accurate and timely poverty measurement is central to development policy,
- yet the availability of high-quality household survey data remains limited—part
-icularly in countries where poverty is most concentrated.
+ yet the availability of up-to-date high-quality household survey data remains
+ limited—particularly in countries where poverty is most concentrated.
  Survey-to-survey (S2S) imputation has emerged as a practical response to
- this challenge, allowing practitioners to estimate poverty using surveys
- that lack direct welfare measures by borrowing information from other comprehen
-sive surveys.
- A technical guide to the method is provided, revisiting its statistical
+ this challenge, allowing practitioners to update poverty estimates using
+ recent surveys that lack direct welfare measures by borrowing information
+ from other comprehensive surveys.
+ A critical review of the method is provided, revisiting its statistical
  underpinnings and testing its limitations through extensive model-based
  simulations.
  Through model-based simulations, the analysis demonstrates how violations
@@ -169,6 +169,22 @@ ity.
 
 \end_layout
 
+\begin_layout Standard
+
+\series bold
+Key words:
+\series default
+ Poverty, Inequality, Poverty imputation, missing data 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+JEL classification: 
+\series default
+I32, C53
+\end_layout
+
 \begin_layout Section
 Introduction
 \end_layout
@@ -176,9 +192,9 @@ Introduction
 \begin_layout Standard
 The measurement and monitoring of poverty are central to assessing global
  development progress.
- For the World Bank, whose twin goals include ending extreme poverty, the
- ability to track poverty reduction is fundamental to measuring institutional
- effectiveness and guiding policy decisions.
+ For the World Bank, whose mission is to eradicate extreme poverty on a
+ livable planet, the ability to track poverty reduction is fundamental for
+ measuring institutional effectiveness and guiding policy decisions.
  Yet, a persistent challenge hampers this crucial task: the limited availability
  of recent, high-quality household survey data that includes information
  that allows for comparable measures of expenditure or income across time.
@@ -186,7 +202,7 @@ The measurement and monitoring of poverty are central to assessing global
  concentrated 
 \begin_inset CommandInset citation
 LatexCommand citep
-key "DangJolliffeCarletto"
+key "DangJolliffeCarletto,worldbank2024poverty"
 literal "false"
 
 \end_inset
@@ -196,9 +212,9 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The issue affects many countries, and has become problematic for poverty
- monitoring due to the lack of data in some of the world's most populous
- and poverty afflicted economies.
+The issue affects many countries, and hinders poverty monitoring due to
+ the lack of data in some of the world's most populous and poverty afflicted
+ economies.
  For example, India and Nigeria account for a substantial share of the world's
  poor, meaning that they heavily influence global poverty trends.
  In India, official consumption survey data was unavailable between 2011
@@ -221,7 +237,8 @@ target "https://www.mospi.gov.in/unit-level-data-report-nss-75th-round-july-2017
 \end_inset
 
  In Nigeria comparable survey data for poverty monitoring was absent between
- 2009 and 2018, and as of 2025 has no new consumption survey data.
+ 2009 and 2018, and as of 2025 has no new publicly available consumption
+ survey data.
  These data gaps not only affect our understanding of poverty at the country
  level but compromise our ability to produce reliable global poverty estimates
  and assess progress toward poverty reduction goals.
@@ -232,12 +249,17 @@ Traditional poverty measurement relies on household surveys that collect
  detailed consumption or income data.
  These surveys represent substantial investments in both financial and human
  resources.
- They require extensive preparation, careful implementation, and place considera
-ble burden on responding households, who must either maintain detailed consumpti
-on diaries or participate in comprehensive recall interviews.
+ They require extensive preparation, careful implementation, and can place
+ considerable burden on responding households, who must either maintain
+ detailed consumption diaries or participate in comprehensive recall interviews.
  The method of data collection itself can introduce significant biases into
- poverty estimates.
- For instance, consumption diaries – while theoretically more accurate –
+ poverty estimates which may compromise comparability of estimates over
+ time.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+For instance, consumption diaries – while theoretically more accurate –
  can lead to respondent fatigue and underreporting over time.
  Recall modules, on the other hand, may suffer from memory bias, with longer
  recall periods typically resulting in lower reported consumption.
@@ -252,14 +274,18 @@ literal "false"
 \end_inset
 
 ).
+\end_layout
+
+\end_inset
+
  These methodological challenges add another layer of complexity to the
  already demanding task of poverty measurement.
 \end_layout
 
 \begin_layout Standard
-The challenges of traditional poverty measurement become particularly acute
- during crises when standard survey operations are disrupted or impossible
- to conduct.
+The challenges of collecting traditional living standards surveys for poverty
+ measurement become particularly acute during crises when standard survey
+ operations are disrupted or impossible to conduct.
  Armed conflicts, natural disasters, health emergencies, and other humanitarian
  crises often prevent face-to-face household interviews precisely when poverty
  monitoring becomes most crucial.
@@ -271,32 +297,6 @@ The challenges of traditional poverty measurement become particularly acute
  that displace populations and disrupt statistical operations.
  During such crises, policymakers and international organizations must resort
  to alternative methods for estimating poverty.
- Survey-to-survey imputation, often combined with rapid phone surveys or
- other alternative data collection methods, has emerged as a key tool for
- maintaining poverty monitoring during these challenging periods.
- However, these approaches come with their own limitations and potential
- biases that must be carefully considered.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-For global monitoring see 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "mahler_2021"
-literal "false"
-
-\end_inset
-
- Global projections of poverty rely on GDP projections during the pandemic.
- The GDP projection for each country is used to shift the welfare distribution
- of a given country by the GDP per capita growth rate observed between year
- corresponding to the household survey collection and the desired year in
- the future.
-\end_layout
-
-\end_inset
-
  
 \end_layout
 
@@ -306,8 +306,16 @@ Survey-to-survey (S2S) imputation has emerged as a methodological response
  The method is often used as a way to produce poverty numbers when traditional
  welfare data collection is unavailable due to costs, complexity, conflict,
  or other reasons.
- The approach builds upon techniques originally developed for small area
- estimation (SAE) in poverty mapping, pioneered by 
+ S2S, often combined with rapid phone surveys or other alternative data
+ collection methods, have emerged as a key tool for maintaining poverty
+ monitoring during these challenging periods where traditional surveys cannot
+ be collected.
+ 
+\end_layout
+
+\begin_layout Standard
+S2S methods build upon techniques originally developed for small area estimation
+ (SAE) in poverty mapping, pioneered by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "jesko1998"
@@ -324,8 +332,8 @@ literal "false"
 \end_inset
 
 .
- S2S imputation enables poverty estimation using surveys that lack direct
- welfare measures by:
+ The method imputation enables poverty estimation using surveys that lack
+ direct welfare measures by:
 \end_layout
 
 \begin_layout Enumerate
@@ -353,7 +361,7 @@ Generating poverty estimates based on the predicted welfare distribution
 \begin_layout Standard
 While S2S and small area estimation share methodological foundations, they
  serve distinct purposes.
- Small area estimation, as developed by 
+ Unit-level small area estimation of poverty, as developed by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "elbers2003micro"
@@ -369,18 +377,22 @@ literal "false"
 
 \end_inset
 
-, typically applies nationally estimated models to census data to generate
- precise poverty estimates for small geographic areas.
- In contrast, S2S focuses on predicting welfare in a separate survey, regardless
- of geographic disaggregation.
+, typically applies nationally estimated models (from a household survey)
+ to population census data to generate precise poverty estimates for small
+ geographic areas where survey estimates are often too imprecise for reliable
+ estimates.
+ In contrast, S2S focuses on applying the model to a separate survey to
+ predict welfare, regardless of geographic disaggregation.
  One might view traditional poverty mapping as a special case of S2S where
  the target dataset are the different areas of the census and the primary
  goal is obtaining geographically disaggregated estimates.
 \end_layout
 
 \begin_layout Standard
-This paper first examines the limitations and potential pitfalls of survey-to-su
-rvey imputation through rigorous analysis of its fundamental assumptions.
+Although a potentially an attractive solution, S2S approaches come with
+ their own limitations and potential biases that must be carefully considered.
+ This paper first examines the limitations and potential pitfalls of survey-to-s
+urvey imputation through rigorous analysis of its fundamental assumptions.
  This is a technical paper that relies on simulated data to conduct experiments.
  In these experiments, the focus is not on traditional concerns such as
  variable selection or model specification, but rather on the method's core
@@ -465,7 +477,7 @@ literal "false"
 \begin_layout Standard
 Through systematic examination of these limitations using simplified examples,
  the paper provides practitioners with a framework for understanding when
- and why S2S methods may produce misleading results.
+ and why S2S methods can fail.
  The results here are of relevance since survey-to-survey imputation has
  become more prevalent in recent times to overcome data scarcity.
 \end_layout
@@ -486,7 +498,7 @@ T One example is the multiple applications in India, where survey data useful
 \end_layout
 
 \begin_layout Section
-Survey-to-Survey Imputation 
+The effectiveness of S2S across time: A summary of the evidence 
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Survey-to-Survey-Imputation"
@@ -497,9 +509,14 @@ name "sec:Survey-to-Survey-Imputation"
 \end_layout
 
 \begin_layout Standard
-Collecting household consumption data is costly and complex.
- Consumption modules typically span multiple domains—food, housing, health,
- education, and more—each requiring detailed recall and careful categorization.
+Estimating poverty relies on household survey data that collects household
+ consumption or income.
+ Collecting household consumption and income data is costly and complex.
+ For consumption, modules typically span multiple domains—food, housing,
+ health, education, and more—each requiring detailed recall and careful
+ categorization.
+ These surveys are usually fielded over a full year to represent seasonal
+ consumption patterns.
  As 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -523,13 +540,13 @@ literal "false"
 
 \end_inset
 
- demonstrate, even small changes in how surveys are administered can yield
- significant differences in reported poverty and consumption levels.
+ show, even small changes in how surveys are administered can yield significant
+ differences in reported poverty and consumption levels.
 \end_layout
 
 \begin_layout Standard
-Because of these challenges, few countries collect comparable welfare data
- frequently.
+Because of the complexity and cost, few countries collect comparable consumption
+ or income data frequently.
  Long-term, harmonized consumption trends are the exception, not the norm.
  Yet, policymakers, donors, and development practitioners continually need
  up-to-date poverty statistics.
@@ -547,27 +564,28 @@ literal "false"
 
 \end_inset
 
- where a linear regression model is fit on a survey where expenditure or
- income are available to determine the joint distribution of expenditure
+ where a linear regression model is fit on a survey where consumption or
+ income are available to determine the joint distribution of consumption
  or income, and a given set of household characteristics – this survey is
  typically referred to as the source or training data.
  The model parameters are then applied to a separate dataset (the target
  data) where the same set of household characteristics can be found with
- the aim of replicating the welfare distribution via imputation.
- With a simulated welfare in hand, poverty estimates and other welfare indicator
-s can be derived from the target data.
+ the aim of replicating the welfare distribution (consumption or income)
+ via imputation.
+ With a simulated welfare distribution in hand, poverty estimates and other
+ welfare indicators can be derived from the target data.
  The methods can be applied to contemporaneous surveys or to surveys correspondi
 ng to a different point in time.
  
 \end_layout
 
 \begin_layout Standard
-The method is useful when applied to contemporaneous surveys to obtain statistic
-s across the welfare distribution for indicators that are not available
- in the living standards survey.
+S2S is useful when applied to contemporaneous surveys to obtain statistics
+ across the welfare distribution for indicators that are not available in
+ the living standards survey.
  For example, the Demographic and Health Surveys (DHS) provide a litany
  of health related indicators that are not available in most living standards
- surveys.
+ surveys that collect welfare for poverty estimation.
  This is where S2S comes into play.
  A model trained on the living standards survey and applied to the DHS can
  help us inform about the difference in stunting rates between poor and
@@ -596,10 +614,6 @@ literal "false"
 \end_inset
 
  was to predict on to the same population.
- As will be later shown, when attempting to predict to a different point
- in time, particularly when considerable underlying changes in the economy
- and society have taken place (droughts, earthquakes, floods, conflict,
- etc.), this assumption can lead to potentially biased estimates.
  
 \end_layout
 
@@ -607,8 +621,6 @@ literal "false"
 When imputing to a different year, the method rests on the assumption that
  model parameters remain stable—that is, the relationship between household
  characteristics and welfare has not changed.
- This assumption becomes tenuous in settings experiencing structural change,
- economic growth, or major shocks.
  In other words, the method assumes that model parameters remain stationary
  over time – meaning that any observed changes in poverty are solely attributabl
 e to changes in the model's covariates, rather than shifts in unobservable
@@ -622,7 +634,6 @@ literal "false"
 \end_inset
 
 ).
- This assumption becomes particularly tenuous in dynamic economic contexts.
  As 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -635,7 +646,20 @@ literal "false"
  economies, where structural economic changes can alter the relationship
  between poverty and its predictors.
  It can also be problematic when a strong shock has occurred between the
- periods – for example, a global pandemic or changes in a country's fragility.
+ survey periods – for example, a global pandemic or changes in a country's
+ fragility.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mathiassen2009model"
+literal "false"
+
+\end_inset
+
+ emphasizes that the validity of imputations rests on a strong assumption
+ of parameter stability and explicitly warns against extrapolating too far
+ across time or applying the method when significant changes in welfare
+ dynamics or survey design are likely.
 \end_layout
 
 \begin_layout Standard
@@ -672,18 +696,6 @@ literal "false"
  emphasize, without updated training data to re-estimate model parameters,
  the risk of missing significant economic changes remains substantial, even
  with these additional covariates.
- A similar point is raised by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "mathiassen2009model"
-literal "false"
-
-\end_inset
-
- who emphasizes that the validity of imputations rests on a strong assumption
- of parameter stability and explicitly warns against extrapolating too far
- across time or applying the method when significant changes in welfare
- dynamics or survey design are likely.
  
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -700,7 +712,36 @@ literal "false"
 
 \begin_layout Standard
 The effectiveness of S2S imputation across time has been tested in a range
- of contexts, with results showing both its potential and its limitations.
+ of contexts, with mixed results.
+ For example, Dang, Lanjouw and Serajuddin (
+\begin_inset CommandInset citation
+LatexCommand citebyear
+key "dang2017"
+literal "false"
+
+\end_inset
+
+) evaluate S2S using Jordan’s Household Expenditure and Income Survey and
+ the Employment and Unemployment Survey; 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "stifel2007tracking"
+literal "false"
+
+\end_inset
+
+ conduct similar tests for Kenya; and Dang et al.
+ (
+\begin_inset CommandInset citation
+LatexCommand citebyear
+key "dang2025poverty"
+literal "false"
+
+\end_inset
+
+) apply the method across multiple countries—including Ethiopia, Malawi,
+ Nigeria, Tanzania, and Vietnam—reporting estimates generally within acceptable
+ error margins.
  While some studies report estimates within acceptable margins of error
  (
 \begin_inset CommandInset citation
@@ -736,8 +777,6 @@ literal "false"
 \end_inset
 
 ).
- These mixed findings highlight the need for caution when applying S2S imputatio
-n across different periods and economic environments.
  A useful example comes from Malawi, where 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -764,41 +803,6 @@ literal "false"
 \end_inset
 
 ).
-\end_layout
-
-\begin_layout Standard
-Most evidence on bias in cross-time S2S estimates comes from real-world
- applications where time gaps are large or covariate distributions differ
- substantially.
- For example, Dang, Lanjouw and Serajuddin (
-\begin_inset CommandInset citation
-LatexCommand citebyear
-key "dang2017"
-literal "false"
-
-\end_inset
-
-) evaluate S2S using Jordan’s Household Expenditure and Income Survey and
- the Employment and Unemployment Survey; 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "stifel2007tracking"
-literal "false"
-
-\end_inset
-
- conduct similar tests for Kenya; and Dang et al.
- (
-\begin_inset CommandInset citation
-LatexCommand citebyear
-key "dang2025poverty"
-literal "false"
-
-\end_inset
-
-) apply the method across multiple countries—including Ethiopia, Malawi,
- Nigeria, Tanzania, and Vietnam—reporting estimates generally within acceptable
- error margins.
 \end_layout
 
 \begin_layout Standard
@@ -843,27 +847,19 @@ true
 \end_layout
 
 \begin_layout Standard
-Applications of survey to survey imputation have also made their way to
- global poverty monitoring.
- For example, until recently every poverty number for India after 2011 is
- based on an imputation.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-As of this writing, every poverty number for India after 2011 is an imputation.
- These numbers are reported in the World Bank's Poverty and Inequality Platform
- and the source of the poverty rates for the country are not always obvious
- to visitors.
-\end_layout
-
-\end_inset
-
- To better understand how such estimates are produced, and the assumptions
- underpinning them, the next section outlines the foundations of survey-to-surve
-y imputation, tracing its origins in the broader field of missing data methodolo
-gies and clarifying its application in the context of poverty measurement.
- 
+Applications of survey-to-survey (S2S) imputation have also made their way
+ into global poverty monitoring—for example, until recently, every poverty
+ number for India after 2011 was based on an imputation.
+ However, evidence from real-world applications, particularly when time
+ gaps are large or covariate distributions change substantially, reveals
+ mixed findings and highlights the need for caution.
+ These findings underscore the importance of understanding the context and
+ data very well when applying S2S across different periods and economic
+ environments.
+ To better appreciate how such estimates are produced and the assumptions
+ they rest on, the next section outlines the foundations of survey-to-survey
+ imputation, tracing its origins in the broader field of missing data methodolog
+ies and clarifying its application in the context of poverty measurement.
 \end_layout
 
 \begin_layout Section
@@ -6258,7 +6254,7 @@ The reason for this is that even in the presence of OVB
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -6337,7 +6333,7 @@ OVB Model
 \uwave off
 \noun off
 \color none
-True Model
+Complete Model
 \end_layout
 
 \end_inset
@@ -6383,7 +6379,7 @@ x1
 \uwave off
 \noun off
 \color none
-0.1022
+0.0989
 \end_layout
 
 \end_inset
@@ -6405,7 +6401,7 @@ x1
 \uwave off
 \noun off
 \color none
-0.1017
+0.0989
 \end_layout
 
 \end_inset
@@ -6451,7 +6447,7 @@ x2
 \uwave off
 \noun off
 \color none
-0.4965
+0.488
 \end_layout
 
 \end_inset
@@ -6473,7 +6469,7 @@ x2
 \uwave off
 \noun off
 \color none
-0.4970
+0.490
 \end_layout
 
 \end_inset
@@ -6519,7 +6515,7 @@ x3
 \uwave off
 \noun off
 \color none
--0.2492
+-0.247
 \end_layout
 
 \end_inset
@@ -6541,7 +6537,7 @@ x3
 \uwave off
 \noun off
 \color none
--0.2481
+-0.244
 \end_layout
 
 \end_inset
@@ -6587,7 +6583,7 @@ x4
 \uwave off
 \noun off
 \color none
--0.1997
+-0.201
 \end_layout
 
 \end_inset
@@ -6609,7 +6605,7 @@ x4
 \uwave off
 \noun off
 \color none
--0.1995
+-0.201
 \end_layout
 
 \end_inset
@@ -6655,7 +6651,7 @@ x5
 \uwave off
 \noun off
 \color none
--0.1423
+-0.160
 \end_layout
 
 \end_inset
@@ -6677,7 +6673,7 @@ x5
 \uwave off
 \noun off
 \color none
--0.1462
+-0.157
 \end_layout
 
 \end_inset
@@ -6723,7 +6719,7 @@ eggs
 \uwave off
 \noun off
 \color none
-0.5745
+0.577
 \end_layout
 
 \end_inset
@@ -6745,7 +6741,7 @@ eggs
 \uwave off
 \noun off
 \color none
-0.3927
+0.402
 \end_layout
 
 \end_inset
@@ -6800,7 +6796,7 @@ conflict
 \uwave off
 \noun off
 \color none
--0.3182
+-0.307
 \end_layout
 
 \end_inset
@@ -6846,7 +6842,7 @@ Intercept
 \uwave off
 \noun off
 \color none
-2.8264
+2.838
 \end_layout
 
 \end_inset
@@ -6868,7 +6864,7 @@ Intercept
 \uwave off
 \noun off
 \color none
-3.0092
+3.012
 \end_layout
 
 \end_inset
@@ -6914,7 +6910,7 @@ R2
 \uwave off
 \noun off
 \color none
-0.5327
+0.536
 \end_layout
 
 \end_inset
@@ -6936,7 +6932,7 @@ R2
 \uwave off
 \noun off
 \color none
-0.5634
+0.565
 \end_layout
 
 \end_inset
@@ -6969,20 +6965,7 @@ RMSE
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-0.5120
+0.509
 \end_layout
 
 \end_inset
@@ -6991,20 +6974,7 @@ RMSE
 \begin_inset Text
 
 \begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-0.4949
+0.492
 \end_layout
 
 \end_inset
@@ -7108,7 +7078,7 @@ Observations
 \uwave off
 \noun off
 \color none
-2.9826
+2.976
 \end_layout
 
 \end_inset
@@ -7130,7 +7100,7 @@ Observations
 \uwave off
 \noun off
 \color none
-2.9826
+2.976
 \end_layout
 
 \end_inset

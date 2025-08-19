@@ -7,6 +7,7 @@
 \textclass extarticle
 \begin_preamble
 \usepackage{graphicx}
+\date{}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -100,6 +101,8 @@ The authors acknowledge financial support from the World Bank.
  We also thank participants of the S2S workshop held at the World Bank.
  Additionally, we thank Luis-Felipe Lopez Calva, Gabriela Inchauste, and
  Maria Eugenia Genoni for providing support and space to pursue this work.
+ Thanks are also due to Tara Vishwanath for her insights and guidance on
+ earlier background work.
  Any error or omission is the authors’ responsibility alone.
 \end_layout
 
@@ -139,15 +142,15 @@ literal "false"
 Accurate and timely poverty measurement is central to development policy,
  yet the availability of up-to-date high-quality household survey data remains
  limited—particularly in countries where poverty is most concentrated.
- Survey-to-survey (S2S) imputation has emerged as a practical response to
- this challenge, allowing practitioners to update poverty estimates using
- recent surveys that lack direct welfare measures by borrowing information
- from other comprehensive surveys.
+ Survey-to-survey imputation has emerged as a practical response to this
+ challenge, allowing practitioners to update poverty estimates using recent
+ surveys that lack direct welfare measures by borrowing information from
+ other comprehensive surveys.
  A critical review of the method is provided, revisiting its statistical
  underpinnings and testing its limitations through extensive model-based
  simulations.
- Through model-based simulations, the analysis demonstrates how violations
- of parameter stability, omitted variable bias, and shifts in survey design
+ Through these simulations, the analysis demonstrates how violations of
+ parameter stability, omitted variable bias, and shifts in survey design
  can introduce substantial errors—particularly when imputing across time
  or under economic and structural change.
  Results show that standard corrections such as re-weighting or covariate
@@ -156,10 +159,10 @@ Accurate and timely poverty measurement is central to development policy,
  The performance of alternative model specifications is also evaluated under
  various methods, including performance under heteroskedastic errors, non-normal
 ity.
- The findings offer practical guidance for practitioners on when S2S imputation
- is likely to succeed, when it should be reconsidered, and how to communicate
- its limitations transparently in the context of poverty monitoring and
- policy design.
+ The findings offer practical guidance for practitioners on when survey-to-surve
+y imputation is likely to succeed, when it should be reconsidered, and how
+ to communicate its limitations transparently in the context of poverty
+ monitoring and policy design.
 \end_layout
 
 \begin_layout Abstract
@@ -237,8 +240,8 @@ target "https://www.mospi.gov.in/unit-level-data-report-nss-75th-round-july-2017
 \end_inset
 
  In Nigeria comparable survey data for poverty monitoring was absent between
- 2009 and 2018, and as of 2025 has no new publicly available consumption
- survey data.
+ 2009 and 2018, and as of 2025 the country has no new publicly available
+ consumption survey data.
  These data gaps not only affect our understanding of poverty at the country
  level but compromise our ability to produce reliable global poverty estimates
  and assess progress toward poverty reduction goals.
@@ -307,9 +310,8 @@ Survey-to-survey (S2S) imputation has emerged as a methodological response
  welfare data collection is unavailable due to costs, complexity, conflict,
  or other reasons.
  S2S, often combined with rapid phone surveys or other alternative data
- collection methods, have emerged as a key tool for maintaining poverty
- monitoring during these challenging periods where traditional surveys cannot
- be collected.
+ collection methods, has emerged as a key tool for maintaining poverty monitorin
+g during these challenging periods where traditional surveys cannot be collected.
  
 \end_layout
 
@@ -332,7 +334,7 @@ literal "false"
 \end_inset
 
 .
- The method imputation enables poverty estimation using surveys that lack
+ These imputation methods enable poverty estimation using surveys that lack
  direct welfare measures by:
 \end_layout
 
@@ -384,7 +386,7 @@ literal "false"
  In contrast, S2S focuses on applying the model to a separate survey to
  predict welfare, regardless of geographic disaggregation.
  One might view traditional poverty mapping as a special case of S2S where
- the target dataset are the different areas of the census and the primary
+ the target datasets are the different areas of the census and the primary
  goal is obtaining geographically disaggregated estimates.
 \end_layout
 
@@ -440,7 +442,7 @@ The model captures the joint distribution between
 
 \end_inset
 
- Thus, better communication behind the limitations of the methods are crucial.
+ Thus, better communication behind the limitations of the methods is crucial.
  These insights are particularly relevant given the increasing reliance
  on survey-to-survey imputation to fill data gaps in poverty monitoring.
  
@@ -740,7 +742,7 @@ literal "false"
 \end_inset
 
 ) apply the method across multiple countries—including Ethiopia, Malawi,
- Nigeria, Tanzania, and Vietnam—reporting estimates generally within acceptable
+ Nigeria, Tanzania, and Viet Nam—reporting estimates generally within acceptable
  error margins.
  While some studies report estimates within acceptable margins of error
  (
@@ -813,7 +815,7 @@ literal "false"
 
 \end_inset
 
- undertakes an empirical validation of survey-to-survey imputation methods
+ undertake an empirical validation of survey-to-survey imputation methods
  over time.
  The authors perform survey-to-survey imputation in scenarios where there
  is comparable expenditure data which provides a 
@@ -825,9 +827,9 @@ true
 \end_inset
 
  estimate of poverty.
- The authors validate their approach with data for Vietnam and for China
+ The authors validate their approach with data for Viet Nam and for China
  using rural household panel data.
- In Vietnam, the authors obtain a model using the 1992/93 data and predict
+ In Viet Nam, the authors obtain a model using the 1992/93 data and predict
  poverty using the 1997/98 data.
  They note that the method works relatively well and depending on the covariates
  used, differences between predicted and observed poverty rates were on
@@ -896,7 +898,7 @@ literal "false"
 
 \end_inset
 
-
+.
 \end_layout
 
 \end_inset
@@ -967,7 +969,7 @@ literal "false"
 \end_inset
 
 .
- For example, in the case of a regression on agricultural yields the variable
+ For example, in the case of a regression on agricultural yields, the variable
  capturing plot sizes may have missing values and these must be imputed
  with the aim of not losing information as well as obtaining a valid estimate
  of the coefficient for the relationship between land and yields.
@@ -1329,7 +1331,7 @@ literal "false"
 
 \end_inset
 
-
+.
 \end_layout
 
 \end_inset
@@ -1618,7 +1620,15 @@ literal "false"
 status collapsed
 
 \begin_layout Plain Layout
-https://github.com/pcorralrodas/lassopmm
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/pcorralrodas/lassopmm"
+target "https://github.com/pcorralrodas/lassopmm"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -1822,8 +1832,8 @@ literal "false"
 .
  These preconditions ensure that the fundamental assumption – both surveys
  represent the same underlying population – holds true.
- Having 2 contemporaneous surveys which represent the same population are
- needed for the approach to work well.
+ Two contemporaneous surveys which represent the same population are needed
+ for the approach to work well.
  In this instance, the tendency of S2S methods to replicate the distribution
  of the source data in the target data is considered an advantage.
 \end_layout
@@ -2262,8 +2272,8 @@ Economic shocks or systemic changes (e.g., currency reforms)
 
 \begin_layout Itemize
 The reliability of survey design over time, including consistency in variable
- definitions, data collection methods (e.g., in-person vs.
- phone), and other methodological changes that may affect comparability
+ definitions, data collection methods (e.g., in-person versus phone), and
+ other methodological changes that may affect comparability
 \end_layout
 
 \begin_layout Standard
@@ -2310,7 +2320,7 @@ literal "false"
  A model trained on data from one year may produce biased estimates when
  used to predict welfare in another year, as both omitted variables and
  endogeneity can significantly impact the model's temporal stability and
- will likely cause biased estimates limiting the usefulness of S2S to predict
+ will likely cause biased estimates, limiting the usefulness of S2S to predict
  poverty in years where a welfare aggregate is unavailable (see Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2425,7 +2435,7 @@ The method's tendency to replicate the welfare distribution of the source
 \end_layout
 
 \begin_layout Section
-Model Based Simulations
+Model-Based Simulations
 \end_layout
 
 \begin_layout Standard
@@ -2580,7 +2590,7 @@ How to Impute?
 
 \begin_layout Standard
 The typical imputation approach undertaken for S2S work done to predict
- poverty, follows the literature on multiple imputation (MI).
+ poverty follows the literature on multiple imputation (MI).
  A similar method was followed in the original software implementation of
  small area estimation proposed by 
 \begin_inset CommandInset citation
@@ -2642,7 +2652,7 @@ literal "false"
 
 \end_inset
 
-
+.
 \end_layout
 
 \end_inset
@@ -3065,7 +3075,7 @@ literal "false"
 \end_inset
 
 .
- Corral (mimeo) - https://github.com/pcorralrodas/hetmireg
+ Corral (mimeo) - https://github.com/pcorralrodas/hetmireg.
 \end_layout
 
 \end_inset
@@ -3471,7 +3481,7 @@ noprefix "false"
 
 \end_inset
 
-
+.
 \end_layout
 
 \end_inset
@@ -3635,8 +3645,7 @@ Alpha model
 \begin_inset Quotes erd
 \end_inset
 
- vs.
- 
+ versus 
 \begin_inset Quotes eld
 \end_inset
 
@@ -4440,8 +4449,8 @@ Under Rubin's rules:
 
  is the between imputation variance.
  Based on Rubin's rules, the imputed indicator cannot have a variance that
- is smaller than it would have if it were collected directly in the target
- survey.
+ is smaller than it would have been if it were collected directly in the
+ target survey.
 \end_layout
 
 \end_inset
@@ -5441,8 +5450,8 @@ noprefix "false"
 \begin_inset Formula $x\beta$
 \end_inset
 
- with those of the source data significantly improved the accuracy of Gini
- estimates.
+ with those of the source data significantly improved the accuracy of the
+ Gini estimates.
  
 \end_layout
 
@@ -5589,7 +5598,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Subsection
-Imputation Over Time
+Imputation over Time
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:over-time"
@@ -5756,8 +5765,8 @@ In this section the discussion focuses on how changes in the parameters
 \begin_inset Formula $\left(\beta,\:\sigma\right)$
 \end_inset
 
- has changed over time, however it is impossible to know if changes compound
- or cancel each other.
+ has changed over time, however it is impossible to know if the changes
+ compound or cancel each other.
  This requires careful consideration when applying these methods and transparent
  communication so potential users, including policy makers, fully comprehend
  the limitations of the predictions.
@@ -5768,7 +5777,7 @@ Changes in the Error's Distribution
 \end_layout
 
 \begin_layout Standard
-It is possible, though unlikely, for the relationship between covariates
+It is possible, though unlikely, for the relationship between the covariates
  and the dependent variable to remain constant over time while poverty levels
  still change.
  The change can be driven entirely by changes in the distribution of the
@@ -6144,7 +6153,7 @@ It is simulated as a binary variable taking value 1 when a random uniform
 \begin_inset Formula $c=0.4$
 \end_inset
 
-
+.
 \end_layout
 
 \end_deeper
@@ -6238,7 +6247,7 @@ The reason for this is that even in the presence of OVB
 \begin_inset Formula $\mathrm{var}\left[x\hat{\beta}\right]+\hat{\sigma}_{e}^{2}$
 \end_inset
 
- will be the same to the one where conflict is present and since 
+ will be the same as the one where conflict is present and since 
 \begin_inset Formula $\hat{y}$
 \end_inset
 
@@ -7228,8 +7237,8 @@ Under the assumed data-generating process (DGP), imagine that conflict decreases
 status collapsed
 
 \begin_layout Plain Layout
-Note that because of the relationship to conflict egg purchases do not actually
- drop by 30% since it is offset by the decrease in conflict.
+Note that because of the relationship to conflict, egg purchases do not
+ actually drop by 30% since it is offset by the decrease in conflict.
 \end_layout
 
 \end_inset
@@ -7361,7 +7370,7 @@ The magnitude and direction of the bias that arises due to OVB is often
  not clear and could compound other biases just as easily as it could be
  offset by other biases.
  Nevertheless, unless actual welfare data are available for the imputed
- year it is impossible to truly know how the model is performing.
+ year, it is impossible to truly know how the model is performing.
  
 \end_layout
 
@@ -7505,8 +7514,8 @@ literal "false"
 
 \end_inset
 
-, who caution against replacing genuine data with modelled estimates in
- contexts where underlying conditions are evolving.
+, who caution against replacing genuine data with modeled estimates in contexts
+ where underlying conditions are evolving.
  
 \end_layout
 
@@ -7581,8 +7590,8 @@ name "subsec:ann_ovb"
 \begin_layout Standard
 Survey-to-survey imputation across time periods requires careful consideration.
  For example in a conflict setting, where conflict has significantly subsided
- between the collection of the training and the target data, it is crucial
- to control for conflict in the model.
+ between the collection of the training and target data, it is crucial to
+ control for conflict in the model.
 \begin_inset Foot
 status collapsed
 
@@ -7605,7 +7614,7 @@ Note that nothing to control for those shocks was included in the original
 \begin_layout Standard
 Some may argue that the inclusion of fast changing consumption variables,
  such as an indicator of whether or not the household consumed eggs over
- the past week, are sufficient for accurate estimates of poverty .
+ the past week, is sufficient for accurate estimates of poverty .
  Nevertheless, these variables are likely subject to omitted variable bias
  which can lead to biased estimates of the coefficients leading to biased
  poverty measures.
@@ -8032,7 +8041,7 @@ MSE(\hat{\tau})=Bias\left(\bar{\tau}\right)^{2}+\mathrm{var\left(\bar{\tau}\righ
 \end_layout
 
 \begin_layout Standard
-Under the imputation methods used in the example the bias is assumed to
+Under the imputation methods used in the example, the bias is assumed to
  be 0.
  Thus, the MSE is equal to 
 \begin_inset Formula $\mathrm{var\left(\bar{\tau}\right)},$
@@ -11334,8 +11343,8 @@ The outcome variable
 \begin_inset Formula $Y$
 \end_inset
 
- is generated is generated from a linear model with additive random effects
- at the area and PSU level, and household-specific error:
+ is generated from a linear model with additive random effects at the area
+ and PSU level, and household-specific error:
 \end_layout
 
 \begin_layout Standard

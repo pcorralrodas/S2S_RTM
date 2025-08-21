@@ -41,9 +41,7 @@ All data utilized is simulated and created in the underlying scripts.
 If you use this code in your work, please cite:
 
 ```
-Corral, P., Ham, A., Lanjouw, P., Lucchetti, L., & Stemmler, H. (2025). 
-The why, the how, and the when to impute: a practitioners' guide to 
-survey-to-survey imputation of poverty. World Bank Working Paper.
+Corral, P., Ham, A., Lanjouw, P., Lucchetti, L., Stemmler, H. (2025). Stress-Testin Survey-to-Survey Imputation: Understanding When Poverty Predictions Can Fail. World Bank Policy Research Working Paper (11192).
 ```
 
 ## Main Findings

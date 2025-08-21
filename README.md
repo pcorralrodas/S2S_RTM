@@ -28,7 +28,7 @@ The code mainly uses Stata for analysis. We recommend:
   - `wentropy` (for entropy-based reweighting)
   - `hetmireg` (for heteroskedastic MI regression)
   - `lassopmm` (for lasso with predictive mean matching)
-  - `spgroupfunction` (for aggregation of indicators)
+  - `sp_groupfunction` (for aggregation of indicators)
   - - `groupfunction` (for aggregation of indicators)
 
 ## Data Access

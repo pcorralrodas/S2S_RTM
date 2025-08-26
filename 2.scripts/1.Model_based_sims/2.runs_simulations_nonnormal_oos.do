@@ -41,8 +41,7 @@ sort measure
 gen source = "Full"
 gen method = "FULL"
 
-tempfile full
-save `full'
+save "$dpath/full.dta", replace
 
 *===============================================================================
 // Het MI Reg
@@ -65,8 +64,8 @@ save `full'
 	groupfunction, by(measure reference) mean(value)
 	
 	gen method = "Het. Mi Reg"
-tempfile hetmireg
-save `hetmireg'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 
 *===============================================================================
 // STep 2: Follow rforest
@@ -100,8 +99,8 @@ use "$dpath/srs_sample_t.dta", clear
 	groupfunction, by(measure reference) mean(value)
 	
 	gen method = "rforest"
-tempfile rforest
-save `rforest'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 mata: mata drop xb e
 
 *===============================================================================
@@ -136,8 +135,8 @@ use "$dpath/srs_sample_t.dta", clear
 	
 	gen method = "lasso empirical"
 	
-tempfile lasso
-save `lasso'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 mata: mata drop xb e
 *===============================================================================
 //Select by lowest BIC
@@ -171,9 +170,8 @@ use "$dpath/srs_sample_t.dta", clear
 	
 	gen method = "lasso BIC"
 
-append using `lasso'
-tempfile lasso
-save `lasso'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 mata: mata drop xb e
 *===============================================================================
 //Select by lowest BIC
@@ -208,9 +206,8 @@ use "$dpath/srs_sample_t.dta", clear
 	
 	gen method = "lasso adaptive"
 
-append using `lasso'
-tempfile lasso
-save `lasso'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 mata: mata drop xb e
 
 
@@ -236,8 +233,8 @@ use "$dpath/srs_sample_t.dta", clear
 	
 	gen method = "A la EBP"
 	
-tempfile ebp
-save `ebp'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 
 *===============================================================================
 // STep 2: lnskew fix
@@ -263,9 +260,8 @@ use "$dpath/srs_sample_t.dta", clear
 	groupfunction, by(measure reference) mean(value)
 	
 	gen method = "A la EBP skew"
-append using `ebp'
-tempfile ebp
-save `ebp'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 
 *===============================================================================
 // bcox fix
@@ -291,9 +287,8 @@ use "$dpath/srs_sample_t.dta", clear
 	groupfunction, by(measure reference) mean(value)
 	
 	gen method = "A la EBP bcox"
-append using `ebp'	
-tempfile ebp
-save `ebp'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 
 	
 *===============================================================================
@@ -321,17 +316,8 @@ use "$dpath/srs_sample_t.dta", clear
 	
 	gen method = "MI 100"
 	
-	cap append using `uno'
-	tempfile uno
-	save `uno'
-
-append using `hetmireg'
-append using `rforest'
-append using `lasso'
-append using `ebp'
-append using `full'
-tempfile uno
-save `uno'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 
 *===============================================================================
 // STep 4: Follow MI approach - bootstrap
@@ -358,9 +344,8 @@ use "$dpath/srs_sample_t.dta", clear
 	
 	gen method = "MI 100 BS"
 	
-	cap append using `uno'
-	tempfile uno
-	save `uno'
+append using "$dpath/full.dta"
+save "$dpath/full.dta", replace
 
 gen sim = $zed
 

@@ -30,7 +30,7 @@ forval z=1/1000	{
 	run "$thedo/1.creates_data_nonnormal.do" 
 	
 	// B. Runs the simulations
-	do "$thedo/2.runs_simulations_nonnormal.do"
+	//run "$thedo/2.runs_simulations_nonnormal.do"
 	
 	// B. Runs the simulations
 	run "$thedo/2.runs_simulations_nonnormal_oos.do"

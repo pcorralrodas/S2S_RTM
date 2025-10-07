@@ -22,7 +22,6 @@ forval z=5(5)95{
 use "$dpath/full_sample_cluster.dta", clear
 gen all = 1
 sp_groupfunction, poverty(e_y) povertyline(`mypovlines') gini(e_y) by(all)
-sort measure
 
 gen source = "Full"
 gen method = "FULL"
@@ -34,7 +33,6 @@ save `full'
 // STep 2: Follow EBP approach
 *===============================================================================
 use "$dpath/srs_sample_cluster.dta", clear
-	sort hhid
 	reg Y_B  x1 x2 x3 x4 x5, r
 	predict xb, xb
 	local SiGma = e(rmse)

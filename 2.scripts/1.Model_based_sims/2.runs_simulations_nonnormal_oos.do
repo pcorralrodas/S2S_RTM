@@ -349,8 +349,8 @@ save "$dpath/full.dta", replace
 
 gen sim = $zed
 
-if ($zed==1) save "$dpath/results_micomps_t.dta", replace
+if ($zed==1) save "$dpath/results_micomps_t1.dta", replace
 else{
-	append using "$dpath/results_micomps_t.dta"
-	save "$dpath/results_micomps_t.dta", replace
+	append using "$dpath/results_micomps_t1.dta"
+	save "$dpath/results_micomps_t1.dta", replace
 }

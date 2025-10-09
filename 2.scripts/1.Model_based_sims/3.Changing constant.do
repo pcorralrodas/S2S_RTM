@@ -11,6 +11,8 @@
 clear 
 set more off
 
+set seed 903492
+
 //Would you impute?
 //Gini under log normal dist
 local obsnum    = 20000 //Number of observations in our survey

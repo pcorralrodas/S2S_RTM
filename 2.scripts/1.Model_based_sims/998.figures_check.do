@@ -1,8 +1,9 @@
 set more off
 clear all
 
-/* Paths
+* Paths
 *** CHANGE THE FIRST GLOBAL TO THE DIRECTORY WHERE YOU DOWNLOADED THE REPLICATION FILES ***
+/*
 if (lower("`c(username)'")=="ham_andres"){
 	global main    "/Users/ham_andres/Library/CloudStorage/Dropbox/research/wb/S2S/"
 }
@@ -244,7 +245,7 @@ qui: reshape wide value, i(ptile) j(variable) string
 		title("`title1' `title2'")
 		
 		graph export "$figs\bd`bd'_ed`ed'.eps", as(eps) name("Graph") replace
-		
+
 	}
 	
 	forval z=5/15{

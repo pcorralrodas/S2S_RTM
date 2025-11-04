@@ -138,34 +138,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Abstract
-Accurate and timely poverty measurement is central to development policy,
- yet the availability of up-to-date high-quality household survey data remains
- limited—particularly in countries where poverty is most concentrated.
- Survey-to-survey imputation has emerged as a practical response to this
- challenge, allowing practitioners to update poverty estimates using recent
- surveys that lack direct welfare measures by borrowing information from
- other comprehensive surveys.
- A critical review of the method is provided, revisiting its statistical
- underpinnings and testing its limitations through extensive model-based
- simulations.
- Through these simulations, the analysis demonstrates how violations of
- parameter stability, omitted variable bias, and shifts in survey design
- can introduce substantial errors— particularly when imputing across time
- or under economic and structural change.
- Results show that standard corrections such as re-weighting or covariate
- standardization may fail to eliminate these biases, especially when imputing
- across time or under structural change.
- The performance of alternative model specifications is also evaluated under
- various methods, including performance under heteroskedastic errors, non-normal
-ity.
- The findings offer practical guidance for practitioners on when survey-to-surve
-y imputation is likely to succeed, when it should be reconsidered, and how
- to communicate its limitations transparently in the context of poverty
- monitoring and policy design.
-\end_layout
-
-\begin_layout Abstract
+\begin_layout Standard
 \begin_inset VSpace vfill
 \end_inset
 
@@ -3146,7 +3119,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard

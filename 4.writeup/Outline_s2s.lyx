@@ -92,7 +92,7 @@
 Stress‑Testing Survey‑to‑Survey Imputation: Understanding When Poverty Predictio
 ns Can Fail
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The authors acknowledge financial support from the World Bank.
@@ -103,6 +103,8 @@ The authors acknowledge financial support from the World Bank.
  Maria Eugenia Genoni for providing support and space to pursue this work.
  Thanks are also due to Tara Vishwanath for her insights and guidance on
  earlier background work.
+ Special thanks to Ankriti Singh wit DECPR for ensuring replicability of
+ the paper's results.
  Any error or omission is the authors’ responsibility alone.
 \end_layout
 
@@ -138,28 +140,7 @@ literal "false"
 
 \end_layout
 
-\begin_layout Abstract
-Accurate and timely poverty measurement is central to development policy,
- yet up-to-date, high-quality household surveys remain scarce, especially
- in countries where poverty is concentrated.
- Survey-to-survey imputation (S2S) offers a practical response, updating
- poverty estimates by leveraging recent surveys without direct welfare measures
- against comprehensive reference surveys.
- This paper critically reviews the method, revisiting its statistical foundation
-s and testing its limits through extensive simulations.
- Results highlight how violations of parameter stability, omitted variables,
- and survey design changes can generate substantial errors, particularly
- when imputing across time or under structural change.
- Standard corrections such as re-weighting or covariate standardization
- often fail to remove these biases.
- Alternative model specifications are also evaluated, including performance
- under heteroskedastic and non-normal errors.
- The findings provide guidance on when S2S is likely to succeed, when it
- should be reconsidered, and how its limitations should be communicated
- in the context of poverty monitoring and policy design.
-\end_layout
-
-\begin_layout Abstract
+\begin_layout Standard
 \begin_inset VSpace vfill
 \end_inset
 
@@ -3140,7 +3121,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard

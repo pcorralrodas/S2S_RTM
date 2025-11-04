@@ -95,7 +95,7 @@ preserve
 	merge m:1 dom tdom using `tdoms'
 		keep if _m==3
 		sample 20, by(dom tdom)
-	
+	sort hhid
 	count	
 	save "$dpath/srs_sample_cluster.dta", replace
 
@@ -118,12 +118,14 @@ preserve
 		keep if _m==3
 		sample 20, by(dom tdom)
 		clonevar laverdad = Y_B
+		
+	sort hhid
 	drop Y_B
 	count	
 	save "$dpath/srs_sample_cluster_target.dta", replace
 
 restore
-
+sort hhid
 save "$dpath/full_sample_cluster.dta", replace
 
 

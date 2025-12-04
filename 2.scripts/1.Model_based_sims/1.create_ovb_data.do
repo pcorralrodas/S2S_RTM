@@ -39,8 +39,13 @@ set obs `=`obsnum''
 	gen x2 = runiform()<=(0.2) //*0.05*x1 //artificial correlation
 	gen x3 = runiform()<(0.5) if x2==1
 	replace x3 = 0 if x2==0
-	gen x4 = rnormal(2.5, 2)
-	gen x5  = rt(5)*.25
+	gen x4 = round(max(1,rpoisson(5)),1)
+	gen x5 = x4<3
+	gen x6 = x4>=8
+	drop x4
+	rename x5 x4
+	rename x6 x5
+
 	//Create conflict variable, to indicate some form of conflict intensity
 	gen conflict = runiform()<0.4
 	//Create a dummy for whether or not the house bought eggs, notice it's

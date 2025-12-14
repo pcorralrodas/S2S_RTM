@@ -29,7 +29,7 @@ forval z=1/1000	{
 	
 	* Displays current simulation
 	global zed = `z'
-	display in yellow "Simulation: `z'"	
+	display as error "Simulation: `z'"	
 	 
 	// A. Creates the data
 	run "$thedo/1.creates_data_nonnormal.do" 

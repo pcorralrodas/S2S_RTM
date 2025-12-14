@@ -22,7 +22,7 @@ set maxvar 15000
 // Prep data
 *===============================================================================
 
-forval z=1/1000	{
+forval z=1/500	{
 	
 	* Displays current simulation
 	global zed = `z'

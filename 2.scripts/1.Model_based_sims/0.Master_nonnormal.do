@@ -20,11 +20,11 @@ set maxvar 15000
 *===============================================================================
 
 * Runs processes
-forval z=1/1000	{
+forval z=1/500	{
 	
 	* Displays current simulation
 	global zed = `z'
-	display in yellow "Simulation: `z'"	
+	display as error "Simulation: `z'"	
 	 
 	// A. Creates the data
 	run "$thedo/1.creates_data_nonnormal.do" 

@@ -436,7 +436,7 @@ use "$dpath/results_micomps.dta", clear
 // FIgures for reweighting and standarization simulations
 // 2.runs_simulations.do
 *===============================================================================
-use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_reweight_1.dta", clear
+use "$dpath\results_reweight_1.dta", clear
 
 	groupfunction, mean(value) by(source method reference measure)
 

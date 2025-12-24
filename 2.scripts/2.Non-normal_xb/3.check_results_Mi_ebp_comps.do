@@ -5,31 +5,21 @@
 * 			                                        				*
 *********************************************************************  
 *** Authors: Paul Corral, Leonardo Lucchetti, Andres Ham ***
-*** THIS DO-FILE: Runs the simulations that check the imputation procedure ****
+*** THIS DO-FILE: * Checks results from simulations ****
 *** VERSION: 08/13/2024 ***
 
-* Initial options
-version 15
 set more off
-clear all
-* Do not change to obtain exact results
-set seed 94131
-set maxvar 15000
+clear 
 
 
-* Runs processes
-forval z=1/500{
-	global zed = `z'
-	display in yellow "Simulation: `z'"	
-
-	//Creates the data
-	run "$thedo/1.creates_data.do" 
-
-	//Runs the simulations
-	run "$thedo/2.Mi_ebp_comps.do"
+use "$dpath/results_micomps.dta", clear
+	replace reference = "gini" if measure=="gini"
+	egen double true = max(value*(method=="FULL")), by(sim reference measure)
+	gen double bias  = (value - true)
 	
-}
-
-//Checks consistency
-run "$thedo/3.check_results_Mi_ebp_comps.do"
-
+	groupfunction, mean(bias) by(reference measure method)
+	
+gen conca = reference+measure+method
+order conca, first
+	
+export excel using "$dpath/reweight.xlsx", sheet(data_micomps) sheetreplace first(variable)

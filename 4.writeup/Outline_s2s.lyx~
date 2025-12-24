@@ -2223,17 +2223,24 @@ name "subsec:Creating-populations"
 \end_layout
 
 \begin_layout Subsubsection
-DGP 1 - close to normally distributed 
+DGP 1 - approximately normal 
 \begin_inset Formula $x\beta$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:DGP-1--"
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-We create 1,000 populations of 20,000 households where the welfare of the
- population is generated with the following data generating process (DGP):
- 
+We create 500 synthetic populations of 20,000 households where the welfare
+ of the population is generated with the following data generating process
+ (DGP): 
 \end_layout
 
 \begin_layout Standard
@@ -2303,8 +2310,8 @@ where
 \end_layout
 
 \begin_layout Standard
-The Gini for this distribution is ~0.38, and the covariates explain roughly
- 47 percent of the variation of 
+This DGP yields a Gini coefficient of approximately 0.38, and the covariates
+ explain about 47 percent of the variation in 
 \begin_inset Formula $\ln y_{i}$
 \end_inset
 
@@ -2332,23 +2339,29 @@ literal "false"
 
 \end_inset
 
- although covariate generation has been updated to follow the one presented
- here, but still including area level correlations as shown in the annex..
- This adjusted DGP is used to illustrate the impact on bias and MSE when
- the DGP clearly follows a clustered or nested error yet the modeling ignores
- this.
+, while maintaining the covariate-generation process above.
+ This extension is used to illustrate that, when the true DGP includes clustered
+ disturbances, ignoring the nesting primarily affects inference and uncertainty
+ rather than systematically shifting bias in mean poverty predictions.
 \end_layout
 
 \begin_layout Subsubsection
-DGP 2 - far from normally distributed 
+DGP 2 - non-normally distributed 
 \begin_inset Formula $x\beta$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:DGP-2--"
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-Alternatively, the generation of 
+A second DGP modifies the construction of 
 \begin_inset Formula $x_{4}$
 \end_inset
 
@@ -2356,11 +2369,11 @@ and
 \begin_inset Formula $x_{5}$
 \end_inset
 
- is altered to yield an 
-\begin_inset Formula $x\beta$
+ to generate an 
+\begin_inset Formula $X\beta$
 \end_inset
 
- that is farther away from normality, while keeping the generation of 
+ that departs from normality, while keeping the generation of 
 \begin_inset Formula $x_{1},\:x_{2}$
 \end_inset
 
@@ -2368,7 +2381,7 @@ and
 \begin_inset Formula $x_{3}$
 \end_inset
 
- the same.
+ unchanged.
  Additionally, 
 \begin_inset Formula $e_{i}\sim N(0,0.3^{2})$
 \end_inset
@@ -2430,6 +2443,11 @@ indicates low values of
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+Following the previous section, a double nested error model structure is
+ also considered for this DGP.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2496,8 +2514,9 @@ literal "false"
 \begin_layout Standard
 To construct the experimental data used here, a 10 percent simple random
  sample across all PSUs in the census is taken.
- This sample is used to select a model with all eligible covariates (household
- and municipality level covariates) as done in 
+ This subsample is used to estimate a linear model of log income using the
+ full set of eligible household- and municipality-level covariates, following
+ 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "corral2021map"
@@ -2506,8 +2525,11 @@ literal "false"
 \end_inset
 
 .
- The resulting model's linear fit is kept fixed, but different disturbances
- are added to generate 
+ The resulting model's linear fit (
+\begin_inset Formula $X\hat{\beta}$
+\end_inset
+
+) is kept fixed, but different disturbances are added to generate 
 \begin_inset Formula $\ln y$
 \end_inset
 
@@ -2515,9 +2537,9 @@ literal "false"
 \end_layout
 
 \begin_layout Enumerate
-Nested normal error model: normally distributed disturbances at the PSU,
- municipality, and household level are added following the estimated distributio
-ns from the data.
+Nested normal error model: independent normally distributed disturbances
+ at the PSU, municipality, and household levels, calibrated to the estimated
+ variance components in the data.
 \end_layout
 
 \begin_layout Enumerate
@@ -2644,7 +2666,7 @@ To compare different imputation methods, a simple random sample (SRS) comprising
  20 percent of the data generated in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:Creating-populations"
+reference "subsec:DGP-1--"
 plural "false"
 caps "false"
 noprefix "false"
@@ -2737,8 +2759,28 @@ noprefix "false"
  This gap persists despite the fact that the linear prediction has a lower
  mean squared error (MSE = 0.25) than the version with stochastic error (MSE
  = 0.5).
- This suggests that minimizing MSE is not sufficient for reproducing the
- distributional properties needed to estimate poverty accurately.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The MSE here is measured as the mean squared difference in predictions across
+ all households.
+ For the former the difference is 
+\begin_inset Formula $\left(y_{i}-x_{i}\hat{\beta}\right)$
+\end_inset
+
+ and for the latter the difference is 
+\begin_inset Formula $\left(y_{i}-x_{i}\hat{\beta}-e_{i}^{*}\right).$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+ This suggests that minimizing MSE of predicted welfare is not sufficient
+ for reproducing the distributional properties needed to estimate poverty
+ accurately.
  Moreover, the Spearman rank correlation is higher for the linear prediction
  than for the version with added error.
  In other words, correctly ranking households is also not enough to replicate
@@ -2776,6 +2818,14 @@ name "fig:why_errors"
 \align center
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/why_errors.eps
+	lyxscale 80
+	scale 80
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/why_errors_nn.eps
 	lyxscale 80
 	scale 80
 
@@ -3115,7 +3165,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -4378,9 +4428,10 @@ Noise estimation
 \end_layout
 
 \begin_layout Standard
-A word of caution is warranted here and it is related to how noise is estimated.
- When applying MI methods the noise is typically estimated using Rubin's
- rules 
+A cautionary point concerns how uncertainty (“noise”) around imputed poverty
+ estimates is quantified.
+ In multiple imputation (MI) applications, uncertainty is typically summarized
+ using Rubin’s combining rules 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "rubin1987multiple"
@@ -4389,18 +4440,22 @@ literal "false"
 \end_inset
 
 .
- Under Rubin's rules the estimated variance is equal to the sum of within-imputa
-tion variance, the between imputation variance, and the between imputation
- variance divided by the number of imputations.
-\begin_inset Foot
-status collapsed
+ Under Rubin's rules the estimated variance is:
+\end_layout
 
-\begin_layout Plain Layout
-Under Rubin's rules: 
-\begin_inset Formula $T=W+(1+\frac{1}{M})B$
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T=W+(1+\frac{1}{M})B_{v}
+\]
+
 \end_inset
 
-, where 
+
+\end_layout
+
+\begin_layout Standard
+where 
 \begin_inset Formula $T$
 \end_inset
 
@@ -4413,70 +4468,80 @@ Under Rubin's rules:
 \end_inset
 
  is the within survey variance, and 
-\begin_inset Formula $B$
+\begin_inset Formula $B_{v}$
 \end_inset
 
  is the between imputation variance.
- Based on Rubin's rules, the imputed indicator cannot have a variance that
- is smaller than it would have been if it were collected directly in the
- target survey.
-\end_layout
+ A mechanical implication is that the variance of an imputed indicator cannot
+ be smaller than the variance the same indicator would have if it had been
+ observed directly in the target survey.
+ This feature is appropriate for the setting 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "rubin1987multiple"
+literal "false"
 
 \end_inset
 
- It is important to remember that these methods were developed for regression
- analysis, where a variable with missing observations is imputed and then
- used in a model.
- Rubin's rules are applied in those instances to obtain a valid standard
- error of the regression parameters.
- Estimating the prediction's noise in a similar manner when parameters are
- applied directly risks producing improper imputations.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
+ had in mind—imputing missing covariates for subsequent regression analysis—wher
+e inference is calibrated to maintain correct coverage and control type
+ I error 
 \begin_inset CommandInset citation
-LatexCommand citet
+LatexCommand citep
 key "van2018flexible"
 literal "false"
 
 \end_inset
 
- notes how keeping 
-\begin_inset Formula $\beta s$
-\end_inset
-
- fixed across imputations can lead to improper imputations since the goal
- of MI is not to minimize the MSE.
+.
+ In S2S applications, however, the estimand is often the indicator itself
+ (e.g., a poverty rate), and applying Rubin’s rules in a purely predictive
+ context can yield uncertainty measures that are not well aligned with the
+ objectives of minimizing prediction error.
 \end_layout
 
-\end_inset
-
- When keeping 
+\begin_layout Standard
+An alternative approach commonly used in small area estimation keeps 
 \begin_inset Formula $\beta$
 \end_inset
 
- fixed, as is done by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "molina2010small"
-literal "false"
-
+ and 
+\begin_inset Formula $\sigma$
 \end_inset
 
-, MSEs are estimated following a parametric bootstrap presented by 
+ fixed when generating predictions and estimates MSE via a parametric bootstrap
+ 
 \begin_inset CommandInset citation
-LatexCommand citet
-key "gonzalez-manteiga2008bootstrap"
+LatexCommand citep
+key "molina2010small,gonzalez-manteiga2008bootstrap"
 literal "false"
 
 \end_inset
 
 .
- This bootstrap procedure is aligned to the model's assumptions under small
- area estimation, but the approach may not necessarily align with multiple
- imputation.
- 
+ While predictions within a given replicate are computed using fixed parameters,
+ uncertainty is evaluated by repeatedly re-estimating the model across bootstrap
+ replicates, so that 
+\begin_inset Formula $\beta$
+\end_inset
+
+ and 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ vary in the noise estimation step.
+ More generally, when bias is non-negligible (as can occur for area-level
+ estimates), variance-based measures, as those derived from Rubin’s rules,
+ can understate total error because they do not capture the bias component
+ of MSE (see 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "rodas2021pull"
+literal "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -4542,18 +4607,8 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-A simulation is run to test how aligned to the truth are the two methods
- – 
-\begin_inset CommandInset citation
-LatexCommand citeauthor
-key "rubin1987multiple"
-literal "false"
-
-\end_inset
-
-'s rules and parametric bootstrap – for noise estimation.
- Populations of 20,000 observations are generated following the model's
- assumptions as illustrated in Section 
+To assess how closely these two approaches track the true noise, a simulation
+ is conducted under the model assumptions described in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Creating-populations"
@@ -4564,21 +4619,20 @@ noprefix "false"
 \end_inset
 
 .
- A random sample of 30 percent is marked as the target survey, and a random
- sample of 20 percent is marked as the source data for training the model.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-The samples are selected separately and may have an overlap in observations.
-\end_layout
-
+ Each simulated population contains 20,000 observations.
+ Within each population, a random 30 percent subsample is designated as
+ the target survey and an independent 20 percent subsample as the source
+ survey used for model estimation (the two samples are drawn separately
+ and may overlap).
+ This procedure is repeated for 
+\begin_inset Formula $B=10,000$
 \end_inset
 
- To compare the noise estimates of each method, 10,000 populations are created.
- Under each population a new error is drawn from its assumed distribution
- and predictions are made, as well as noise is estimated – following a parametri
-c bootstrap 
+ bootstrap populations.
+ For each population, new errors are drawn from the assumed error distribution;
+ poverty is then predicted under each population using (i) MI, with uncertainty
+ computed via Rubin’s rules, and (ii) fixed-parameter prediction with uncertaint
+y computed via a parametric bootstrap 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "gonzalez-manteiga2008bootstrap"
@@ -4586,46 +4640,54 @@ literal "false"
 
 \end_inset
 
- or following Rubin's rules 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "rubin1987multiple"
-literal "false"
-
-\end_inset
-
 .
- Both methods here appear to overestimate the true MSE.
-\begin_inset Foot
-status collapsed
+ Thus, under each population a noise estimate is obtained for each method.
+ The resulting average estimated variance/MSE from each method across the
+ 10,000 generated populations is compared to the empirical MSE across population
+s:
+\end_layout
 
-\begin_layout Plain Layout
-The method's MSE/variance is the average from the 10,000 imputations.
- The empirical MSE is: 
-\begin_inset Formula $MSE=\sum_{b=1}\frac{\left(\hat{\tau}_{b}-\tau_{b}\right)^{2}}{B}$
+\begin_layout Standard
+\begin_inset Formula 
+\[
+MSE=\sum_{b=1}\frac{\left(\hat{\tau}_{b}-\tau_{b}\right)^{2}}{B}
+\]
+
 \end_inset
 
- where 
-\begin_inset Formula $\tau$
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\tau_{b}$
 \end_inset
 
- is the indicator of interest and 
-\begin_inset Formula $B$
+ is the true population indicator for population 
+\begin_inset Formula $b$
 \end_inset
 
- is the total number of bootstrap populations.
+ and 
+\begin_inset Formula $\hat{\tau}_{b}$
+\end_inset
+
+ is the predicted indicator for population 
+\begin_inset Formula $b$
+\end_inset
+
+ following MI or fixed parameters.
  
 \end_layout
 
-\end_inset
-
+\begin_layout Standard
+Both methods here appear to overestimate the empirical MSE.
  The reason for the overestimation is that both methods measure the noise
  based on the target survey which is smaller than the population.
- The MSE is equal to the sum of the squared bias and the variance of the
- indicator of interest.
- Since both methods are nearly unbiased, it mostly boils down to the variance
- and given that the target survey is much smaller than the population the
- variance parameter of the MSE is larger (see Annex 
+ Since the MSE is equal to the sum of the squared bias and the variance
+ of the indicator of interest and both methods are nearly unbiased (with
+ slightly larger bias under MI), differences are mostly driven by the variance
+ term, which is mechanically larger when evaluated using the smaller target
+ sample (see Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:sample_size_mse"
@@ -4636,9 +4698,7 @@ noprefix "false"
 \end_inset
 
 ).
- However, further caution is warranted in instances where the estimates
- are likely biased since the variance estimated following Rubin's rules
- will yield a downward biased estimate of the true noise.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -6037,12 +6097,14 @@ name "subsec:Omitted-Variables"
 \begin_layout Standard
 Omitted variables and endogeneity have traditionally not been major concerns
  in predictions such as S2S or small area estimation.
- This is because, in the current period, any omitted variables are accounted
- for by the constant term and coefficients of covariates correlated to the
- omitted variable, which are adjusted to ensure that OLS predictions of
- the dependent variable remain unbiased.
- However, over time, the effects of omitted variables can influence predictions
- considerably.
+ In a contemporaneous setting, OLS fitted values remain unbiased for the
+ conditional mean under standard conditions, with unobserved determinants
+ absorbed—on average—by the intercept and by coefficients on correlated
+ regressors.
+ This reassurance is weaker in cross-time applications: if the distribution
+ of omitted determinants changes between the source and target periods,
+ the source-period relationship between observables and welfare need not
+ remain transferable, and prediction errors can become systematic.
  For a more detailed discussion, see the annex (Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -6058,14 +6120,14 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Consider a plausible application of survey-to-survey (S2S) imputation in
- a conflict-affected rural setting.
- Suppose the model predicts a decline in poverty between two survey years.
- One potential interpretation might be that poverty fell as a result of
- reduced conflict.
- However, if the model does not explicitly control for conflict, this interpreta
-tion may be misleading.
- In line with guidance from 
+Consider a plausible application of survey-to-survey (S2S) imputation for
+ monetary poverty in a conflict-affected rural setting.
+ Suppose conflict declines between two survey rounds and, as a result, poverty
+ falls.
+ If the imputation model does not control for conflict directly, it may
+ rely on fast-changing consumption indicators—such as whether households
+ consumed meat, eggs, or chocolate—as proxies for welfare dynamics, consistent
+ with guidance in 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "yoshida2022concept"
@@ -6073,14 +6135,12 @@ literal "false"
 
 \end_inset
 
-, the model might include fast-changing consumption indicators—such as whether
- households consumed meat, eggs, or chocolate—as proxies for welfare changes.
- Yet, if conflict both reduces consumption of these goods and suppresses
- household expenditure, then omitting conflict from the model could introduce
- omitted variable bias (OVB).
- This kind of misspecification can distort poverty estimates, particularly
- when key explanatory variables are correlated with both the outcome and
- unobserved shocks like insecurity (refer to Annex 
+.
+ However, if conflict simultaneously depresses consumption of these goods
+ and reduces household expenditure, then omitting conflict induces omitted-varia
+ble bias: the coefficients on the consumption indicators partly reflect
+ the conflict channel, and changes in conflict over time can translate into
+ biased predictions of welfare and poverty (refer to Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:ann_ovb"
@@ -6091,6 +6151,51 @@ noprefix "false"
 \end_inset
 
 ).
+\end_layout
+
+\begin_layout Standard
+Proxy variables can, in principle, mitigate omitted-variable bias 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "wooldridge2009introductory,wooldridge2010econometric,YoshidaKawashimaTakamatsu2025ShockResponsiveness"
+literal "false"
+
+\end_inset
+
+, but not every correlated covariate qualifies as a valid proxy.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "wooldridge2009introductory"
+literal "false"
+
+\end_inset
+
+, for example, discusses “ability” as an omitted determinant of wages and
+ notes that while education is correlated with ability, it is itself a structura
+lly relevant regressor in the wage equation and therefore should not be
+ treated as a proxy; he instead uses IQ as an imperfect proxy for ability.
+ Formally, a valid proxy must satisfy two conditions 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "wooldridge2009introductory,wooldridge2010econometric"
+literal "false"
+
+\end_inset
+
+: it must be strongly correlated with the omitted factor, and it must be
+ conditionally irrelevant for the outcome once the omitted factor is included—i.e.
+, if the omitted variable were observed, the proxy would add no explanatory
+ power to the model.
+ Item-specific consumption indicators may plausibly satisfy the first condition,
+ but they are unlikely to satisfy the second because they are mechanically
+ related to household expenditure (household expenditure is a function of
+ the goods it has decided to purchase) and thus remain directly relevant
+ determinants of the welfare aggregate.
+ When this “conditional irrelevance” requirement fails, the proposed proxy
+ is simply another regressor that can inherit bias when it is correlated
+ with the omitted factor, potentially amplifying—rather than alleviating—cross-t
+ime prediction error.
 \end_layout
 
 \begin_layout Standard
@@ -6123,6 +6228,7 @@ It is simulated as a binary variable taking value 1 when a random uniform
 \end_inset
 
 .
+ Thus, it is expected that 40 percent of households are affected by conflict.
 \end_layout
 
 \end_deeper
@@ -6144,23 +6250,19 @@ The variable is simulated as binary, taking the value 1 if a randomly drawn
 \end_inset
 
  in the baseline.
- This data-generating process (DGP) imposes a negative relationship between
- conflict and the probability of purchasing eggs, while allowing this probabilit
-y to depend on 
+ Importantly, “eggs purchased” is not generated from a behavioral demand
+ model.
+ It is introduced as a reduced-form indicator whose probability shifts with
+ conflict and with an exogenous component 
 \begin_inset Formula $x$
 \end_inset
 
-, which represents all other determinants of the purchase decision.
- In this setup, conflict is not the sole driver of egg consumption; rather,
- 
-\begin_inset Formula $x$
-\end_inset
-
- captures a range of exogenous influences—such as supply shocks (e.g., avian
- influenza), changes in input costs, or shifts in dietary norms—that affect
- purchasing behavior independently of household welfare.
- Accordingly, variation in egg purchases reflects both movements in conflict
- and changes in these omitted factors, which need not be stable over time.
+ that captures non-welfare drivers of purchase decisions—such as market
+ access and availability, supply disruptions, relative price changes, or
+ shifts in preferences.
+ The objective is to mimic a setting in which an item-level consumption
+ indicator moves because the economic environment changes, not solely because
+ household welfare changes.
 \end_layout
 
 \end_deeper

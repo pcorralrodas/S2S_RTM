@@ -1,0 +1,29 @@
+	(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)
+VARIABLES	bcy	bcy	lns1_1_1	lns1_1_1	lns2_1_1	lns2_1_1	lnsig_e	lnsig_e
+								
+bcy								
+rural	-0.119***	(0.0100)						
+hhsize	-0.116***	(0.000820)						
+age_hh	-0.00301***	(0.000108)						
+no_sewage	-0.105***	(0.00627)						
+sewage_pub	0.145***	(0.00453)						
+telephone	0.115***	(0.00411)						
+cellphone	0.269***	(0.00405)						
+computer	0.309***	(0.00414)						
+washmachine	0.0995***	(0.00378)						
+fridge	0.0896***	(0.00462)						
+television	0.0955***	(0.00611)						
+share_adult	0.785***	(0.00641)						
+max_secondary	-0.201***	(0.00329)						
+lns1_1_1								
+lns2_1_1								
+lnsig_e								
+Constant	6.847***	(0.0160)	-1.072***	(0.0185)	-1.696***	(0.0124)	-0.0999***	(0.00116)
+								
+Observations	390,203		390,203		390,203		390,203	
+Number of groups	1,865		1,865		1,865		1,865	
+N	390203		390203					
+Sigma Mun	0.342		0.342					
+Sigma PSU	0.183		0.183					
+Standard errors in parentheses								
+*** p<0.01, ** p<0.05, * p<0.1								

@@ -29,6 +29,8 @@ global dpath   "$main/1.data"
 global thedo   "$main/2.scripts/1.Model_based_sims"
 global theado  "$main/2.scripts/0.ados"
 global figs    "$main/5.figures"
+global mex "C:\Users\WB378870\GitHub\Poverty-Mapping\Data"
+
 /*
 * Required packages and files
 cap: net install github, from(https://haghish.github.io/github/)

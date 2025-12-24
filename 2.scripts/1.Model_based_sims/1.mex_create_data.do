@@ -8,7 +8,9 @@
 set more off
 clear all
 
-global mex "C:\Users\WB378870\GitHub\Poverty-Mapping\Data"
+set seed 26439
+local doall = 1
+
 
 local misvar rural  hhsize age_hh male_hh  piped_water no_piped_water ///
 	no_sewage sewage_pub sewage_priv electricity telephone cellphone internet ///
@@ -16,7 +18,7 @@ local misvar rural  hhsize age_hh male_hh  piped_water no_piped_water ///
 	max_secondary
 	
 use "$mex/census_trim.dta", clear
-		
+	sort hhid
 	sum e_y [aw=hhsize],d
 	global pline = r(p25)		
 	
@@ -29,15 +31,18 @@ use "$mex/census_trim.dta", clear
 	
 	rename HID_mun theMUN
 	
-	lassoregress bcy  `chosen'  [aw=Whh], lambda1se epsilon(1e-10) numfolds(20)
+if (`doall'==1){
+	
+	lassoregress bcy  `misvar' mun_* state_* [aw=Whh], lambda1se epsilon(1e-10) numfolds(20)
 	local hhvars0p = e(varlist_nonzero)
 	local hhvars `hhvars0p'
 	//sae model h3 bcy `hhvars0p', area(HID_mun)
-	
+}	
 	rename theMUN HID_mun
+if (`doall'==1){
 	
 	forval z= 0.5(-0.05)0.05{
-		qui:sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun) 
+		qui:sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun) method(luinv_la)
 		mata: bb=st_matrix("e(b_gls)")
 		mata: se=sqrt(diagonal(st_matrix("e(V_gls)")))
 		mata: zvals = bb':/se
@@ -47,7 +52,7 @@ use "$mex/census_trim.dta", clear
 	
 		foreach x of varlist `hhvars'{
 			local hhvars1
-			qui: sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun)
+			qui: sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun) method(luinv_la)
 			qui: test `x' 
 			if (r(p)>`z'){
 				local hhvars1
@@ -72,8 +77,8 @@ use "$mex/census_trim.dta", clear
 
 	local hhvars `vifvar'
 	
-	forval z= 0.05(-0.0005)0.0005{
-		qui:sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun) 
+	forval z= 0.05(-0.01)0.01{
+		qui:sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun) method(luinv_la)
 		mata: bb=st_matrix("e(b_gls)")
 		mata: se=sqrt(diagonal(st_matrix("e(V_gls)")))
 		mata: zvals = bb':/se
@@ -83,7 +88,7 @@ use "$mex/census_trim.dta", clear
 	
 		foreach x of varlist `hhvars'{
 			local hhvars1
-			qui: sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun)
+			qui: sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun) method(luinv_la)
 			qui: test `x' 
 			if (r(p)>`z'){
 				local hhvars1
@@ -98,19 +103,69 @@ use "$mex/census_trim.dta", clear
 		}
 	}
 		
-	sae model h3 bcy `hhvars' [aw=Whh], area(HID_mun)
-	outreg2 using "$figs/h3_lnskew_hh_simfake@1.xls", adds(Adj. R2, e(r2a_beta), N, e(N_beta), Eta ratio, e(eta_ratio), Eta square, e(eta_var)) sideway replace
-	
-	global hhCmodel `hhvars'			
-	
-	local unico $hhCmodel hhsize	
-	local unico: list uniq unico
-	global toimport `unico'
-	
-	noi:xtmixed bcy $hhCmodel  || HID_mun: || HID:, reml
-	outreg2 using "$figs/twofold_lnskew_hh_simfake@1.xls", adds(N, e(N), Sigma Mun, exp([lns1_1_1]_cons), Sigma PSU, exp([lns2_1_1]_cons)) sideway replace
+	global modvar `hhvars'
+}	
 
-	local sig1_2 =  (exp([lns1_1_1]_cons))^2
-	local sig2_2 =   exp([lns2_1_1]_cons)^2
-	local evar   =  (exp([lnsig_e]_cons))^2
+	mixed lny $modvar || HID_mun:||HID:, reml difficult
+	local sig1_2 =  0.75*(exp([lns1_1_1]_cons))^2
+	local sig2_2 =  0.75*(exp([lns2_1_1]_cons))^2
+	local evar   =  0.75*(exp([lnsig_e]_cons))^2
+	
+	keep HID HID_mun
+	duplicates drop HID, force
+	gen eta_HID = rnormal(0,sqrt(`sig2_2'))
+	
+	preserve
+		keep HID eta_HID
+		tempfile HID
+		save `HID'
+	restore
+	
+	duplicates drop HID_mun, force
+	gen eta_HID_mun = rnormal(0,sqrt(`sig1_2'))
+	preserve
+		keep HID_mun eta_HID_mun
+		tempfile HID_mun
+		save `HID_mun'
+	restore
+	
 
+	
+*===============================================================================
+//Now produce vectors with different type of errors
+*===============================================================================
+use "$mex/census_trim.dta", clear
+	predict double linear_fit, xb 
+	drop if missing(linear_fit)
+	
+	merge m:1 HID using `HID'
+		drop if _m==2
+		drop _m
+		
+	merge m:1 HID_mun using `HID_mun'
+		drop if _m==2
+		drop _m
+	
+	sort hhid
+		
+	//Normal errors
+	egen double lny_normal = rsum(linear_fit eta_HID eta_HID_mun)
+	replace lny_normal     = lny_normal + rnormal(0,sqrt(`evar'))
+	
+	//Non-normal errors
+	gen double lny_nonnormal = linear_fit + rt(10)/2.25
+	
+	//Heteroskedastic errors
+		// Generate independent variable x
+		generate xhet = rnormal(0.5, 0.5)
+
+		// Generate error term with multiplicative heteroskedasticity
+		// where variance increases with x
+		generate ehet = rnormal(0, exp((1/6)*xhet)/2)
+		
+	gen lny_het = linear_fit + ehet
+	
+keep hhid lny_nonnormal lny_normal lny_het lny $modvar HID_mun xhet
+char _dta[model] $modvar
+
+save "$dpath\mex_census.dta", replace

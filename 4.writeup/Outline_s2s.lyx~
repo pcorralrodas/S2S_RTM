@@ -681,9 +681,10 @@ literal "false"
 
 \end_inset
 
- further note that evidence on the utility of granular consumption predictors
- remains inconclusive, and instead advocate for parsimonious models that
- are easier to implement in surveys and in challenging field conditions.
+ further note that evidence on the utility of item-specific consumption
+ indicators (e.g., expenditures or quantities for particular goods) remains
+ inconclusive, and instead advocate for parsimonious models that are easier
+ to implement in surveys and in challenging field conditions.
  
 \end_layout
 
@@ -984,6 +985,10 @@ literal "false"
 \end_inset
 
 ).
+ In model-based small area estimation auxiliary information from censuses,
+ registers or other large surveys are leveraged to produce statistics with
+ sufficient precision where survey data alone is not enough, for example
+ small geographical areas.
  Perhaps the first instance of survey-to-survey imputation, as is applied
  in this paper, comes from the work of 
 \begin_inset CommandInset citation
@@ -1071,8 +1076,8 @@ Survey-to-survey (S2S) imputation for poverty measurement relies on the
 \end_inset
 
  is used to indicate when parameters are applied to the target data.
- Hence, the assumed data generating process (DGP) for transformed welfare
- 
+ The population's assumed data generating process (DGP) for transformed
+ welfare 
 \begin_inset Formula $\ln y_{i}$
 \end_inset
 
@@ -1111,7 +1116,7 @@ literal "false"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\ln\,y_{i}=x_{i}\beta+e_{i};\:e_{i}\sim N(0,\sigma_{e}^{2})\label{eq:welfare model}
+\ln\,y_{i}=x_{i}\beta+e_{i};i=1,\ldots,N\:e_{i}\sim N(0,\sigma_{e}^{2})\label{eq:welfare model}
 \end{equation}
 
 \end_inset
@@ -1351,7 +1356,12 @@ The distribution of the error terms is drawn from its posterior Chi-square
 \begin_inset Formula $n$
 \end_inset
 
- is the number of observations in the training or source data, and 
+ is the number of observations in the training or source data which is sampled
+ from 
+\begin_inset Formula $N$
+\end_inset
+
+, and 
 \begin_inset Formula $K$
 \end_inset
 
@@ -1371,7 +1381,7 @@ With
 \begin_inset Formula $\sigma_{e}^{2*}$
 \end_inset
 
- in hand it is possible to update the variance covariance matrix of the
+ in hand it is possible to update the variance-covariance matrix of the
  
 \begin_inset Formula $\beta$
 \end_inset
@@ -1447,7 +1457,15 @@ literal "false"
 \end_inset
 
  the purpose is to minimize the likelihood of false positives, since normally
- the imputed vectors are frequently used for regression analysis.
+ the imputed vectors are frequently used for regression analysis (see 
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "rodas2021pull"
+literal "false"
+
+\end_inset
+
+ for a discussion related to SAE).
  Alternatively, step 4 may be skipped and the imputed transformed welfare
  can be obtained from 
 \begin_inset Formula $\ln y_{im}^{*}\sim N\left(x_{i_{target}}\beta_{m}^{*},\sigma_{e}^{2*}\right).$
@@ -1551,7 +1569,7 @@ Recent methodological advances have expanded model fitting options to include
  term distributions, they cannot directly replicate the multiple imputation
  approach described above.
  Nevertheless, bootstrap-based alternatives exist where draws from the empirical
- residuals are used to obtain a welfare vector (
+ residuals from the source survey are used to obtain a welfare vector (
 \begin_inset Formula $e_{i}^{*}=\hat{e}_{j},$
 \end_inset
 
@@ -1750,7 +1768,8 @@ Imputation of poverty to a contemporaneous survey can be a useful tool.
  and has also collected a Demographic and Health Survey (DHS).
  If one would like to determine how nutritional indicators among children
  vary across the welfare distribution, survey to survey imputation may be
- of use to determine this.
+ of use to impute a monetary welfare aggregate to the DHS to determine what
+ share of children in the poorest quantiles are stunted.
  Nevertheless, practitioners could also impute the indicator of interest
  to the living standards survey.
  For example, with the goal of determining energy poverty in Bulgaria, 
@@ -1806,100 +1825,39 @@ literal "false"
 
 .
  These preconditions ensure that the fundamental assumption – both surveys
- represent the same underlying population – holds true.
+ represent the same underlying population – holds.
  Two contemporaneous surveys which represent the same population are needed
  for the approach to work well.
- In this instance, the tendency of S2S methods to replicate the distribution
- of the source data in the target data is considered an advantage.
+ In this instance, the assumption of stable parameters does not affect the
+ method's estimates.
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-Covariate comparability
+First, covariate comparability: the predictors used to impute welfare must
+ be available in both surveys and defined and measured in a consistent way.
+ This extends beyond the presence of similarly named variables to encompass
+ harmonized concepts, response categories, and field protocols; differences
+ in definitions (for example, how household membership is determined) can
+ alter both the distribution of covariates and their relationship to welfare.
 \end_layout
 
 \begin_layout Standard
-The variables used to predict welfare must be present and measured consistently
- in both source and target surveys, they should be representative of the
- same population for a given period.
- This requirement extends beyond simple presence of the covariates to encompass:
-\end_layout
-
-\begin_layout Enumerate
-Identical definitions of key variables 
-\end_layout
-
-\begin_layout Enumerate
-Consistent measurement approaches 
-\end_layout
-
-\begin_layout Enumerate
-Similar survey implementation protocols
+Second, distributional alignment: the marginal distributions of key predictors
+ should be similar across the source and target surveys, not only in means
+ but also in dispersion.
+ Large discrepancies may indicate that the target survey places substantial
+ weight on regions of the covariate space with limited support in the source
+ survey, undermining the model’s ability to replicate the welfare distribution.
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-Distribution Alignment
-\series default
- 
-\end_layout
-
-\begin_layout Standard
-For the method to work effectively, both surveys must exhibit three types
- of consistency:
-\end_layout
-
-\begin_layout Enumerate
-Similar distributions of predictor variables.
- Each covariate should have similar summary statistics across surveys.
- This includes both averages and measures of spread/variation
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-Example: The distribution of education levels should be comparable across
- surveys.
- Not just means, but other moments should be aligned.
-\end_layout
-
-\end_deeper
-\begin_layout Enumerate
-Stable structural relationships between variables
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-The correlation patterns between predictors should be preserved
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-Example: If education strongly predicts formal employment in the source
- survey, this relationship should hold in the target survey.
- Changes in these relationships may indicate structural economic changes
- that could invalidate the model's predictions.
-\end_layout
-
-\begin_layout Enumerate
-For predictions in the same time period this is a desirable feature as it
- will allow for an accurate replication of the welfare distribution.
- In the case of imputing to a Demographic and Health Survey (DHS) it would
- allow for accurate estimation of stunting rates across welfare quantiles.
- 
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Standard
-A consistent definition of covariates across training and target surveys
- is also crucial.
- For instance, household size must be defined uniformly across surveys.
- If one survey counts only members sharing five or more meals per week while
- another uses a different definition, this violates not just the first requireme
-nt (similar distributions) but potentially the second as well, as it affects
- both the variable's distribution and its relationships with other predictors.
+Third, structural coherence: the joint relationships among predictors—and,
+ by implication, the mapping from predictors to welfare—should be broadly
+ consistent across surveys.
+ In a contemporaneous setting, parameter instability over time is not the
+ primary concern; rather, the key risk is that survey design differences
+ or measurement inconsistency of covariates shift underlying associations
+ in ways that make the welfare model non-portable.
 \end_layout
 
 \begin_layout Standard
@@ -1910,41 +1868,52 @@ Model Assumptions
 
 \begin_layout Standard
 The reliability of welfare predictions depends critically on meeting the
- model's statistical assumptions, particularly:
+ model's statistical assumptions.
+ Conditional on comparability and alignment across surveys, the quality
+ of welfare imputations hinges on the adequacy of the statistical model
+ used to generate predicted welfare and simulated disturbances.
+ 
 \end_layout
 
-\begin_layout Enumerate
-Normal distribution of residuals, although this can be relaxed as noted
- in the previous section 
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-When the normality assumptions are violated, 
+\begin_layout Standard
+Three assumptions are particularly salient.
+ First, many implementations rely on approximately normal residuals; when
+ this is violated, transformations of the welfare aggregate can improve
+ approximation to normality (
 \begin_inset CommandInset citation
-LatexCommand citet
+LatexCommand citealp
 key "corral2022guidelines"
 literal "false"
 
 \end_inset
 
- provide evidence that appropriate transformations of the dependent variable
- may help achieve normality.
- In cases where transformations prove insufficient, practitioners may draw
- residuals from their empirical distribution, though this requires the assumptio
-n of symmetric errors around zero.
+).
+ If transformations remain insufficient, an alternative is to draw disturbances
+ from the empirical residual distribution, though this requires additional
+ structure—most notably that residuals are appropriately centered and, in
+ common implementations, approximately symmetric.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Although OLS residuals are mean-zero in sample, symmetry matters when residuals
+ are used as a stand-in for the unobserved component in simulation.
+ If the residual distribution is skewed, drawing errors unconditionally
+ from the empirical residuals can systematically alter the estimated probabiliti
+es.
+ If large positive values are more likely to be sampled than large negative
+ values, or vice versa, it is consequential for poverty prediction.
  
 \end_layout
 
-\end_deeper
-\begin_layout Enumerate
-Homoscedasticity of error terms, although this can be relaxed by modeling
- for heteroskedasticity
+\end_inset
+
+ 
 \end_layout
 
-\begin_deeper
-\begin_layout Enumerate
-Both 
+\begin_layout Standard
+Second, the model often assumes homoscedastic errors; this can be relaxed
+ by explicitly modeling heteroskedasticity, as in 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "elbers2002micro"
@@ -1960,29 +1929,21 @@ literal "false"
 
 \end_inset
 
- offer methods that allow for modelling heteroskedasticity
+.
+ Third, the mapping from covariates to welfare is frequently treated as
+ linear, but can be made more flexible through richer parametric specifications
+ (e.g., polynomial terms and interactions) or through nonparametric and machine-le
+arning estimators such as random forests or gradient boosting.
 \end_layout
 
-\end_deeper
-\begin_layout Enumerate
-Linear relationships between predictors and welfare, this too can be relaxed
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-Using polynomials in a linear model or the use of methods like random forest
- or gradient boosting can help relax the linearity assumption
-\end_layout
-
-\end_deeper
 \begin_layout Subsection
 Imputing across time
 \end_layout
 
 \begin_layout Standard
-Survey-to-survey (S2S) imputation provides a valuable tool for filling gaps
- in welfare data, but its use over time requires greater caution than for
- contemporaneous applications as discussed in section 
+Survey-to-survey (S2S) imputation is promoted as a valuable tool for filling
+ gaps in welfare data, but its use over time requires greater caution than
+ for contemporaneous applications as discussed in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Survey-to-Survey-Imputation"
@@ -1993,6 +1954,8 @@ noprefix "false"
 \end_inset
 
 .
+ The method assumes that relationships estimated in a given period can be
+ mapped to a different point in time.
  The core assumption—that changes in welfare reflect only shifts in observable
  characteristics, with stable relationships between covariates and welfare—becom
 es increasingly fragile as the time between surveys grows.
@@ -2013,267 +1976,50 @@ es increasingly fragile as the time between surveys grows.
  As a result, households with identical characteristics in the source and
  target periods are assigned identical poverty probabilities, regardless
  of contextual changes.
- The same limitations that affect contemporaneous S2S imputation—chiefly,
- its tendency to replicate the structure of the source data—are likely to
- be amplified when imputing across time, further constraining the method’s
- ability to track true changes in poverty and inequality.
- Given the growing reliance on S2S for poverty monitoring, even subtle distortio
-ns can mislead policy.
- Practitioners should therefore apply these methods with caution, rigorously
- test validity across time periods, and clearly communicate the method's
- limitations.
+ Because the method assumes stable parameters, it cannot reflect how the
+ poverty risk of households with similar observed characteristics may change
+ over time, which limits its ability to recover true changes in poverty
+ and inequality.
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-The Variance Decomposition Challenge
-\end_layout
-
-\begin_layout Standard
-The core challenge lies in the decomposition of empirical welfare variance
- into two components:
-\end_layout
-
-\begin_layout Itemize
-The explicable empirical variance captured by the model: 
-\begin_inset Formula $\mathrm{var}\left[x\hat{\beta}\right]=\frac{1}{n}\sum_{i}\left(x_{i}\hat{\beta}-\bar{x}\hat{\beta}\right)^{2}$
-\end_inset
-
-, and
-\end_layout
-
-\begin_layout Itemize
-The unexplained random component: (
-\begin_inset Formula $\sigma_{e}^{2}$
-\end_inset
-
-)
-\end_layout
-
-\begin_layout Standard
-In well-specified models, the 
-\begin_inset Formula $R^{2}$
-\end_inset
-
- typically ranges from 0.40 to 0.60, meaning that a substantial portion of
- welfare variation remains unexplained.
- The 
-\begin_inset Formula $R^{2}$
-\end_inset
-
- statistic represents the proportion of variance explained by the model:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-R^{2}=\frac{\mathrm{var}\left[x\hat{\beta}\right]}{\left(\mathrm{var}\left[x\hat{\beta}\right]+\hat{\sigma}_{e}^{2}\right)}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-When imputing across time, practitioners must rely on an error distribution
- (
-\begin_inset Formula $\sigma_{e}^{2}$
-\end_inset
-
-) estimated from historical data, same as 
-\begin_inset Formula $\beta$
-\end_inset
-
-.
- This implicitly assumes that households with the same characteristics face
- the same probability of being poor across different time periods.
- However, a critical limitation arises from the assumption of constant parameter
-s over time.
- In reality, parameters often change, especially in rapidly developing countries
- or over long time horizons, as highlighted in micro decomposition techniques
- such as those of 
+Additionally, omitted variables can be particularly consequential when imputing
+ across time.
+ In contemporaneous settings, these concerns are sometimes viewed as second-orde
+r for prediction because, in the estimation sample, OLS residuals are mean-zero
+ and the intercept absorbs the average influence of unobservables, so fitted
+ values can perform well in reproducing mean welfare (see 
 \begin_inset CommandInset citation
-LatexCommand citet
-key "bourguignon2008beyond"
+LatexCommand citealt
+key "a4f1365d-ff19-34b5-b1b5-15ec4c1e5f15,elbers2003micro,dang2025poverty"
 literal "false"
 
 \end_inset
 
-.
- This implies that the estimated contributions of changes in characteristics
- may not fully reflect actual poverty or inequality levels but rather the
- role of compositional shifts in shaping welfare evolution.
- In other words, instead of measuring the true welfare distribution, the
- method may only capture the effect of compositional shifts – how the population
-’s characteristics are changing over time.
- The assumption of stable parameters when characteristics change significantly
- becomes increasingly restrictive, leading to potential bias in predicted
- welfare levels.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-This concern can also be seen directly from the regression equation: 
-\begin_inset Formula $\beta=\left(X'X\right)^{-1}X'y$
-\end_inset
-
-.
- When the distribution of covariates 
-\begin_inset Formula $X$
-\end_inset
-
- changes substantially (whether due to structural transformation, demographic
- shifts, or policy reforms) both 
-\begin_inset Formula $\left(X'X\right)$
-\end_inset
-
- and 
-\begin_inset Formula $X'y$
-\end_inset
-
- change.
- 
-\end_layout
-
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-A possible avenue for improvement is to explore methods that allow for parameter
- variation over time.
- This could involve explicitly modeling 
-\begin_inset Formula $\beta_{t}$
-\end_inset
-
- as a function of time or estimating it using repeated cross-sections or
- panel data, where available.
- Such an approach could help relax the assumption of constant coefficients
- and possibly improve the reliability of survey-to-survey imputations in
- dynamic contexts.
- However, such an approach is not readily found in the literature.
- 
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-Population-Level Implications
-\end_layout
-
-\begin_layout Standard
-The predicted poverty rates for the population depend on:
-\end_layout
-
-\begin_layout Itemize
-The distribution of household characteristics in the target period
-\end_layout
-
-\begin_layout Itemize
-The stability of relationships between these characteristics and welfare
-\end_layout
-
-\begin_layout Itemize
-The assumed consistency of unobserved factors affecting welfare
-\end_layout
-
-\begin_layout Standard
-Assuming that welfare is log-normal and independence between the mean (
-\begin_inset Formula $\bar{X}\beta$
-\end_inset
-
-) and the idiosyncratic component, 
-\begin_inset Formula $e$
-\end_inset
-
-, then for the population, poverty is given by: 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-FGT_{0}=Φ\,\left(\frac{\ln z-\bar{X}_{target}\hat{\beta}}{\sqrt{\mathrm{var}\left[X_{target}\hat{\beta}\right]+\hat{\sigma}_{e}^{2}}}\right)\label{eq:var pov}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Mathematically, this translates to predictions, for any given poverty line,
- depending on both the mean transformed welfare 
-\begin_inset Formula $\left(\bar{X}_{target}\hat{\beta}\right)$
-\end_inset
-
- and its variation 
-\begin_inset Formula $\left(\mathrm{var}\left[X_{target}\hat{\beta}\right]+\hat{\sigma}_{e}^{2}\right)$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-Sources of Temporal Instability
-\series default
- 
-\end_layout
-
-\begin_layout Standard
-Several factors can undermine the method's reliability across time:
-\end_layout
-
-\begin_layout Itemize
-Structural changes in welfare determinants (e.g., educational convergence)
- 
-\end_layout
-
-\begin_layout Itemize
-Sampling differences between surveys 
-\end_layout
-
-\begin_layout Itemize
-Policy changes (e.g., new welfare programs) 
-\end_layout
-
-\begin_layout Itemize
-Economic shocks or systemic changes (e.g., currency reforms)
-\end_layout
-
-\begin_layout Itemize
-The reliability of survey design over time, including consistency in variable
- definitions, data collection methods (e.g., in-person versus phone), and
- other methodological changes that may affect comparability
-\end_layout
-
-\begin_layout Standard
-These implications extend beyond model specification.
- Many S2S applications employ stepwise regression or regularization techniques
- (like lasso or ridge regression) to optimize model fit, often measured
- by 
-\begin_inset Formula $R^{2}$
-\end_inset
-
-.
- While some argue that endogeneity and omitted variable bias are less concerning
- in predictive modeling,
+).
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
 \begin_inset CommandInset citation
-LatexCommand citealt
+LatexCommand citeauthor
 key "dang2025poverty"
 literal "false"
 
 \end_inset
 
- note that endogeneity is not a concern.
+ (2025 p9) states that 
+\begin_inset Quotes eld
+\end_inset
+
+worries about endogeneity of 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ pose far less important, if any, concerns in our context.
+\begin_inset Quotes erd
+\end_inset
+
  An endogenous variable is frequently defined as an explanatory variable
  that may be correlated with the error term (Wooldridge, 
 \begin_inset CommandInset citation
@@ -2290,123 +2036,102 @@ literal "false"
 
 \end_inset
 
- these issues become particularly problematic when applying models across
- time periods.
- A model trained on data from one year may produce biased estimates when
- used to predict welfare in another year, as both omitted variables and
- endogeneity can significantly impact the model's temporal stability and
- will likely cause biased estimates, limiting the usefulness of S2S to predict
- poverty in years where a welfare aggregate is unavailable (see Annex 
+ This rationale is less compelling in cross-time applications, where the
+ distribution of unobserved determinants may shift between the source and
+ target periods due to shocks, policy changes, or structural transformation.
+ In that case, source-period parameters can embed period-specific correlations
+ between observables and unobservables that are not portable, implying biased
+ welfare and poverty predictions even when covariates are measured consistently.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+See Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:ann_ovb"
+reference "subsec:Omitted-Variables"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-).
+ for an exposition.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+These issues are instances of a broader concern: parameter instability.
+ Cross-time S2S applies both 
+\begin_inset Formula $\beta$
+\end_inset
 
-\series bold
-Implications for Inequality Measurement
-\end_layout
+ and the residual structure (e.g., 
+\begin_inset Formula $\sigma_{e}^{2}$
+\end_inset
 
-\begin_layout Standard
-The challenges noted in previous sections extend to inequality measurement.
- The reliance on error distributions obtained from a different point in
- time, particularly affects inequality measurement.
- Under the common assumption of log-normally distributed welfare, the Gini
- coefficient depends critically on the welfare distribution's standard deviation.
- Using an outdated error distribution can thus produce misleading inequality
- estimates, even when mean predictions appear reasonable.
- 
-\end_layout
-
-\begin_layout Standard
-Assuming that welfare is log-normally distributed then Gini is equal to
- (
+ or a modeled heteroskedastic variance) estimated historically to a different
+ period.
+ When returns evolve—as emphasized in decompositions that allow coefficients
+ to change over time (
 \begin_inset CommandInset citation
 LatexCommand citealt
-key "crow1987lognormal"
+key "bourguignon2008beyond"
 literal "false"
 
 \end_inset
 
-): 
+)—imputations may primarily reflect compositional change rather than the
+ true evolution of the welfare distribution.
+ This can be seen from 
+\begin_inset Formula $\beta=(X'X)^{-1}X'y$
+\end_inset
+
+: substantial shifts in the distribution of 
+\begin_inset Formula $X$
+\end_inset
+
+ change both 
+\begin_inset Formula $X'X$
+\end_inset
+
+ and 
+\begin_inset Formula $X'y$
+\end_inset
+
+, with no guarantee that the implied mapping remains valid in the target
+ period.
+ In practice, cross-time reliability can be undermined by changes in determinant
+s and returns, sampling frames,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Changes in sampling frame are not necessarily problematic, as long as the
+ data is still representative of the population of interest.
+\end_layout
+
+\end_inset
+
+ policy regimes, macroeconomic shocks, and survey design or implementation.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\[
-Gini=2Φ(\frac{σ}{\sqrt{2}})-1
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $σ$
-\end_inset
-
- is the empirical standard deviation of 
-\begin_inset Formula $\ln y$
-\end_inset
-
-.
- Consequently, the imputed Gini across time is also dependent on 
-\begin_inset Formula $\hat{σ}{}_{e}^{2}$
-\end_inset
-
-, which is estimated in an older survey and the resulting empirical variance
- of the linear fit,
-\begin_inset Formula $\mathrm{var}\left[x\hat{\beta}\right]$
-\end_inset
-
-, in the target survey since the empirical variance of the lognormally distribut
-ed 
-\begin_inset Formula $y$
-\end_inset
-
- could be decomposed by:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-σ^{2}=\mathrm{var}\left[x_{target}\hat{\beta}\right]+\hat{\sigma}{}_{e}^{2}
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-and consequently, is also subject to changes in the sample’s distribution
- of the observed characteristics used in the model.
-\end_layout
-
-\begin_layout Standard
-The method's tendency to replicate the welfare distribution of the source
- survey can make it unreliable for measuring changes in inequality and poverty.
- This suggests that survey-to-survey imputation across time periods should
- be approached with considerable caution, particularly when economic conditions
- or social structures have changed significantly between the source and
- target periods.
- Given the increasing reliance on these methods to fill data gaps in poverty
- monitoring, it is crucial to clearly communicate their limitations to avoid
- misinterpretation of trends.
- Moreover, imputed poverty estimates should be systematically validated
- against other proxies for household welfare, such as national accounts,
- labor market indicators, and administrative data, to ensure consistency
- and identify potential discrepancies.
+Finally, these limitations are not resolved by selecting models solely to
+ optimize in-sample fit (e.g., via stepwise selection or regularization).
+ Portability depends on the stability of the conditional relationship being
+ transported; if regressors proxy for unobserved determinants whose correlation
+ structure changes over time, relationships that are predictive within-period
+ can become unreliable out-of-period.
+ Given the growing reliance on S2S to monitor poverty in the absence of
+ frequent welfare aggregates, cross-time applications should be interpreted
+ cautiously and, where feasible, triangulated against independent signals
+ of welfare dynamics—such as national accounts aggregates, labor-market
+ indicators, price statistics, or relevant administrative series.
 \end_layout
 
 \begin_layout Section
@@ -2424,16 +2149,66 @@ noprefix "false"
 
 \end_inset
 
-, focusing on the effects of violating the underlying assumptions of survey-to-s
-urvey imputation on imputed poverty estimates.
- Using simulated data, a controlled environment is created to systematically
- examine these effects.
- Model-based simulations leverage the assumptions underlying the imputation
- models to investigate their robustness and identify potential points of
- failure.
- Unlike real-world data, model based simulations allow for precise manipulation
- of individual components, enabling a clearer understanding of how specific
- changes impact the model's estimates.
+ by examining how violations of key survey-to-survey (S2S) assumptions translate
+ into bias and instability in imputed poverty estimates.
+ The core analysis relies on simulated data, which provides a controlled
+ environment in which individual features of the data-generating process
+ (DGP) can be perturbed in isolation.
+ This design allows the analysis to attribute changes in performance to
+ specific assumption failures—something that is difficult to do with observation
+al data, where multiple sources of non-comparability and model misspecification
+ tend to move together.
+\end_layout
+
+\begin_layout Standard
+To strengthen the external relevance of the simulation findings, two robustness
+ extensions are introduced.
+ First, an alternative DGP is considered in which the “linear” component
+ of the welfare model (i.e.
+ 
+\begin_inset Formula $x\beta$
+\end_inset
+
+) is far away from normally distributed, providing a stricter test of approaches
+ that rely on distributional assumptions.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+We thank reviewers for their recommendation.
+\end_layout
+
+\end_inset
+
+ Second, the analysis uses empirical covariate structure from Mexico following
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+: the linear predictor is estimated on the Mexican intracensal data and
+ then combined with simulated error processes that vary in form—(i) nested
+ normal errors consistent with clustered disturbance structures, (ii) heterosked
+astic errors, and (iii) non-normal errors generated from a Student’s 
+\begin_inset Formula $t$
+\end_inset
+
+ distribution.
+ Together, these exercises are intended to evaluate whether the paper’s
+ recommendations remain robust when residual behavior departs from the baseline
+ assumptions in ways that are empirically plausible in household survey
+ settings.
+\end_layout
+
+\begin_layout Standard
+Model-based simulations thus serve a dual purpose in what follows: they
+ provide a transparent framework for stress-testing S2S imputation under
+ targeted assumption violations, and they support more defensible guidance
+ by demonstrating which findings persist across alternative DGPs and empirically
+ grounded error structures.
 \end_layout
 
 \begin_layout Subsection
@@ -2442,6 +2217,14 @@ Creating populations
 LatexCommand label
 name "subsec:Creating-populations"
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+DGP 1 - close to normally distributed 
+\begin_inset Formula $x\beta$
 \end_inset
 
 
@@ -2526,14 +2309,11 @@ The Gini for this distribution is ~0.38, and the covariates explain roughly
 \end_inset
 
 .
- For the examples presented in the following sections, source and target
- sample data will be taken from each population.
- In this experiment, we take a grid of 20 poverty thresholds, corresponding
- to every 5th percentile up to the 95th percentile of each population.
+ 
 \end_layout
 
 \begin_layout Standard
-In Annex 
+As an additional robustness check, Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:DGP_cluster"
@@ -2543,7 +2323,7 @@ noprefix "false"
 
 \end_inset
 
-, we present a different DGP which follows an assumed double nested error
+ considers an alternative DGP which follows an assumed double nested error
  model similar to that of small area estimation based on 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -2553,10 +2333,224 @@ literal "false"
 \end_inset
 
  although covariate generation has been updated to follow the one presented
- here.
- This adjusted DGP is used to illustrate the limited impact on bias when
+ here, but still including area level correlations as shown in the annex..
+ This adjusted DGP is used to illustrate the impact on bias and MSE when
  the DGP clearly follows a clustered or nested error yet the modeling ignores
  this.
+\end_layout
+
+\begin_layout Subsubsection
+DGP 2 - far from normally distributed 
+\begin_inset Formula $x\beta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Alternatively, the generation of 
+\begin_inset Formula $x_{4}$
+\end_inset
+
+and 
+\begin_inset Formula $x_{5}$
+\end_inset
+
+ is altered to yield an 
+\begin_inset Formula $x\beta$
+\end_inset
+
+ that is farther away from normality, while keeping the generation of 
+\begin_inset Formula $x_{1},\:x_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{3}$
+\end_inset
+
+ the same.
+ Additionally, 
+\begin_inset Formula $e_{i}\sim N(0,0.3^{2})$
+\end_inset
+
+ is also adjusted to ensure the covariates explain roughly 43 percent of
+ the variation of 
+\begin_inset Formula $\ln y_{i}$
+\end_inset
+
+ while yielding a Gini coefficient of roughly 0.23.
+ Specifically, 
+\begin_inset Formula $x_{4}$
+\end_inset
+
+and 
+\begin_inset Formula $x_{5}$
+\end_inset
+
+ are simulated as follows:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\tilde{x}$
+\end_inset
+
+ is a categorical variable, that is simulated as the rounded integer value
+ of the maximum between 1 and a random Poisson variable with mean 
+\begin_inset Formula $λ=5$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $x_{4}$
+\end_inset
+
+indicates low values of 
+\begin_inset Formula $\tilde{x}$
+\end_inset
+
+ and is equal to 1 if 
+\begin_inset Formula $\tilde{x}<3$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $x_{5}$
+\end_inset
+
+ indicates high values of 
+\begin_inset Formula $\tilde{x}$
+\end_inset
+
+ and is equal to 1 if 
+\begin_inset Formula $\tilde{x}\geq8$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+DGP relying on real world data
+\end_layout
+
+\begin_layout Standard
+To complement the stylized simulations, the paper also evaluates robustness
+ using covariate structure estimated from real world data.
+ Specifically, the publicly available Mexican Intercensus Survey of 2015
+ carried out by the Mexican National Institute of Statistics and Geography
+ (INEGI) is used.
+ The survey consists of 5.9 million households and is representative across
+ 2,457 municipalities of the country and localities with a population larger
+ than 50,000 people.
+ 
+\end_layout
+
+\begin_layout Standard
+The analysis uses the processed data described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2025poverty"
+literal "false"
+
+\end_inset
+
+.
+ There, the original intercensus data were modified to randomly remove 90
+ percent of households that did not report income, additionally all municipaliti
+es with less than 500 households sampled were removed.
+ The final census consists of 3.9 million households across 1,865 municipalities.
+ From this frame, 1,000 survey samples of roughly 23,540 households each
+ are drawn, with 10 households per PSU, reflecting design features common
+ in multi-stage household surveys 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "grosh1996manual"
+literal "false"
+
+\end_inset
+
+.
+ Each sample includes all 32 states and between 951 and 1,020 municipalities.
+ Further details on the sampling strategy are provided in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To construct the experimental data used here, a 10 percent simple random
+ sample across all PSUs in the census is taken.
+ This sample is used to select a model with all eligible covariates (household
+ and municipality level covariates) as done in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+.
+ The resulting model's linear fit is kept fixed, but different disturbances
+ are added to generate 
+\begin_inset Formula $\ln y$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Enumerate
+Nested normal error model: normally distributed disturbances at the PSU,
+ municipality, and household level are added following the estimated distributio
+ns from the data.
+\end_layout
+
+\begin_layout Enumerate
+Non normal errors: error terms are drawn from a Student's 
+\begin_inset Formula $t$
+\end_inset
+
+ distribution with 10 degrees of freedom, scaled by 
+\begin_inset Formula $1/2.25$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Multiplicative heteroskedasticity: A covariate, 
+\begin_inset Formula $x_{het}\sim N(0.5,0.5^{2})$
+\end_inset
+
+, is simulated.
+ Then conditional on 
+\begin_inset Formula $x_{het}$
+\end_inset
+
+ the error terms are drawn: 
+\begin_inset Formula $e_{het}\sim N\left(0,\sigma^{2}(x_{het})\right),$
+\end_inset
+
+where 
+\begin_inset Formula $\sigma=\frac{\exp\left((1/6)x_{het}\right)}{2}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -3558,11 +3552,11 @@ An additional simulation is conducted where the error distribution of the
  The errors are designed to mimic a situation where the uncertainty or variabili
 ty in the dependent variable grows as an independent variable increases.
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
-The variance of the error term is: 
-\begin_inset Formula $\sigma^{2}=\frac{\exp\left((1/6)x\right)}{2}$
+The standard deviation of the error term is: 
+\begin_inset Formula $\sigma=\frac{\exp\left((1/6)x\right)}{2}$
 \end_inset
 
 , where 
@@ -6150,15 +6144,23 @@ The variable is simulated as binary, taking the value 1 if a randomly drawn
 \end_inset
 
  in the baseline.
- This data-generating process (DGP) imposes a negative correlation between
- conflict and the likelihood of purchasing eggs, while also allowing the
- probability to depend on 𝑥 x, which subsumes all other determinants of
- egg purchases.
- In practice, whether a household buys eggs is influenced not only by conflict
- but also by factors captured in 𝑥 x—for example, supply disruptions such
- as avian influenza, changes in dietary preferences, fluctuations in the
- cost of chicken feed, or other local conditions affecting availability
- and consumption..
+ This data-generating process (DGP) imposes a negative relationship between
+ conflict and the probability of purchasing eggs, while allowing this probabilit
+y to depend on 
+\begin_inset Formula $x$
+\end_inset
+
+, which represents all other determinants of the purchase decision.
+ In this setup, conflict is not the sole driver of egg consumption; rather,
+ 
+\begin_inset Formula $x$
+\end_inset
+
+ captures a range of exogenous influences—such as supply shocks (e.g., avian
+ influenza), changes in input costs, or shifts in dietary norms—that affect
+ purchasing behavior independently of household welfare.
+ Accordingly, variation in egg purchases reflects both movements in conflict
+ and changes in these omitted factors, which need not be stable over time.
 \end_layout
 
 \end_deeper
@@ -11327,7 +11329,7 @@ The outcome variable
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\ln y_{aci}=3+0.1x_{1_{i}}+0.5x_{2_{i}}-0.25x_{3_{i}}+0.2x_{4_{i}}-0.15x_{5_{i}}++\eta_{a}+\eta_{ac}+\varepsilon_{aci}\label{eq:dgp_model-1}
+\ln y_{aci}=3+0.1x_{1_{i}}+0.5x_{2_{i}}-0.25x_{3_{i}}+0.2x_{4_{i}}-0.15x_{5_{i}}+\eta_{a}+\eta_{ac}+\varepsilon_{aci}\label{eq:dgp_model-1}
 \end{equation}
 
 \end_inset

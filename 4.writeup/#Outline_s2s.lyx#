@@ -2752,7 +2752,7 @@ noprefix "false"
  mean squared error (MSE = 0.25) than the version with stochastic error (MSE
  = 0.5).
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The MSE here is measured as the mean squared difference in predictions across
@@ -2762,7 +2762,7 @@ The MSE here is measured as the mean squared difference in predictions across
 \end_inset
 
  and for the latter the difference is 
-\begin_inset Formula $\left(y_{i}-x_{i}\hat{\beta}-e_{i}^{*}\right).$
+\begin_inset Formula $\left(y_{i}-x_{i}\hat{\beta}-e_{i}^{*}\right)$
 \end_inset
 
  
@@ -2783,7 +2783,7 @@ The MSE here is measured as the mean squared difference in predictions across
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -2809,14 +2809,6 @@ name "fig:why_errors"
 \align center
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/why_errors.eps
-	lyxscale 80
-	scale 80
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/why_errors_nn.eps
 	lyxscale 80
 	scale 80
 

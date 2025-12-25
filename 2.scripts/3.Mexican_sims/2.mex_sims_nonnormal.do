@@ -22,9 +22,9 @@ end
 *========================================================================
 	
 	foreach x in lny_nonnormal{
-		use `x' using "$dpath\mex_census.dta", clear
+		use `x' hhsize using "$dpath\mex_census.dta", clear
 		global themodel : char _dta[model]
-		pctile pct_`x' = `x', nq(100)
+		pctile pct_`x' = `x' [aw=hhsize], nq(100)
 		forval z=5(5)95{
 			local pline_`z' = pct_`x'[`z']
 		}
@@ -66,8 +66,10 @@ forval z=5(5)95{
 	gen direct_pov_`z'  = lny_nonnormal<`pline_`z'' if !missing(lny_nonnormal)
 }
 
-keep ols_pov* direct_* Whh sim_sample
-sp_groupfunction [aw=Whh], mean(ols_pov* direct_*) by(sim_sample)
+gen popw = hhsize*Whh
+
+keep ols_pov* direct_* Whh sim_sample popw
+sp_groupfunction [aw=popw], mean(ols_pov* direct_*) by(sim_sample)
 
 save "$dpath\nonnormal_mex_results.dta", replace
 

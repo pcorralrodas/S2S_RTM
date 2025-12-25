@@ -8,9 +8,9 @@ set seed 3739
 *========================================================================
 	
 	foreach x in lny_nonnormal{
-		use `x' using "$dpath\mex_census.dta", clear
+		use `x' hhsize using "$dpath\mex_census.dta", clear
 		global themodel : char _dta[model]
-		pctile pct_`x' = `x', nq(100)
+		pctile pct_`x' = `x' [aw=hhsize], nq(100)
 		forval z=5(5)95{
 			local pline_`z' = pct_`x'[`z']
 		}
@@ -44,7 +44,8 @@ forval z=501/1000{
 		gen mi_pov_`i'  = lny_nonnormal<`pline_`i'' if !missing(lny_nonnormal)
 	}
 	
-	groupfunction [aw=Whh], mean(mi_pov*) 
+	gen popw = hhsize*Whh
+	groupfunction [aw=popw], mean(mi_pov*) 
 	gen sim_sample = `z'
 	cap: append using `allsim'
 	if _rc{

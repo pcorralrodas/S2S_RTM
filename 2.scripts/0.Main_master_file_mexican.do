@@ -29,6 +29,7 @@ global dpath   "$main/1.data/3.Mexican/"
 global thedo   "$main/2.scripts/3.Mexican_sims/"
 global theado  "$main/2.scripts/0.ados"
 global figs    "$main/5.figures/3.Mexican/"
+global mex     "C:\Users\WB378870\GitHub\Poverty-Mapping\Data\"
 
 /*
 * Required packages and files

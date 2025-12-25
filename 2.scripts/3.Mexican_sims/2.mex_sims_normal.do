@@ -8,9 +8,9 @@ set seed 3739
 *========================================================================
 	
 	foreach x in lny_normal{
-		use `x' using "$dpath\mex_census.dta", clear
+		use `x' hhsize using "$dpath\mex_census.dta", clear
 		global themodel : char _dta[model]
-		pctile pct_`x' = `x', nq(100)
+		pctile pct_`x' = `x' [aw=hhsize], nq(100)
 		forval z=5(5)95{
 			local pline_`z' = pct_`x'[`z']
 		}
@@ -25,6 +25,8 @@ use "$mex\my_samples_pps_psu@.dta" if sim_sample==`sample_num', clear
 merge 1:1 hhid using "$dpath\mex_census.dta"
 	drop if _m!=3
 	drop _m
+	
+gen popw = hhsize*Whh
 	
 *=======================================================================
 //Normal errors
@@ -65,8 +67,10 @@ forval z=5(5)95{
 	gen direct_pov_`z'  = lny_normal<`pline_`z'' if !missing(lny_normal)
 }
 
-keep ols_pov* re_pov* direct_* Whh sim_sample
-sp_groupfunction [aw=Whh], mean(ols_pov* re_pov* direct_*) by(sim_sample)
+gen popw = Whh*hhsize
+
+keep ols_pov* re_pov* direct_* Whh sim_sample popw
+sp_groupfunction [aw=popw], mean(ols_pov* re_pov* direct_*) by(sim_sample)
 
 save "$dpath\normal_mex_results.dta", replace
 

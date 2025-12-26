@@ -57,22 +57,17 @@ cap: github install pcorralrodas/wentropy
 *===============================================================================
 // Results 
 *===============================================================================
-run "$thedo\1.mex_create_data.do"
-run "$thedo\1_5.mex_pov_rates.do"
+//run "$thedo\1.mex_create_data.do"
+//run "$thedo\1_5.mex_pov_rates.do"
 run "$thedo\2.mex_sims_het.do" 
 run "$thedo\2.mex_sims_nonnormal.do"
+run "$thedo\2.mex_sims_normal.do"
 run "$thedo\2.mex_sims_nonnormal_hetmi100bs.do"
 run "$thedo\2.mex_sims_nonnormal_hetmi20bs.do"
+
 run "$thedo\2.mex_sims_nonnormal_mi20bs.do"
-run "$thedo\2.mex_sims_normal.do"
 run "$thedo\2.mex_sims_normal_mi.do"
 run "$thedo\2.mex_sims_normal_mi100.do"
-
-
-
-
-
-
 
 
 *===============================================================================

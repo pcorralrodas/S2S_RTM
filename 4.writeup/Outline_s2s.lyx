@@ -190,9 +190,9 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-The issue affects many countries, and hinders poverty monitoring due to
- the lack of data in some of the world's most populous and poverty afflicted
- economies.
+The issue affects many countries, and hinders monetary poverty monitoring
+ due to the lack of data in some of the world's most populous and poverty
+ afflicted economies.
  For example, India and Nigeria account for a substantial share of the world's
  poor, meaning that they heavily influence global poverty trends.
  In India, official consumption survey data was unavailable between 2011
@@ -1076,7 +1076,25 @@ Survey-to-survey (S2S) imputation for poverty measurement relies on the
 \end_inset
 
  is used to indicate when parameters are applied to the target data.
- The population's assumed data generating process (DGP) for transformed
+ Following the presentation by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "molina2010small"
+literal "false"
+
+\end_inset
+
+, but ignoring the nested error component,
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This is later considered for robustness checks.
+\end_layout
+
+\end_inset
+
+ the population's assumed data generating process (DGP) for transformed
  welfare 
 \begin_inset Formula $\ln y_{i}$
 \end_inset
@@ -1116,8 +1134,19 @@ literal "false"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\ln\,y_{i}=x_{i}\beta+e_{i};i=1,\ldots,N\:e_{i}\sim N(0,\sigma_{e}^{2})\label{eq:welfare model}
+\ln\,y_{i}=x_{i}\beta+e_{i};\:i=1,\ldots,N\label{eq:welfare model}
 \end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+e\stackrel{i.i.d.}{\sim}N(0,\sigma_{e}^{2})
+\]
 
 \end_inset
 
@@ -1201,7 +1230,7 @@ noprefix "false"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-Prob\left(poor_{i}\right)=Φ\,\left(\frac{\ln z-x_{i}\beta}{\sqrt{\sigma_{e}^{2}}}\right)\label{eq:cum prob}
+\Pr\left(poor_{i}=1\right)=Φ\,\left(\frac{\ln z-x_{i}\beta}{\sqrt{\sigma_{e}^{2}}}\right)\label{eq:cum prob}
 \end{equation}
 
 \end_inset
@@ -1214,7 +1243,7 @@ where
 \begin_inset Formula $\ln z$
 \end_inset
 
- is the natural log of the poverty line,
+ is the natural log of the chosen poverty threshold,
 \begin_inset Foot
 status collapsed
 
@@ -1228,10 +1257,10 @@ Note that if the transformation of the dependent variable is not the natural
 \end_inset
 
  and 
-\begin_inset Formula $Φ$
+\begin_inset Formula $Φ\left(.\right)$
 \end_inset
 
- is the standard normal distribution.
+ is the standard normal CDF.
  Consequently, what the method calculates is each household's probability
  of being poor.
  The average probability of being poor across households corresponds to
@@ -1365,7 +1394,7 @@ The distribution of the error terms is drawn from its posterior Chi-square
 \begin_inset Formula $K$
 \end_inset
 
- is the number of covariates in the model:
+ is the number of covariates in the model, including the model intercept:
 \begin_inset Formula 
 \[
 \sigma_{e}^{2*}\sim\hat{\sigma}_{e}^{2}\frac{\left(n-K\right)}{\chi_{n-K}^{2}},
@@ -1381,15 +1410,15 @@ With
 \begin_inset Formula $\sigma_{e}^{2*}$
 \end_inset
 
- in hand it is possible to update the variance-covariance matrix of the
- 
-\begin_inset Formula $\beta$
+ in hand it is possible to update the variance-covariance matrix needed
+ for drawing the 
+\begin_inset Formula $\beta^{*}$
 \end_inset
 
  parameters: 
 \begin_inset Formula 
 \[
-\beta^{*}\sim MVN\left(\hat{\beta},\sigma_{e}^{2*}\left(x'x\right)^{-1}\right),
+\beta^{*}\sim MVN\left(\hat{\beta},\sigma_{e}^{2*}\left(X'X\right)^{-1}\right),
 \]
 
 \end_inset
@@ -1428,6 +1457,18 @@ Each imputed transformed welfare for household
 \ln y_{im}^{*}=x_{i_{target}}\beta_{m}^{*}+e_{im}^{*}\label{eq:MI}
 \end{equation}
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Repeat steps 2 through 5 to obtain 
+\begin_inset Formula $M$
+\end_inset
+
+ sets of imputed values, 
+\begin_inset Formula $\ln y_{i1}^{*},\ln y_{i2}^{*},\ldots,\ln y_{iM}^{*}$
 \end_inset
 
 
@@ -1549,14 +1590,23 @@ noprefix "false"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
 \ln y_{im}^{*}\sim N\left(x_{i_{target}}\hat{\beta},\hat{\sigma}_{e}^{2}\right)\label{eq:Fixed}
 \end{equation}
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Repeat step 2 to obtain 
+\begin_inset Formula $M$
+\end_inset
+
+ sets of imputed values, 
+\begin_inset Formula $\ln y_{i1}^{*},\ln y_{i2}^{*},\ldots,\ln y_{iM}^{*}$
 \end_inset
 
 
@@ -2271,7 +2321,9 @@ where
 \begin_inset Formula $λ=4$
 \end_inset
 
-
+.
+ It is rounded to create a variable similar to the often used household
+ size.
 \end_layout
 
 \begin_layout Enumerate
@@ -2365,7 +2417,7 @@ A second DGP modifies the construction of
 \begin_inset Formula $x_{4}$
 \end_inset
 
-and 
+ and 
 \begin_inset Formula $x_{5}$
 \end_inset
 
@@ -2396,7 +2448,7 @@ and
 \begin_inset Formula $x_{4}$
 \end_inset
 
-and 
+ and 
 \begin_inset Formula $x_{5}$
 \end_inset
 
@@ -2419,7 +2471,7 @@ and
 \begin_inset Formula $x_{4}$
 \end_inset
 
-indicates low values of 
+ indicates low values of 
 \begin_inset Formula $\tilde{x}$
 \end_inset
 
@@ -2649,8 +2701,9 @@ literal "false"
 \end_inset
 
  Under the method of the latter, the parameters estimated using the training
- data are applied directly to the data and noise is estimated via a parametric
- bootstrap which is aligned to the model's assumptions 
+ data are applied directly to the data and noise of the predicted indicator
+ is estimated via a parametric bootstrap which is aligned to the model's
+ assumptions 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "gonzalez-manteiga2008bootstrap"
@@ -2782,7 +2835,25 @@ The MSE here is measured as the mean squared difference in predictions across
  for reproducing the distributional properties needed to estimate poverty
  accurately.
  Moreover, the Spearman rank correlation is higher for the linear prediction
- than for the version with added error.
+ (
+\begin_inset Formula $x\hat{\beta}$
+\end_inset
+
+ vs.
+ 
+\begin_inset Formula $y$
+\end_inset
+
+) than for the version with added error (
+\begin_inset Formula $x\hat{\beta}+e^{*}$
+\end_inset
+
+ vs.
+ 
+\begin_inset Formula $y$
+\end_inset
+
+).
  In other words, correctly ranking households is also not enough to replicate
  the full welfare distribution or derive accurate poverty statistics.
  
@@ -2884,7 +2955,7 @@ Under a normal error DGP
 The baseline imputation methods assume that welfare is linearly related
  to a set of characteristics and that errors follow a normal distribution
  with same variance, 
-\begin_inset Formula $\sigma^{2}$
+\begin_inset Formula $\sigma_{e}^{2}$
 \end_inset
 
 .
@@ -3602,7 +3673,7 @@ An additional simulation is conducted where the error distribution of the
  The errors are designed to mimic a situation where the uncertainty or variabili
 ty in the dependent variable grows as an independent variable increases.
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The standard deviation of the error term is: 
@@ -3610,7 +3681,7 @@ The standard deviation of the error term is:
 \end_inset
 
 , where 
-\begin_inset Formula $x\sim N(0.5,0.5)$
+\begin_inset Formula $x\sim N(0.5,0.5^{2})$
 \end_inset
 
 
@@ -5391,17 +5462,7 @@ Standardize XB
 
 ).
  These methods effectively address the interaction between mean and variance
- in determining poverty estimates, as outlined in Equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:var pov"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
+ in determining poverty estimates.
  However, it is important to note that the adjustments made here mimic the
  moments of the source data, thus when applied to other data would just
  replicate the source data's welfare distribution.
@@ -6183,15 +6244,17 @@ literal "false"
 
 \end_inset
 
-: it must be strongly correlated with the omitted factor, and it must be
- conditionally irrelevant for the outcome once the omitted factor is included—i.e.
-, if the omitted variable were observed, the proxy would add no explanatory
- power to the model.
+: (i) it must be strongly correlated with the omitted factor, and (ii) it
+ must be conditionally irrelevant for the outcome once the omitted factor
+ is included—i.e., if the omitted variable were observed, the proxy would
+ add no explanatory power to the mode.
  Item-specific consumption indicators may plausibly satisfy the first condition,
  but they are unlikely to satisfy the second because they are mechanically
  related to household expenditure (household expenditure is a function of
  the goods it has decided to purchase) and thus remain directly relevant
  determinants of the welfare aggregate.
+ In other words, a valid proxy should be related to expenditures only through
+ its relationship with the omitted variable.
  When this “conditional irrelevance” requirement fails, the proposed proxy
  is simply another regressor that can inherit bias when it is correlated
  with the omitted factor, potentially amplifying—rather than alleviating—cross-t
@@ -6277,7 +6340,8 @@ Under the baseline simulation, the value for
 \begin_inset Formula $c=0.4$
 \end_inset
 
-.
+, thus, roughly 40 percent of households are affected by conflict and roughly
+ 30 percent of households purchased eggs.
  Welfare is simulated assuming the true DGP, and thus includes conflict
  and eggs with their true coefficients.
  The prediction model is produced omitting conflict and is executed using
@@ -6346,7 +6410,7 @@ The reason for this is that even in the presence of OVB
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -7239,7 +7303,7 @@ name "fig:ovb same period"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/obv_pred_orig.jpg
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/obv_pred_orig.eps
 	lyxscale 80
 	scale 80
 
@@ -7274,20 +7338,14 @@ on.
 \end_layout
 
 \begin_layout Standard
-For the simulation, different values of 
-\begin_inset Formula $c$
-\end_inset
-
- and 
-\begin_inset Formula $x$
-\end_inset
-
- are determined, which yield a change in conflict likelihood and egg purchases.
- No other covariate is changed.
+For the simulation, the share of households exposed to conflict is adjusted,
+ which will lead to a change in the share of households who purchase eggs.
+ If only 20 percent of households were to be exposed to conflict, instead
+ of the original 40, and there are no other changes to the data.
  Using the adjusted covariates, the true resulting welfare is calculated
  – including conflict and the correct coefficients.
  Then the model parameters obtained from the original data, excluding conflict,
- is used to obtain predictions of poverty across the welfare distribution.
+ are used to obtain predictions of poverty across the welfare distribution.
  As can be seen in the discussion in the Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -7302,6 +7360,97 @@ noprefix "false"
  In many instances the predictions will suggest an increase in poverty whereas
  in reality poverty has dropped.
  In other instances it may underestimate the total change.
+ There is already a considerable bias introduced into our predictions (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ovb_Dconflict_noDegg"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Resulting poverty prediction under OVB in a different period 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ovb_Dconflict_noDegg"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/bd5_ed10.eps
+	lyxscale 80
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+Source: Based on simulated data illustrated in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Creating-populations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with added covariates.
+ Predictions are assessed at various poverty lines across the welfare distributi
+on.
+ Specifically, these lines correspond to percentiles that are multiples
+ of 5.
+ In this prediction, the share of households exposed to conflict has been
+ halved.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+different values of 
+\begin_inset Formula $c$
+\end_inset
+
+ and 
+\begin_inset Formula $x$
+\end_inset
+
+ are determined, which yield a change in the share of households experiencing
+ conflict and the share of household purchasing eggs.
+ No other covariate is changed.
  
 \end_layout
 
@@ -7386,7 +7535,70 @@ name "fig:ovb new period"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/bd5_ed7.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/bd5_ed10.eps
+	lyxscale 80
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+Source: Based on simulated data illustrated in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Creating-populations"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ with added covariates.
+ Predictions are assessed at various poverty lines across the welfare distributi
+on.
+ Specifically, these lines correspond to percentiles that are multiples
+ of 5.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Resulting poverty prediction under OVB in a different period 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ovb new period-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/bd10_ed11.eps
 	lyxscale 80
 	scale 80
 

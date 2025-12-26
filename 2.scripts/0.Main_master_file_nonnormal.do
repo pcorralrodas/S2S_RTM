@@ -56,15 +56,15 @@ cap: github install pcorralrodas/wentropy
 *===============================================================================
 // Results 
 *===============================================================================
-//run "$thedo\Why_errors.do"
-//run "$thedo\0.Master_micomps.do"
-//run "$thedo\0.Master_nonnormal.do"
-//run "$thedo\0.Master_het.do"
-//run "$thedo\0.Master_RE.do"
-//run "$thedo\PMM_tests.do"
+run "$thedo\Why_errors.do"
+run "$thedo\0.Master_micomps.do"
+run "$thedo\0.Master_nonnormal.do"
+run "$thedo\0.Master_het.do"
+run "$thedo\0.Master_RE.do"
+run "$thedo\PMM_tests.do"
 run "$thedo\MSE_BS_MI.do"
-//run "$thedo\0.Master_ovb.do"
-//run "$thedo\0.Master_PMT.do"
+run "$thedo\0.Master_ovb.do"
+run "$thedo\0.Master_PMT.do"
 run "$thedo\0.Master.do"
 
 *===============================================================================

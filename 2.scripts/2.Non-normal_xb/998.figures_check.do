@@ -1,24 +1,6 @@
 set more off
 clear all
 
-* Paths
-*** CHANGE THE FIRST GLOBAL TO THE DIRECTORY WHERE YOU DOWNLOADED THE REPLICATION FILES ***
-/*
-if (lower("`c(username)'")=="ham_andres"){
-	global main    "/Users/ham_andres/Library/CloudStorage/Dropbox/research/wb/S2S/"
-}
-if (lower("`c(username)'")=="wb378870"){
-	global main    "C:/Users//`c(username)'//Github/S2S_RTM/"
-}
-if (lower("`c(username)'")=="paul corral"){
-	global main "C:\Users\Paul Corral\Documents\GitHub\S2S_RTM\"
-}
-
-global dpath   "$main/1.data"
-global thedo   "$main/2.scripts/1.Model_based_sims"
-global theado  "$main/2.scripts/0.ados"
-global figs    "$main/5.figures"
-*/
 *===============================================================================
 // MSE comparisons
 *===============================================================================
@@ -202,75 +184,21 @@ qui: reshape wide value, i(ptile) j(variable) string
 			
 			gen pred2_diff_`bd'_`ed' = (y_b_`bd'_`ed' - Y_B)^2
 			
-			gen diff_dir_`bd'_`ed' = (diff_true_`bd'_`ed'>0 & pred_diff_`bd'_`ed'<0) | (diff_true_`bd'_`ed'<0 & pred_diff_`bd'_`ed'>0)  
+			gen diff_dir_`bd'_`ed' = (diff_true_`bd'_`ed'>0 & pred_diff_`bd'_`ed'<0) | (diff_true_`bd'_`ed'<0 & pred_diff_`bd'_`ed'>0) 
+			
+			local suff `bd'_`ed'
+			
+			qui:twoway (line diff_true_`suff' ptile, color(blue) lpattern(-)) ///
+			(line pred_diff_`suff' ptile, color(red)), ///
+			ytitle(Difference) xtitle("True poverty rate") ///
+			legend(label(1 "True change in poverty") label(2 "Predicted change") pos(6) cols(2)) xsize(5) ysize(5)
+			
+			graph export "$figs\bd`bd'_ed`ed'.eps", as(eps) name("Graph") replace
+			graph export "$figs\bd`bd'_ed`ed'.jpg", as(jpg) name("Graph") replace
+			
 		}
 	}
-	
-	/*
-	//COnflict increases 60% and eggs decrease by 20%
-	twoway (line diff_true_6_8 ptile, color(blue) lpattern(-)) ///
-	(line pred_diff_6_8 ptile, color(red)), ///
-	ytitle(Difference) xtitle("True poverty rate") ///
-	legend(label(1 "True change in poverty") label(2 "Predicted change")) ///
-	title("Conflict falls by 40%, Eggs decrease 20%")
-	*/
-	
-	local combo1 5 7
-	local combo2 7 8
-	local combo3 8 9
-	local combo4 13 12
-	local combo5 7 7
-	local combo6 5 15
-	local combo7 7 10
-	local combo8 6 15
-	
-	forval z=1/8{
-		tokenize `combo`z''
-		local bd `1'
-		local ed `2'
 		
-		local suff `bd'_`ed'
-		local title11 `=100-`=`bd'*10''
-		if (`title11'<0) local title1 "Conflict increases by `=abs(`title11')'%,"
-		else             local title1 "Conflict decreases by `=abs(`title11')'%,"
-		local title22 `=100-`=`ed'*10'' 
-		if (`title22'<0) local title2 "Eggs increase by `=abs(`title22')'%"
-		else            local title2 "Eggs decreases by `=abs(`title22')'%"
-		
-		
-		twoway (line diff_true_`suff' ptile, color(blue) lpattern(-)) ///
-		(line pred_diff_`suff' ptile, color(red)), ///
-		ytitle(Difference) xtitle("True poverty rate") ///
-		legend(label(1 "True change in poverty") label(2 "Predicted change")) ///
-		title("`title1' `title2'")
-		
-		graph export "$figs\bd`bd'_ed`ed'.eps", as(eps) name("Graph") replace
-
-	}
-	
-	forval z=5/15{
-		tokenize `z' 10
-		local bd `1'
-		local ed `2'
-		
-		local suff `bd'_`ed'
-		local title11 `=100-`=`bd'*10''
-		if (`title11'<0) local title1 "Conflict increases by `=abs(`title11')'%,"
-		else             local title1 "Conflict decreases by `=abs(`title11')'%,"
-		local title22 `=100-`=`ed'*10'' 
-		if (`title22'<0) local title2 "Eggs increase by `=abs(`title22')'%"
-		else            local title2 "Eggs decreases by `=abs(`title22')'%"
-		
-		
-		twoway (line diff_true_`suff' ptile, color(blue) lpattern(-)) ///
-		(line pred_diff_`suff' ptile, color(red)), ///
-		ytitle(Difference) xtitle("True poverty rate") ///
-		legend(label(1 "True change in poverty") label(2 "Predicted change")) ///
-		title("`title1' `title2'")
-		
-		graph export "$figs\bd`bd'_ed`ed'.eps", as(eps) name("Graph") replace
-		
-	}
 	
 *===============================================================================
 // Figures for changing beta and sigma

@@ -19,7 +19,7 @@ end
 //Bring in the full data and get plines
 *========================================================================
 	
-	foreach x in het normal nonnormal{
+	foreach x in het normal nonnormal nonnormal_8{
 		use lny_`x' hhsize using "$dpath\mex_census.dta", clear
 		global themodel : char _dta[model]
 		pctile pct_`x' = lny_`x' [aw=hhsize], nq(100)
@@ -37,47 +37,71 @@ use "$mex\my_samples_pps_psu@.dta" if sim_sample==`sample_num', clear
 merge 1:1 hhid using "$dpath\mex_census.dta"
 	drop if _m!=3
 	drop _m
-	
+
+tempfile modeldta
+save `modeldta'
 *=======================================================================
 //Models
 ************************************************************************
-local etype het
-lasso linear lny_`etype' $themodel [iw=Whh], selection(cv)
-	
-predict xb, xb
-gen double res = lny_`etype' - xb
-gen touse = !missing(res)
-putmata e      = res if touse==1
+cap: erase "$dpath\mex_results_lasso.dta"
 
-//Now, predict
-use "$mex\my_samples_pps_psu@.dta" if inrange(sim_sample,501,1000), clear
-
-merge m:1 hhid using "$dpath\mex_census.dta"
-	drop if _m!=3
-	drop _m
-sort sim_sample hhid
-//Predict model with RE, note that area effects are ignored!
-predict double xb, xb
-drop if missing(xb)
-gen touse=1
-putmata xb     = xb if touse==1
-//Simulate vectors
-	local the_y
-	forval z=5(5)95{
-		qui:gen double lasso_pov_`z' = .
-		local the_y `the_y'lasso_pov_`z'
-	}
+foreach etype in het normal nonnormal nonnormal_8{
+	use `modeldta', clear
 	
-	mata: Yvec = xb:+_f_sampleepsi(200, rows(xb),e)
+	lasso linear lny_`etype' $themodel [iw=Whh], selection(cv)
+		
+	predict xb, xb
+	gen double res = lny_`etype' - xb
+	gen touse = !missing(res)
+	putmata e      = res if touse==1
+	sum res if touse==1 [aw=Whh] 
+	local rmse = r(sd)
 	
-	forval z=5(5)95{
-		mata: st_view(la_y=.,.,tokens("lasso_pov_`z'"))
-		mata: la_y[.,.] = mean((Yvec:<`pline_`etype'_`z'')')'
-	}
+	//Now, predict
+	use "$mex\my_samples_pps_psu@.dta" if inrange(sim_sample,501,1000), clear
 	
+	merge m:1 hhid using "$dpath\mex_census.dta"
+		drop if _m!=3
+		drop _m
+	
+	//Predict model with RE, note that area effects are ignored!
+	predict double xb, xb
+	drop if missing(xb)
+	gen touse=1
+	//Simulate vectors
+		local the_y
+		forval z=5(5)95{
+			qui:gen double lasso_pov_`z' = .
+			local the_y `the_y'lasso_pov_`z'
+			qui: gen double lasson_pov_`z' = normal((`pline_`etype'_`z'' - xb)/(`rmse'))
+		}
+		sort sim_sample hhid
+		
+		keep Whh hhsize lasso_pov* sim_sample xb lasson*
+		local start = 500
+		gen touse = 0
+		forval s = 600(100)1000{
+			replace touse = inrange(sim_sample,`=`start'+1',`s')
+			putmata xb if touse==1
+			mata: Yvec = xb:+_f_sampleepsi(100, rows(xb),e)
+			forval z=5(5)95{
+				dis as error "povline: `z'"
+				mata: st_view(la_y=.,.,tokens("lasso_pov_`z'"),"touse")
+				mata: la_y[.,.] = mean((Yvec:<`pline_`etype'_`z'')')'
+			}
+			mata:mata drop xb Yvec
+			local start = `s'
+		}
+		
 	gen popw = Whh*hhsize
-	groupfunction [aw=popw], mean(lasso_pov*) by(sim_sample)
+	groupfunction [aw=popw], mean(lasso_pov* lasson*) by(sim_sample)
 	
+	gen etype = "`etype'"
+	
+	cap: append using "$dpath\mex_results_lasso.dta"
+	save "$dpath\mex_results_lasso.dta", replace
+	mata:mata drop e
+}	
 	
 	
 	

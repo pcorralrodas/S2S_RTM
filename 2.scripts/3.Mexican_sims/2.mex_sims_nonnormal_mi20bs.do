@@ -6,8 +6,9 @@ set seed 3739
 *========================================================================
 //Bring in the full data and get plines
 *========================================================================
-	
-	foreach x in lny_nonnormal{
+local depvar $ladep
+
+	foreach x in `depvar'{
 		use `x' hhsize using "$dpath\mex_census.dta", clear
 		global themodel : char _dta[model]
 		pctile pct_`x' = `x' [aw=hhsize], nq(100)
@@ -32,16 +33,16 @@ forval z=501/1000{
 		drop if _m!=3
 		drop _m
 	
-	replace lny_nonnormal = . if sim_sample==`z'
+	replace `depvar' = . if sim_sample==`z'
 	
 	mi set mlong
-	mi register imputed lny_nonnormal
-	mi impute reg lny_nonnormal $themodel, add(20) bootstrap
+	mi register imputed `depvar'
+	mi impute reg `depvar' $themodel, add(20) bootstrap
 	
 	keep if _mi_m>0
 	//Get poverty rates
 	forval i=5(5)95{
-		gen mi_pov_`i'  = lny_nonnormal<`pline_`i'' if !missing(lny_nonnormal)
+		gen mi_pov_`i'  = `depvar'<`pline_`i'' if !missing(`depvar')
 	}
 	
 	gen popw = hhsize*Whh
@@ -56,4 +57,5 @@ forval z=501/1000{
 }
 }
 
-save "$dpath\nonnormal_mex_results_mi.dta", replace
+if (regexm("`depvar'","8")) save "$dpath\nonnormal8_mex_results_mi.dta", replace
+else save "$dpath\nonnormal_mex_results_mi.dta", replace

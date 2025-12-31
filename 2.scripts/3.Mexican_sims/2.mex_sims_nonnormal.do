@@ -20,8 +20,9 @@ end
 *========================================================================
 //Bring in the full data and get plines
 *========================================================================
+local depvar $ladep
 	
-	foreach x in lny_nonnormal{
+	foreach x in `depvar'{
 		use `x' hhsize using "$dpath\mex_census.dta", clear
 		global themodel : char _dta[model]
 		pctile pct_`x' = `x' [aw=hhsize], nq(100)
@@ -45,7 +46,7 @@ merge 1:1 hhid using "$dpath\mex_census.dta"
 //Models
 ************************************************************************
 //Normal
-reg lny_nonnormal $themodel [aw=Whh], r
+reg `depvar' $themodel [aw=Whh], r
 global ols_rmse = e(rmse)
 
 
@@ -63,7 +64,7 @@ drop if missing(xb)
 //Get poverty rates
 forval z=5(5)95{
 	gen ols_pov_`z' = normal((`pline_`z'' - xb_ols)/${ols_rmse})
-	gen direct_pov_`z'  = lny_nonnormal<`pline_`z'' if !missing(lny_nonnormal)
+	gen direct_pov_`z'  = `depvar'<`pline_`z'' if !missing(`depvar')
 }
 
 gen popw = hhsize*Whh
@@ -71,5 +72,6 @@ gen popw = hhsize*Whh
 keep ols_pov* direct_* Whh sim_sample popw
 sp_groupfunction [aw=popw], mean(ols_pov* direct_*) by(sim_sample)
 
-save "$dpath\nonnormal_mex_results.dta", replace
+if (regexm("`depvar'","8")) save "$dpath\nonnormal8_mex_results.dta", replace
+else if (regexm("`depvar'","8")) save "$dpath\nonnormal_mex_results.dta", replace
 

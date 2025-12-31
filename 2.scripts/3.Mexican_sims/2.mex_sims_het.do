@@ -53,7 +53,6 @@ predict double xb_het, xb
 drop if missing(xb_het)
 predict er, sigma
 
-
 //Predict ols
 gen double xb_ols = `lacons'
 foreach x of global themodel{

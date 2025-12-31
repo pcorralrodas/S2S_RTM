@@ -92,7 +92,7 @@
 Stress‑Testing Survey‑to‑Survey Imputation: Understanding When Poverty Predictio
 ns Can Fail
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The authors acknowledge financial support from the World Bank.
@@ -1817,9 +1817,9 @@ Imputation of poverty to a contemporaneous survey can be a useful tool.
  For example, assume a country collects a living standard survey annually
  and has also collected a Demographic and Health Survey (DHS).
  If one would like to determine how nutritional indicators among children
- vary across the welfare distribution, survey to survey imputation may be
- of use to impute a monetary welfare aggregate to the DHS to determine what
- share of children in the poorest quantiles are stunted.
+ vary across the monetary welfare distribution, survey to survey imputation
+ may be of use to impute a monetary welfare aggregate to the DHS to determine
+ what share of children in the poorest quantiles are stunted.
  Nevertheless, practitioners could also impute the indicator of interest
  to the living standards survey.
  For example, with the goal of determining energy poverty in Bulgaria, 
@@ -1833,11 +1833,8 @@ literal "false"
  impute energy spending from the household budget survey (HBS) to the European
  Survey of Income and Living Conditions to determine profiles of the energy
  poor.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-These applications resemble a problem considered by 
+ These settings resemble the “no single dataset contains all variables”
+ problem discussed by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "rubin1986statistical"
@@ -1845,19 +1842,32 @@ literal "false"
 
 \end_inset
 
- where no single data set contains the complete set of variables for inference,
- where imputations are made both ways.
- 
-\end_layout
-
-\end_inset
-
+, where imputations may be performed in either direction to enable inference.
  
 \end_layout
 
 \begin_layout Standard
+A fundamental limitation, however, is that when key variables such as stunting
+ and welfare are never jointly observed, their conditional association,
+ given the common covariates used for matching, is not identified from the
+ observed data.
+ As a result, identifying stunting-by-welfare gradients requires an additional,
+ inherently untestable restriction (most commonly conditional independence)
+ or a sensitivity analysis that varies the assumed association between stunting
+ and welfare (
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "Raessler2004DataFusion"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
 The successful application of survey-to-survey imputation depends on meeting
- several critical preconditions, first outlined by 
+ several preconditions, first outlined by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "jesko1998"
@@ -1917,11 +1927,19 @@ Model Assumptions
 \end_layout
 
 \begin_layout Standard
-The reliability of welfare predictions depends critically on meeting the
- model's statistical assumptions.
+The reliability of welfare predictions in the same period depends on meeting
+ the model's statistical assumptions.
  Conditional on comparability and alignment across surveys, the quality
  of welfare imputations hinges on the adequacy of the statistical model
- used to generate predicted welfare and simulated disturbances.
+ used to generate predicted welfare (
+\begin_inset Formula $x'\hat{\beta}$
+\end_inset
+
+) and simulated disturbances (
+\begin_inset Formula $e^{*}$
+\end_inset
+
+).
  
 \end_layout
 
@@ -2213,6 +2231,15 @@ al data, where multiple sources of non-comparability and model misspecification
 \begin_layout Standard
 To strengthen the external relevance of the simulation findings, two robustness
  extensions are introduced.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+We thank anonymous reviewers for these recommendations.
+\end_layout
+
+\end_inset
+
  First, an alternative DGP is considered in which the “linear” component
  of the welfare model (i.e.
  
@@ -2221,15 +2248,6 @@ To strengthen the external relevance of the simulation findings, two robustness
 
 ) is far away from normally distributed, providing a stricter test of approaches
  that rely on distributional assumptions.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-We thank reviewers for their recommendation.
-\end_layout
-
-\end_inset
-
  Second, the analysis uses empirical covariate structure from Mexico following
  
 \begin_inset CommandInset citation
@@ -2394,7 +2412,7 @@ literal "false"
 , while maintaining the covariate-generation process above.
  This extension is used to illustrate that, when the true DGP includes clustered
  disturbances, ignoring the nesting primarily affects inference and uncertainty
- rather than systematically shifting bias in mean poverty predictions.
+ rather than systematically shifting bias and MSE in mean poverty predictions.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2498,24 +2516,36 @@ A second DGP modifies the construction of
 \end_layout
 
 \begin_layout Standard
-Following the previous section, a double nested error model structure is
+Note that 
+\begin_inset Formula $\tilde{x}$
+\end_inset
+
+ is not explicitly part of the model.
+ Following the previous section, a double nested error model structure is
  also considered for this DGP.
 \end_layout
 
 \begin_layout Subsubsection
 DGP relying on real world data
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:DGP-Mex"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 To complement the stylized simulations, the paper also evaluates robustness
  using covariate structure estimated from real world data.
- Specifically, the publicly available Mexican Intercensus Survey of 2015
+ Specifically, the publicly available Mexican Intercensus Survey of 2015,
  carried out by the Mexican National Institute of Statistics and Geography
- (INEGI) is used.
+ (INEGI), is used.
  The survey consists of 5.9 million households and is representative across
  2,457 municipalities of the country and localities with a population larger
  than 50,000 people.
- 
+ It also includes an income measure of welfare.
 \end_layout
 
 \begin_layout Standard
@@ -2540,9 +2570,9 @@ literal "false"
  percent of households that did not report income, additionally all municipaliti
 es with less than 500 households sampled were removed.
  The final census consists of 3.9 million households across 1,865 municipalities.
- From this frame, 1,000 survey samples of roughly 23,540 households each
- are drawn, with 10 households per PSU, reflecting design features common
- in multi-stage household surveys 
+ From this frame, 501 survey samples of roughly 23,540 households each are
+ drawn, with 10 households per PSU, reflecting design features common in
+ multi-stage household surveys 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "grosh1996manual"
@@ -2599,11 +2629,8 @@ Non normal errors: error terms are drawn from a Student's
 \begin_inset Formula $t$
 \end_inset
 
- distribution with 10 degrees of freedom, scaled by 
-\begin_inset Formula $1/2.25$
-\end_inset
-
-
+ distribution with 8 degrees of freedom, scaled to ensure an SD of roughly
+ 0.8.
 \end_layout
 
 \begin_layout Enumerate
@@ -2621,10 +2648,203 @@ Multiplicative heteroskedasticity: A covariate,
 \end_inset
 
 where 
-\begin_inset Formula $\sigma=\frac{\exp\left((1/6)x_{het}\right)}{2}$
+\begin_inset Formula $\sigma=\frac{\exp\left((1/6)x_{het}\right)}{1.368}$
+\end_inset
+
+ to ensure that the model's RMSE is roughly 0.8
+\end_layout
+
+\begin_layout Standard
+The observed welfare variable is not used directly in these experiments.
+ The purpose of the Mexican exercise is not to reproduce Mexico-specific
+ welfare results, but to anchor the simulations in an empirically realistic
+ covariate structure while retaining control over the error-generating process.
+ This design isolates the performance consequences of the disturbances noted
+ above in a setting with realistic covariate distributions and sampling
+ features, avoiding conclusions that would otherwise be driven by country-
+ and period-specific features of the observed welfare aggregate.
+\end_layout
+
+\begin_layout Subsection
+Evaluation metrics 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Evaluation-metrics"
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The main performance metrics are bias and mean squared error (MSE).
+ Under the DGPs described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-1--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-2--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and unless otherwise noted, 
+\begin_inset Formula $B=500$
+\end_inset
+
+ populations 
+\begin_inset Formula $\left(b=1,\ldots,B\right)$
+\end_inset
+
+ are generated.
+ For each population 
+\begin_inset Formula $b$
+\end_inset
+
+, the imputation model is estimated on a training sample and applied to
+ a separate target sample to produce an estimate of the indicator of interest,
+ 
+\begin_inset Formula $\tau$
+\end_inset
+
+ (head count monetary poverty in this work).
+\end_layout
+
+\begin_layout Standard
+Empirical bias and MSE are computed across replications as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Bias\left(\tau\right)=\frac{1}{B}\sum_{b=1}^{B}\left(\hat{\tau}_{b}-\tau_{b}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+MSE\left(\tau\right)=\frac{1}{B}\sum_{b=1}^{B}\left(\hat{\tau}_{b}-\tau_{b}\right)^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\tau_{b}$
+\end_inset
+
+ denotes the true population value under population 
+\begin_inset Formula $b$
+\end_inset
+
+, and 
+\begin_inset Formula $\hat{\tau}_{b}$
+\end_inset
+
+ is the corresponding estimate obtained by fitting the model on the training
+ sample and predicting welfare in the target sample.
+ Note that under this process, following the assumed DGP, 
+\begin_inset Formula $\tau$
+\end_inset
+
+ is a random variable (
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "molina2010small"
+literal "false"
+
+\end_inset
+
+ p376).
+\end_layout
+
+\begin_layout Standard
+For the Mexican data, the validation design differs slightly.
+ The population parameter 
+\begin_inset Formula $\tau$
+\end_inset
+
+ is treated as fixed (observed in the census-based file), and repeated survey
+ samples are drawn from this same population.
+ A model is first estimated in a randomly selected training sample and then
+ applied to 
+\begin_inset Formula $S=500$
+\end_inset
+
+ target samples drawn from the population.
+ In the small area estimation literature, this approach is commonly referred
+ to as design-based validation (
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "tzavidis2018start,corral2021map"
+literal "false"
+
+\end_inset
+
+).
+ Empirical design-based bias and MSE are computed as:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Bias\left(\tau\right)=\frac{1}{S}\sum_{s=1}^{S}\left(\hat{\tau}_{s}-\tau\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+MSE\left(\tau\right)=\frac{1}{S}\sum_{s=1}^{S}\left(\hat{\tau}_{s}-\tau\right)^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\tau$
+\end_inset
+
+ denotes the true population value as observed in the census and 
+\begin_inset Formula $\hat{\tau}_{s}$
+\end_inset
+
+ is the corresponding estimate obtained by applying the training-sample
+ model to target sample 
+\begin_inset Formula $s$
+\end_inset
+
+, for 
+\begin_inset Formula $s=1,\ldots,S$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -2727,13 +2947,16 @@ noprefix "false"
 \end_inset
 
  is used as both source and target data.
- In the results presented in this section, the same dataset is used for
- both model development and prediction.
+ In the results presented in this section that use the simulated data, the
+ same dataset is used for both model development and prediction.
  This approach eliminates potential additional noise introduced by sampling
  variability, allowing for a more controlled assessment of imputation performanc
 e that is entirely driven by the model fit and its assumptions.
- The process is applied across 1,000 generated populations allowing us to
+ The process is applied across 500 generated populations allowing us to
  assess the method's empirical bias.
+ Additionally, where noted, results using the Mexican data are presented.
+ Under these simulations, models are estimated in a given sample and then
+ applied across 500 samples.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2810,8 +3033,8 @@ noprefix "false"
  poverty rate in the actual data—then the linear prediction alone would
  imply a poverty rate of only 10 percent.
  This gap persists despite the fact that the linear prediction has a lower
- mean squared error (MSE = 0.25) than the version with stochastic error (MSE
- = 0.5).
+ mean squared error (MSE = 0.25 for both DGP) than the version with stochastic
+ error (MSE = 0.5 for both DGP).
 \begin_inset Foot
 status collapsed
 
@@ -2869,7 +3092,28 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Replicating the actual distribution, with and without simulated errors 
+Replicating the actual distribution, with and without simulated errors -
+ DGP 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-1--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (left), DGP 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-2--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (right) 
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:why_errors"
@@ -2888,17 +3132,17 @@ name "fig:why_errors"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/why_errors.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/why_errors.eps
 	lyxscale 80
-	scale 80
+	scale 50
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/why_errors_nn.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/why_errors.eps
 	lyxscale 80
-	scale 80
+	scale 50
 
 \end_inset
 
@@ -2949,24 +3193,36 @@ This underscores a central point: accurate estimation of poverty through
 
 \begin_layout Subsubsection
 Under a normal error DGP
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:normal error dgp"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 The baseline imputation methods assume that welfare is linearly related
- to a set of characteristics and that errors follow a normal distribution
- with same variance, 
-\begin_inset Formula $\sigma_{e}^{2}$
+ to a set of characteristics and that errors follow a two-fold double nested
+ normal error.
+ The main results are based on a normal double nested error distribution
+ as illustrated in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-Mex"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
 .
- The data generation process (DGP) used to simulate the dataset adheres
- to these assumptions.
 \end_layout
 
 \begin_layout Standard
-Under this simulation setup, the prediction bias across different approaches
- remains minimal across various poverty lines, indicating that all methods
- effectively replicate the underlying welfare distribution (Figure 
+Varying the number of imputations (20 versus 100) has virtually no effect
+ on bias or MSE (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:bias_eb_mi"
@@ -2977,8 +3233,9 @@ noprefix "false"
 \end_inset
 
 ).
- Although the "Fixed B" method – where parameters are directly applied (Eq.
- 
+ However, the MI approach yields estimates that are both more biased and
+ noisier than approaches that treat model parameters as fixed—namely the
+ OLS and nested-error implementations in Equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:Fixed"
@@ -2988,23 +3245,85 @@ noprefix "false"
 
 \end_inset
 
-) – produces the lowest bias, the differences between methods are negligible.
- Even in the most biased case observed in this simulation, the discrepancy
- is less than 0.025 percentage points.
- Additionally, the number of imputations performed under multiple imputation
- (MI) appears to have minimal impact on bias (Eq.
+.
+ These fixed-parameter predictions follow the small area estimation approach
+ of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "molina2010small"
+literal "false"
+
+\end_inset
+
+, where 
+\begin_inset Formula $\beta$
+\end_inset
+
+ and variance model parameters are kept fixed..
+ 
+\end_layout
+
+\begin_layout Standard
+Finally, ignoring the clustered nature of the data has a minimal impact
+ on the estimates' empirical bias and MSE.
+ Point estimates that ignore the nested structure (OLS) perform similarly
+ to, and in this case slightly better than, estimates that explicitly model
+ location effects (nested).
+ In small area estimation, 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ea7f7e4f-7381-39b0-abdd-8da14c150408"
+literal "false"
+
+\end_inset
+
+ suggest that modeling cluster effects at a level misaligned with the level
+ of reporting can bias noise estimates.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+ reinforce this point using model-based simulations but show that the bias
+ of point estimates remains unaffected.
+ In our case, because the results reported here are at the national level,
+ omitting random location effects does not materially reduce the validity
+ or precision of the poverty estimates.
+ These results are similar under the alternative DGPs described in section
  
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:MI"
+reference "subsec:DGP-1--"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-).
- 
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-2--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Results are not illustrated but available upon request.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3017,7 +3336,8 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Bias in FGT0 under MI and direct application of parameters 
+Bias (left) and MSE (right) in FGT0 under a two-fold double nested normal
+ error DGP 
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:bias_eb_mi"
@@ -3036,9 +3356,17 @@ name "fig:bias_eb_mi"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/mi_ebp_fgt0.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_normal_mex.eps
 	lyxscale 80
-	scale 80
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_normal_mex.eps
+	lyxscale 80
+	scale 50
 
 \end_inset
 
@@ -3064,7 +3392,7 @@ noprefix "false"
  of 5.
  
 \series bold
-Fixed B
+OLS
 \series default
 : uses the method described in Eq.
  
@@ -3077,9 +3405,12 @@ noprefix "false"
 
 \end_inset
 
- to generate predictions.
- For each of 100 Monte Carlo (MC) simulations, poverty is estimated at each
- threshold and then averaged across simulations to produce the final estimate.
+ to generate predictions, ignoring the nested error structure.
+ 
+\series bold
+Nested: 
+\series default
+similar to OLS but considers double nested error structure of the DGP.
  
 \series bold
 MI X
@@ -3095,8 +3426,23 @@ noprefix "false"
 
 \end_inset
 
-, poverty is estimated for each threshold under each imputed vector, and
- the results are averaged across simulations to obtain the final estimate.
+.
+ The model is trained on one sample taken from the Mexican data, and applied
+ to 500 different samples taken from the data.
+ Poverty thresholds are determined using the census.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+HERE
 \end_layout
 
 \end_inset
@@ -3242,7 +3588,8 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Bias in FGT0 of different methods under non-normal errors 
+Bias (left) and MSE (right) in FGT0 of different methods under non-normal
+ errors for the Mexican data 
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:bias_eb_mi-1"
@@ -3261,7 +3608,7 @@ name "fig:bias_eb_mi-1"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_rf_t.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_nonnormal8_mex.eps
 	lyxscale 80
 	scale 50
 
@@ -3269,7 +3616,7 @@ name "fig:bias_eb_mi-1"
 
 
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_t.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_nonnormal8_mex.eps
 	lyxscale 80
 	scale 50
 
@@ -3284,21 +3631,31 @@ name "fig:bias_eb_mi-1"
 Note: Data are generated as described in 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:Creating-populations"
+reference "subsec:DGP-Mex"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-, but errors are simulated from a Student's t-distribution with 10 degrees
- of freedom and scaled for a SD of 0.5.
- Bias is assessed at various poverty lines across the welfare distribution.
+; errors are simulated from a Student's t-distribution with 8 degrees of
+ freedom and scaled for a SD of 0.8.
+ Bias and MSE are assessed as noted in Section
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Evaluation-metrics"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for the Mexican data across poverty lines.
  Specifically, these lines correspond to percentiles that are multiples
- of 5.
+ of 5 taken from the full population.
  
 \series bold
-Fixed B
+OLS ignoring non-normal
 \series default
 : uses the method described in Eq.
  
@@ -3312,89 +3669,57 @@ noprefix "false"
 \end_inset
 
  to generate predictions.
- For each of 100 Monte Carlo (MC) simulations, poverty is estimated at each
- threshold and then averaged across simulations to produce the final estimate.
  
 \series bold
-Fixed B lnskew
+OLS BS 20
 \series default
-: follows the same approach as 
-\begin_inset Quotes eld
-\end_inset
-
-Fixed B
-\begin_inset Quotes erd
-\end_inset
-
- but the dependent variable is transformed using a zero-skewness log transformat
-ion.
+: Estimates obtained using 
+\family typewriter
+hetmireg, 
+\family default
+OLS fit across 20 bootstrap samples of training sample with errors drawn
+ from the empirical distribution across bootstrap samples.
  
 \series bold
-Fixed B bcskew
+OLS Empirical
 \series default
-: follows the same approach as 
-\begin_inset Quotes eld
-\end_inset
-
-Fixed B
-\begin_inset Quotes erd
-\end_inset
-
- but the dependent variable is transformed using a Box-Cox transformation.
- 
-\series bold
-MI X
-\series default
-: implements X imputations following Eq.
+: uses the method described in Eq.
  
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:MI"
+reference "eq:Fixed"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-, poverty is estimated for each threshold under each imputed vector, and
- the results are averaged across simulations to obtain the final estimate.
+, but errors are drawn from the empirical distribution of the training sample.
  
 \series bold
-MI X BS
+MI BS
 \series default
-: same as 
-\begin_inset Quotes eld
-\end_inset
-
-MI X
-\begin_inset Quotes erd
-\end_inset
-
- but uses Stata's bootstrap option.
  
 \series bold
-OLS BS
+20
 \series default
-: Fits the model on bootstrap samples drawn using simple random sampling
- (SRS), applies the estimated parameters to the target data, and draws residuals
- from their empirical distribution.
+: Uses Stata's bootstrap option for multiple imputation with 20 imputations.
  
 \series bold
-lasso BIC
+Lasso Empirical: 
 \series default
-: applies parameters from lasso model where 
+applies parameters from lasso model where 
 \begin_inset Formula $\lambda$
 \end_inset
 
- is selected using the Bayesian information criterion (BIC) function and
- residuals for each imputation are randomly drawn from the predicted residuals.
+ is selected using 10 fold cross validation, and errors are drawn from the
+ empirical distribution of the training sample.
  
 \series bold
-Random Forest:
+RF empirical
 \series default
- applies parameter estimates from a random forest model to the target data,
- with residuals for each imputation randomly drawn from the distribution
- of predicted residuals.
+: applies parameter estimates from a random forest model to the target data,
+ and errors are drawn from the empirical distribution of the training sample.
 \end_layout
 
 \end_inset
@@ -3403,9 +3728,9 @@ Random Forest:
 \end_layout
 
 \begin_layout Standard
-Results from a simulation where the DGP is adjusted and errors are simulated
- from a Student's t-distribution with 10 degrees of freedom and scaled for
- a SD of 0.5 are presented in Figure 
+Results from a simulation where the DGP for the Mexican data is adjusted
+ and errors are simulated from a Student's t-distribution with 8 degrees
+ of freedom and scaled for a SD of 0.8 are presented in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:bias_eb_mi-1"
@@ -3416,102 +3741,16 @@ noprefix "false"
 \end_inset
 
 .
- Results from this simulation seem to suggest that random forest prediction
- coupled with residuals drawn from their empirical distribution yield the
- most biased estimates, although if the poverty line were at the 50th percentile
- it would be deemed unbiased if other percentiles are ignored (Fig.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:bias_eb_mi-1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, left).
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Perhaps under better tuning of the random forest model the bias can be reduced,
- although for simplicity the basic options of the command are used here.
- Nevertheless, if classification were the objective, random forest appears
- to do a much better job than OLS (Tables 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:rforest_matrix"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:ols_matrix"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- 
-\end_layout
-
-\end_inset
-
- Under this type of errors, the applied data transformations are of limited
- use (Fig.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:bias_eb_mi-1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, right - 
-\begin_inset Quotes eld
-\end_inset
-
-Fixed B, lnskew
-\begin_inset Quotes erd
-\end_inset
-
- and 
-\begin_inset Quotes eld
-\end_inset
-
-Fixed B, bcskew
-\begin_inset Quotes erd
-\end_inset
-
-).
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Zero-skewness log (lnskew) or Box-Cox transformation (bcskew).
- Both can be easily implemented in Stata by using the commands: lnskew0
- and bcskew0.
- If weights are needed, users can use lnskew0w, a modified version of lnskew0
- within Stata's SAE package.
-\end_layout
-
-\end_inset
-
- Additionally, Stata's 
+ All methods perform well with bias that is smaller than 1 percentage point
+ across all poverty thresholds.
+ With this considered, ignoring the fact that errors are not normally distribute
+d leads to estimates that are more biased and noisier (OLS ignoring non-normal).
+ Similarly, Stata's 
 \family typewriter
 mi regress 
 \family default
 with the bootstrap option does not yield considerable improvement under
- this simulation.
+ this simulation (MI BS 20).
 \begin_inset Foot
 status collapsed
 
@@ -3522,12 +3761,14 @@ Stata's documentation for the option is unexpectedly short and provides
 
 \end_inset
 
- Drawing residuals from their empirical distribution seems to yield the
- best results under this simulation where errors follow a Student's t-distributi
-on with 10 degrees of freedom and scaled for a SD of 0.5.
- Both the lasso model fitting, paired with residuals drawn from the empirical
- distribution and an OLS with residuals drawn in the same way yield the
- least biased estimates.
+ The approaches that seem to work better in this scenario are those based
+ on the 
+\family typewriter
+hetmireg
+\family default
+ command that relies on bootstrapped samples with errors drawn from the
+ empirical distribution of residuals under each bootstrap sample of the
+ training data (OLS BS 20).
 \begin_inset Foot
 status collapsed
 
@@ -3537,76 +3778,23 @@ The OLS implementation relies on the
 hetmireg
 \family default
  command by Corral (mimeo) - https://github.com/pcorralrodas/hetmireg.
+\end_layout
+
+\end_inset
+
+ Additionally, a more straightforward approach that keeps the 
+\begin_inset Formula $\beta$
+\end_inset
+
+ fixed across all target samples and randomly draws from the errors' empirical
+ distribution of the training sample also seems to work well in this scenario
+ (OLS Empirical and Lasso Empirical).
+ Perhaps the worst performing approach is random forest (RF) exhibiting
+ bias and MSE that is considerably larger than that of other methods (Fig.
  
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Motivated by the unexpectedly poor performance of random forests in predicting
- poverty levels, particularly given the results presented in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "verme2024predicting"
-literal "false"
-
-\end_inset
-
-, we also examined their classification ability in a separate simulation
- using normally distributed errors.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-The data used follows those presented in Annex 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:DGP_cluster"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
- This distinction is relevant for Proxy Means Testing (PMT), where the goal
- is not to predict continuous consumption or income, but rather to assign
- households to eligibility categories.
- As 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "grosh1995proxy"
-literal "false"
-
-\end_inset
-
- emphasize, PMT prioritizes classification accuracy over predictive precision.
-\end_layout
-
-\begin_layout Standard
-In this context, when evaluated in-sample, random forests outperform OLS
- in classification tasks—even though OLS is more closely aligned with the
- true data-generating process (Tables 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:rforest_matrix"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:ols_matrix"
+reference "fig:nonnormal_RF"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3614,53 +3802,9 @@ noprefix "false"
 \end_inset
 
 ).
- When applied to the same data used for modeling, random forest classifies
- households with notably higher accuracy.
- However, this advantage disappears when applied to the entire population
- (i.e., from where the SRS sample was taken from) where the classification
- performance of random forests closely matches that of OLS (Tables 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:rforest_matrix-oos"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:ols_matrix-oos"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-).
- This suggests that random forests in this example is overfitting in the
- training sample, underscoring the importance of cross-validation.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-In the simulations conducted here, given that the true DGP is known, model
- selection and tuning is not undertaken.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The pattern is also evident in the mean squared residuals: in-sample, random
- forests achieve a low mean squared residual of 0.075, compared to 0.20 for
- OLS.
- When looking at out-of-sample results, however, the random forest residuals
- increase to 0.19, converging toward the OLS out-of-sample value of 0.20.
- 
+ This simulation also illustrates the importance of evaluating methods across
+ the entire welfare distribution, since if RF were evaluated at the 50th
+ percentile it would look be quite competitive to the other methods.
 \end_layout
 
 \begin_layout Subsubsection
@@ -3669,27 +3813,22 @@ Under heteroskedastic errors
 
 \begin_layout Standard
 An additional simulation is conducted where the error distribution of the
- DGP is modified to follow heteroskedastic errors.
+ DGP is modified to follow heteroskedastic errors using the Mexican data
+ as described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-Mex"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
  The errors are designed to mimic a situation where the uncertainty or variabili
 ty in the dependent variable grows as an independent variable increases.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-The standard deviation of the error term is: 
-\begin_inset Formula $\sigma=\frac{\exp\left((1/6)x\right)}{2}$
-\end_inset
-
-, where 
-\begin_inset Formula $x\sim N(0.5,0.5^{2})$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- Under this simulation, data transformations are also of little help (Fig.
+ Under these simulations, all methods work relatively well with bias under
+ 1 percentage point across all poverty thresholds (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:bias_het"
@@ -3699,18 +3838,9 @@ noprefix "false"
 
 \end_inset
 
-), and are aligned to the statement made by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "betti2024attempt"
-literal "false"
-
-\end_inset
-
- who point out that ignoring heteroskedasticity can lead to biased estimates.
- It seems like the best answer for heteroskedasticity is to address it directly
- via the model.
- However, the alpha model from 
+).
+ However, the best performing approach here is one that follows the alpha
+ model from 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "elbers2002micro"
@@ -3718,8 +3848,7 @@ literal "false"
 
 \end_inset
 
- does not seem to align as well to the DGP implemented here as the method
- from 
+ aligns well to the DGP implemented here, and better than the one from 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "harvey1976estimating"
@@ -3739,8 +3868,7 @@ Alpha model
 \begin_inset Quotes eld
 \end_inset
 
-Het.
- MLE
+MLE with het.
 \begin_inset Quotes erd
 \end_inset
 
@@ -3772,15 +3900,76 @@ literal "false"
 
  is applied using 
 \family typewriter
-hetmireg.
+hetmireg (
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "corral_hetmireg_2018"
+literal "false"
+
+\end_inset
+
+).
 \end_layout
 
 \end_inset
 
- Finally, a lasso model coupled with residuals drawn from their empirical
- distribution also yields solid results.
- This last result suggests that drawing from the empirical distribution
- may be a robust option when one is uncertain about the distribution.
+ Nevertheless, in simulations following the DGP described in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-1--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-2--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, the MLE approach seems to work better (Figure XXXX).
+ Ignoring the heteroskedasticity in the data, yet drawing residuals from
+ the empirical distribution (
+\begin_inset Quotes eld
+\end_inset
+
+OLS Empirical
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+Lasso Empirical
+\begin_inset Quotes erd
+\end_inset
+
+) works better than just assuming the errors are homoskedastic (
+\begin_inset Quotes eld
+\end_inset
+
+OLS ignoring het.
+\begin_inset Quotes erd
+\end_inset
+
+).
+ This is aligned to the statement made by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "betti2024attempt"
+literal "false"
+
+\end_inset
+
+ who point out that ignoring heteroskedasticity can lead to biased estimates.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3793,7 +3982,8 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Bias in FGT0 under different methods under heteroskedasticity 
+Bias (left) and MSE (right) in FGT0 under different methods under heteroskedasti
+city 
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:bias_het"
@@ -3812,9 +4002,17 @@ name "fig:bias_het"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/method_comp_fgt0_het.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_het_mex.eps
 	lyxscale 80
-	scale 80
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_het_mex.eps
+	lyxscale 80
+	scale 50
 
 \end_inset
 
@@ -3986,20 +4184,21 @@ noprefix "false"
 \end_inset
 
 
-\end_layout
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Subsubsection
 Under a two-fold double nested normal error DGP 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Clustering is unlikely to have an impact on the estimates' bias.
  In this instance the source and target data differ.
  This is done to see the impact of applying a model estimated on a given
  set of clusters and applied to a possibly different set of clusters.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 In small area estimation, 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -4076,7 +4275,7 @@ literal "false"
  ).
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -4174,6 +4373,11 @@ Two-fold
  follow small area estimation methods accounting for clustering in the data.
  Poverty is estimated for each threshold under each imputed vector, and
  the results are averaged across simulations to obtain the final estimate.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4492,13 +4696,14 @@ Overall, these results highlight the importance of selecting imputation
  Future work could usefully extend bootstrap-based techniques to a wider
  range of machine learning methods, while ensuring robust error estimation
  remains central.
-\end_layout
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Subsection
 Noise estimation
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 A cautionary point concerns how uncertainty (“noise”) around imputed poverty
  estimates is quantified.
  In multiple imputation (MI) applications, uncertainty is typically summarized
@@ -4514,7 +4719,7 @@ literal "false"
  Under Rubin's rules the estimated variance is:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
 T=W+(1+\frac{1}{M})B_{v}
@@ -4525,7 +4730,7 @@ T=W+(1+\frac{1}{M})B_{v}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 where 
 \begin_inset Formula $T$
 \end_inset
@@ -4571,7 +4776,7 @@ literal "false"
  objectives of minimizing prediction error.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 An alternative approach commonly used in small area estimation keeps 
 \begin_inset Formula $\beta$
 \end_inset
@@ -4615,7 +4820,7 @@ literal "false"
 ).
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
@@ -4677,7 +4882,7 @@ noprefix "false"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 To assess how closely these two approaches track the true noise, a simulation
  is conducted under the model assumptions described in Section 
 \begin_inset CommandInset ref
@@ -4718,7 +4923,7 @@ literal "false"
 s:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
 MSE=\sum_{b=1}\frac{\left(\hat{\tau}_{b}-\tau_{b}\right)^{2}}{B}
@@ -4729,7 +4934,7 @@ MSE=\sum_{b=1}\frac{\left(\hat{\tau}_{b}-\tau_{b}\right)^{2}}{B}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 where 
 \begin_inset Formula $\tau_{b}$
 \end_inset
@@ -4750,7 +4955,7 @@ where
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Both methods here appear to overestimate the empirical MSE.
  The reason for the overestimation is that both methods measure the noise
  based on the target survey which is smaller than the population.
@@ -4770,6 +4975,11 @@ noprefix "false"
 
 ).
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -4797,10 +5007,20 @@ name "subsec:Extracting-samples"
 \end_layout
 
 \begin_layout Standard
-Under each of the 1,000 populations created in Section 
+Under each of the 500 populations created in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "subsec:Creating-populations"
+reference "subsec:DGP-1--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-2--"
 plural "false"
 caps "false"
 noprefix "false"
@@ -6235,7 +6455,7 @@ literal "false"
 , for example, discusses “ability” as an omitted determinant of wages and
  notes that while education is correlated with ability, it is itself a structura
 lly relevant regressor in the wage equation and therefore should not be
- treated as a proxy; he instead uses IQ as an imperfect proxy for ability.
+ treated as a proxy; he instead uses IQ as a proxy for ability.
  Formally, a valid proxy must satisfy two conditions 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -6250,15 +6470,15 @@ literal "false"
  add no explanatory power to the mode.
  Item-specific consumption indicators may plausibly satisfy the first condition,
  but they are unlikely to satisfy the second because they are mechanically
- related to household expenditure (household expenditure is a function of
- the goods it has decided to purchase) and thus remain directly relevant
- determinants of the welfare aggregate.
+ related to household expenditure because household expenditure is a function
+ of the goods it has decided to purchase, and thus remain directly relevant
+ determinants of the welfare aggregate, the dependent variable.
  In other words, a valid proxy should be related to expenditures only through
  its relationship with the omitted variable.
  When this “conditional irrelevance” requirement fails, the proposed proxy
  is simply another regressor that can inherit bias when it is correlated
- with the omitted factor, potentially amplifying—rather than alleviating—cross-t
-ime prediction error.
+ with the omitted factor, potentially amplifying—rather than alleviating—predict
+ion error.
 \end_layout
 
 \begin_layout Standard
@@ -6279,7 +6499,11 @@ noprefix "false"
 \begin_layout Enumerate
 Conflict.
  Conflict is assumed to be negatively correlated with welfare with a coefficient
- equal to -0.3.
+ equal to 
+\begin_inset Formula $-0.3$
+\end_inset
+
+.
  
 \end_layout
 
@@ -6298,7 +6522,11 @@ It is simulated as a binary variable taking value 1 when a random uniform
 \begin_layout Enumerate
 Eggs purchased.
  The variable is assumed to be positively correlated to welfare with a coefficie
-nt equal to 0.4.
+nt equal to 
+\begin_inset Formula $0.4$
+\end_inset
+
+.
  However, the share of households purchasing eggs can change due to conflict
  and external factors unrelated to welfare.
 \end_layout
@@ -6435,8 +6663,10 @@ name "tab:Omitted-variable-model"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="13" columns="3">
+<lyxtabular version="3" rows="14" columns="5">
 <features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -6446,6 +6676,117 @@ name "tab:Omitted-variable-model"
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DGP 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-1--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DGP 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-2--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+OVB Model
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Complete Model
 \end_layout
 
 \end_inset
@@ -6562,6 +6903,50 @@ x1
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.0995
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.0993
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -6626,6 +7011,50 @@ x2
 \noun off
 \color none
 0.490
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.498
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.494
 \end_layout
 
 \end_inset
@@ -6698,6 +7127,50 @@ x3
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-0.247
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-0.246
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -6762,6 +7235,50 @@ x4
 \noun off
 \color none
 -0.201
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-0.211
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-0.210
 \end_layout
 
 \end_inset
@@ -6834,6 +7351,50 @@ x5
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-0.155
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-0.149
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -6902,6 +7463,50 @@ eggs
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.584
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.411
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -6953,6 +7558,37 @@ conflict
 \noun off
 \color none
 -0.307
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-0.299
 \end_layout
 
 \end_inset
@@ -7025,6 +7661,50 @@ Intercept
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+2.828
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+3.002
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -7093,6 +7773,37 @@ R2
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.581
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+0.644
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -7135,6 +7846,24 @@ RMSE
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
 <cell alignment="center" valignment="top" usebox="none">
@@ -7155,6 +7884,50 @@ RMSE
 \noun off
 \color none
 Observations
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+20,000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+20,000
 \end_layout
 
 \end_inset
@@ -7261,6 +8034,24 @@ Observations
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
 </row>
 </lyxtabular>
 
@@ -7303,9 +8094,17 @@ name "fig:ovb same period"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/obv_pred_orig.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/obv_pred_orig.eps
 	lyxscale 80
-	scale 80
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/obv_pred_orig.eps
+	lyxscale 80
+	scale 50
 
 \end_inset
 
@@ -7338,29 +8137,22 @@ on.
 \end_layout
 
 \begin_layout Standard
-For the simulation, the share of households exposed to conflict is adjusted,
- which will lead to a change in the share of households who purchase eggs.
- If only 20 percent of households were to be exposed to conflict, instead
- of the original 40, and there are no other changes to the data.
+Once conflict subsides, so that the share of households exposed to conflict
+ is only 20 percent, the share of households purchasing eggs will increase
+ to 40 percent due to the assumed relationship.
+ Note that 
+\begin_inset Formula $x=1$
+\end_inset
+
+in this scenario, thus there is no external shock to the egg purchase decision
+ beyond conflict.
  Using the adjusted covariates, the true resulting welfare is calculated
  – including conflict and the correct coefficients.
  Then the model parameters obtained from the original data, excluding conflict,
  are used to obtain predictions of poverty across the welfare distribution.
- As can be seen in the discussion in the Annex 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:ann_ovb"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-, the direction of the prediction bias is not immediately clear.
- In many instances the predictions will suggest an increase in poverty whereas
- in reality poverty has dropped.
- In other instances it may underestimate the total change.
- There is already a considerable bias introduced into our predictions (
+ As can be seen, even in the absence of any other changes to the DGP, the
+ predictions under the model will be considerably biased only due to a change
+ in conflict (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:ovb_Dconflict_noDegg"
@@ -7384,7 +8176,28 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Resulting poverty prediction under OVB in a different period 
+Resulting poverty prediction under OVB in a different period, under DGP
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-1--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (left) and DGP 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-2--"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (right) 
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:ovb_Dconflict_noDegg"
@@ -7405,7 +8218,15 @@ name "fig:ovb_Dconflict_noDegg"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/bd5_ed10.eps
 	lyxscale 80
-	scale 80
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/bd5_ed10.eps
+	lyxscale 80
+	scale 50
 
 \end_inset
 
@@ -7440,47 +8261,26 @@ on.
 \end_layout
 
 \begin_layout Standard
-different values of 
-\begin_inset Formula $c$
-\end_inset
-
- and 
-\begin_inset Formula $x$
-\end_inset
-
- are determined, which yield a change in the share of households experiencing
- conflict and the share of household purchasing eggs.
- No other covariate is changed.
- 
-\end_layout
-
-\begin_layout Standard
-Under the assumed data-generating process (DGP), imagine that conflict decreases
- by 50% (
-\begin_inset Formula $c=0.2$
-\end_inset
-
-), and egg purchases decline by 30% (
-\begin_inset Formula $x=$
-\end_inset
-
-0.7) due to factors unrelated to conflict, for example changes in preferences.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-Note that because of the relationship to conflict, egg purchases do not
- actually drop by 30% since it is offset by the decrease in conflict.
-\end_layout
-
-\end_inset
-
- In such a case, S2S predictions over time would likely show an increase
- in poverty based on most thresholds.
- However, in reality, poverty would have actually decreased (Figure 
+If there is any type of exogenous shock that would affect the household's
+ decision to purchase eggs, beyond just a change in conflict, then biases
+ could be much more pronounced or not meaningful.
+ The direction and magnitude of the bias is dependent on the change and
+ differ depending on the DGP used for the model.
+ In some instances the omission is not too problematic (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:ovb new period"
+reference "fig:ovb new period-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), but in some it is possible that predictions and what actually happened
+ may be completely misaligned (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ovb new period-2-1"
 plural "false"
 caps "false"
 noprefix "false"
@@ -7488,21 +8288,20 @@ noprefix "false"
 \end_inset
 
 ).
- This is just an illustrative example where the purpose is to illustrate
- the potential problems encountered when imputing over time, particularly
- in instances that a major shock has occurred in between the year of the
- actual welfare data and the target data.
- The inclusion of 
-\begin_inset Quotes eld
+ This is aligned to the discussion in the Annex 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:ann_ovb"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
-fast-changing
-\begin_inset Quotes erd
-\end_inset
-
- consumption variables as covariates is likely to introduce OVB to prediction
- models for imputations to other periods unless the shock only affects welfare
- but not individual components of welfare.
+, the direction of the prediction bias is not immediately clear.
+ In many instances the predictions will suggest an increase in poverty whereas
+ in reality poverty has dropped.
+ In other instances it may underestimate the total change.
  
 \end_layout
 
@@ -7519,7 +8318,7 @@ status collapsed
 Resulting poverty prediction under OVB in a different period 
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:ovb new period"
+name "fig:ovb new period-2"
 
 \end_inset
 
@@ -7535,9 +8334,17 @@ name "fig:ovb new period"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/bd5_ed10.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/bd5_ed13.eps
 	lyxscale 80
-	scale 80
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/bd5_ed13.eps
+	lyxscale 80
+	scale 50
 
 \end_inset
 
@@ -7562,6 +8369,11 @@ noprefix "false"
 on.
  Specifically, these lines correspond to percentiles that are multiples
  of 5.
+ In these simulations conflict has halved and 
+\begin_inset Formula $x=1.3$
+\end_inset
+
+, thus the share of households who purchase eggs increased tos 55 percent.
 \end_layout
 
 \end_inset
@@ -7582,7 +8394,7 @@ status collapsed
 Resulting poverty prediction under OVB in a different period 
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:ovb new period-1"
+name "fig:ovb new period-2-1"
 
 \end_inset
 
@@ -7598,9 +8410,17 @@ name "fig:ovb new period-1"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/bd10_ed11.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/bd5_ed7.eps
 	lyxscale 80
-	scale 80
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/bd5_ed7.eps
+	lyxscale 80
+	scale 50
 
 \end_inset
 
@@ -7625,6 +8445,11 @@ noprefix "false"
 on.
  Specifically, these lines correspond to percentiles that are multiples
  of 5.
+ In these simulations conflict has halved and 
+\begin_inset Formula $x=1.3$
+\end_inset
+
+, thus the share of households who purchase eggs is 25 percent.
 \end_layout
 
 \end_inset
@@ -8303,7 +9128,12 @@ where
 \end_inset
 
 
-\end_layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Subsection
 Sample Size and MSE
@@ -8316,18 +9146,26 @@ name "subsec:sample_size_mse"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 The MSE of an estimator 
 \begin_inset Formula $\tau$
 \end_inset
 
- is defined as:
+ is defined as (
+\begin_inset CommandInset citation
+LatexCommand citealp
+key "molina2010small"
+literal "false"
+
+\end_inset
+
+ p376):
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
-MSE(\hat{\tau})=Bias\left(\bar{\tau}\right)^{2}+\mathrm{var\left(\bar{\tau}\right)}
+MSE\left(\hat{\tau}\right)=Bias\left(\hat{\tau}\right)^{2}+\mathrm{var\left(\hat{\tau}\right)}
 \]
 
 \end_inset
@@ -8335,17 +9173,45 @@ MSE(\hat{\tau})=Bias\left(\bar{\tau}\right)^{2}+\mathrm{var\left(\bar{\tau}\righ
 
 \end_layout
 
-\begin_layout Standard
-Under the imputation methods used in the example, the bias is assumed to
- be 0.
+\begin_layout Plain Layout
+Under the assumed DGP the target parameter is a random variable (ibid.).
+ The usual decomposition of the MSE into variance and bias does not hold.
+ However, as noted by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "molina2010small"
+literal "false"
+
+\end_inset
+
+ it can be decomposed as:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+MSE\left(\hat{\tau}\right)=\mathrm{var}\left(\hat{\tau}-\tau\right)+\left\{ E\left(\hat{\tau}-\tau\right)\right\} ^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Under the imputation methods used in the examples, the bias 
+\begin_inset Formula $\left(E\left(\hat{\tau}-\tau\right)\right)$
+\end_inset
+
+ is assumed to be 0 (ibid).
  Thus, the MSE is equal to 
-\begin_inset Formula $\mathrm{var\left(\bar{\tau}\right)},$
+\begin_inset Formula $\mathrm{\mathrm{var}\left(\hat{\tau}-\tau\right)},$
 \end_inset
 
  which is equal to:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
 \mathrm{var}\left(\bar{\tau}\right)=\mathrm{var}\left(\frac{1}{N}\sum_{i=1}^{N}\tau_{i}\right)
@@ -8356,7 +9222,7 @@ Under the imputation methods used in the example, the bias is assumed to
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Formula 
 \[
 \mathrm{var}\left(\bar{\tau}\right)=\frac{1}{N^{2}}\mathrm{var}\left(\sum_{i=1}^{N}\tau_{i}\right)
@@ -8367,15 +9233,25 @@ Under the imputation methods used in the example, the bias is assumed to
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Consequently, the variance of an indicator is dependent on the true finite
  population's size.
  However, since the methods assess the variance based on the target data
  (6,000) and not the true population (20,000) the estimated variance will
  be larger than the true population variance which leads to a larger estimate
  of the MSE.
- 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
 
 \begin_layout Subsection
 Random forest and OLS classification
@@ -8388,7 +9264,7 @@ name "subsec:add_material"
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -9177,7 +10053,7 @@ Note: The table reports a transition matrix estimated from simulated data.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -9966,7 +10842,7 @@ Note: The table reports a transition matrix estimated from simulated data.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -10755,7 +11631,7 @@ Note: The table reports a transition matrix estimated from simulated data.
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Float table
 wide false
 sideways false
@@ -11544,6 +12420,11 @@ Note: The table reports a transition matrix estimated from simulated data.
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Data generation under a two-fold nested error model
 \begin_inset CommandInset label
@@ -11764,6 +12645,159 @@ This results in a sample of 1,600 observations per population.
  The target data is drawn using the same sampling procedure, so the target
  sample may include entirely different clusters and observations than the
  source sample.
+\end_layout
+
+\begin_layout Subsection
+Additional figures
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Bias (left) and MSE (right) in FGT0 of different methods under non-normal
+ errors for the Mexican data 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:nonnormal_RF"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_nonnormal8_mex_RF.eps
+	lyxscale 80
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_nonnormal8_mex_RF.eps
+	lyxscale 80
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size footnotesize
+Note: Data are generated as described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:DGP-Mex"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+; errors are simulated from a Student's t-distribution with 8 degrees of
+ freedom and scaled for a SD of 0.8.
+ Bias and MSE are assessed as noted in Section
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Evaluation-metrics"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for the Mexican data across poverty lines.
+ Specifically, these lines correspond to percentiles that are multiples
+ of 5 taken from the full population.
+ 
+\series bold
+OLS ignoring non-normal
+\series default
+: uses the method described in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fixed"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to generate predictions.
+ 
+\series bold
+OLS BS 20
+\series default
+: Estimates obtained using 
+\family typewriter
+hetmireg, 
+\family default
+OLS fit across 20 bootstrap samples of training sample with errors drawn
+ from the empirical distribution across bootstrap samples.
+ 
+\series bold
+OLS Empirical
+\series default
+: uses the method described in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Fixed"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, but errors are drawn from the empirical distribution of the training sample.
+ 
+\series bold
+MI BS
+\series default
+ 
+\series bold
+20
+\series default
+: Uses Stata's bootstrap option for multiple imputation with 20 imputations.
+ 
+\series bold
+Lasso Empirical: 
+\series default
+applies parameters from lasso model where 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is selected using 10 fold cross validation, and errors are drawn from the
+ empirical distribution of the training sample.
+ 
+\series bold
+RF empirical
+\series default
+: applies parameter estimates from a random forest model to the target data,
+ and errors are drawn from the empirical distribution of the training sample.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

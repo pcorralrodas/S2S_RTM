@@ -39,6 +39,29 @@ foreach x of global themodel{
 }
 	local lacons = _b[_cons]
 	
+preserve	
+	predict laxb, xb
+	gen lny_normal_imp =rnormal(laxb, $ols_rmse)
+	
+	cap gen popw = hhsize*Whh
+	
+	//Produce figure
+	foreach x in lny_normal laxb lny_normal_imp{
+		pctile pt_`x' = `x' [aw=popw], nq(100) 
+	}
+	
+	gen ptile = _n if pt_lny_normal!=.
+
+	twoway (line pt_lny_normal ptile, lcolor(black) ) ///
+	(line pt_laxb ptile, lcolor(blue) lpattern(-.-)) ///
+	(scatter pt_lny_normal_imp ptile, mcolor(red) msymbol(Oh)), ///
+	legend(label(1 "True values") label(2 "XB values") label(3 "XB+e values")) ytitle("Welfare in nat. log") xtitle("Cumulative percent of population") legend(cols(3)) legend(position(6)) xsize(5) ysize(5)
+	
+	graph export "$figs\why_errors.eps", as(eps) name("Graph") replace
+
+
+restore
+	
 //Cluster
 sae model h3 lny_normal $themodel [aw=Whh], area(HID_mun) method(luinv_la)
 	global eta_var =  e(eta_var)

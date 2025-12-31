@@ -7,7 +7,7 @@ set seed 3739
 // Get original poverty rates for Mexico
 *===============================================================================	
 	
-	foreach x in lny_nonnormal lny_normal lny_het lny{
+	foreach x in lny_nonnormal lny_nonnormal_8 lny_normal lny_het lny{
 		use `x' hhsize using "$dpath\mex_census.dta", clear
 		di as error "`x'"
 		global themodel : char _dta[model]

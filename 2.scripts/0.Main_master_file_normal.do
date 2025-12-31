@@ -13,6 +13,10 @@ clear all
 * Do not change to obtain exact results
 set seed 94131
 
+//Select what to run 1 to 4 (useful for multiple runs at the same time)
+//From quickest to slowest.
+local run = 1
+
 * Paths
 *** CHANGE THE FIRST GLOBAL TO THE DIRECTORY WHERE YOU DOWNLOADED THE REPLICATION FILES ***
 if (lower("`c(username)'")=="ham_andres"){
@@ -56,16 +60,25 @@ cap: github install pcorralrodas/wentropy
 *===============================================================================
 // Results 
 *===============================================================================
-run "$thedo\Why_errors.do"
-run "$thedo\0.Master_micomps.do"
-run "$thedo\0.Master_nonnormal.do"
-run "$thedo\0.Master_het.do"
-run "$thedo\0.Master_RE.do"
-run "$thedo\PMM_tests.do"
-run "$thedo\MSE_BS_MI.do"
-run "$thedo\0.Master_ovb.do"
-run "$thedo\0.Master_PMT.do"
-run "$thedo\0.Master.do"
+
+if (`run'==1){
+	run "$thedo\Why_errors.do"
+	run "$thedo\0.Master_ovb.do"
+	run "$thedo\0.Master_PMT.do"
+}
+if (`run'==2){
+	run "$thedo\0.Master_micomps.do"
+	run "$thedo\0.Master_nonnormal.do"
+	run "$thedo\0.Master_het.do"
+}
+if (`run'==3){
+	run "$thedo\0.Master_RE.do"
+	run "$thedo\PMM_tests.do"
+	run "$thedo\MSE_BS_MI.do"
+}
+if (`run'==4){
+	run "$thedo\0.Master.do"
+}
 
 *===============================================================================
 // FIGURES

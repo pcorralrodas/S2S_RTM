@@ -9,7 +9,7 @@ set more off
 clear all
 
 set seed 26439
-local doall = 1
+local doall = 0
 
 
 local misvar rural  hhsize age_hh male_hh  piped_water no_piped_water ///
@@ -153,7 +153,8 @@ use "$mex/census_trim.dta", clear
 	replace lny_normal     = lny_normal + rnormal(0,sqrt(`evar'))
 	
 	//Non-normal errors
-	gen double lny_nonnormal = linear_fit + rt(10)/2.25
+	gen double lny_nonnormal_8  = linear_fit + rt(8)/1.443 //Extra heavy tails
+	gen double lny_nonnormal    = linear_fit + rt(10)/1.398
 	
 	//Heteroskedastic errors
 		// Generate independent variable x
@@ -161,11 +162,11 @@ use "$mex/census_trim.dta", clear
 
 		// Generate error term with multiplicative heteroskedasticity
 		// where variance increases with x
-		generate ehet = rnormal(0, exp((1/6)*xhet)/2)
+		generate ehet = rnormal(0, exp((1/6)*xhet)/1.368)
 		
 	gen lny_het = linear_fit + ehet
 	
-keep hhid lny_nonnormal lny_normal lny_het lny $modvar HID_mun xhet
+keep hhid lny_nonnormal* lny_normal* lny_het lny $modvar HID_mun xhet
 char _dta[model] $modvar
 
 save "$dpath\mex_census.dta", replace

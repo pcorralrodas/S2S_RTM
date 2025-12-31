@@ -189,7 +189,7 @@ qui: reshape wide value, i(ptile) j(variable) string
 			local suff `bd'_`ed'
 			
 			qui:twoway (line diff_true_`suff' ptile, color(blue) lpattern(-)) ///
-			(line pred_diff_`suff' ptile, color(red)), ///
+			(scatter pred_diff_`suff' ptile, mcolor(red)), ///
 			ytitle(Difference) xtitle("True poverty rate") ///
 			legend(label(1 "True change in poverty") label(2 "Predicted change") pos(6) cols(2)) xsize(5) ysize(5)
 			

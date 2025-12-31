@@ -114,7 +114,7 @@ gen ptile = _n if pt_Y_B!=.
 twoway (line pt_Y_B ptile, lcolor(black) ) ///
 (line pt_xb ptile, lcolor(blue) lpattern(-.-)) ///
 (scatter pt_xb_e ptile, mcolor(red) msymbol(Oh)), ///
-legend(label(1 "True values") label(2 "XB values") label(3 "XB+e values")) ytitle("Welfare in nat. log") xtitle("Cumulative percent of population") legend(cols(3)) legend(position(6)) 
+legend(label(1 "True values") label(2 "XB values") label(3 "XB+e values")) ytitle("Welfare in nat. log") xtitle("Cumulative percent of population") legend(cols(3)) legend(position(6)) xsize(5) ysize(5)
 
 graph export "$figs\why_errors.eps", as(eps) name("Graph") replace
 

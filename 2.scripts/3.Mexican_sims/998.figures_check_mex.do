@@ -87,6 +87,15 @@ graph export "$figs\mse_het_mex.eps", as(eps) name("Graph") replace
 *===============================================================================
 //Under non-normal errors - fat tails
 *===============================================================================
+use "$dpath\mex_results_lasso_nn8_normal_draw.dta", clear
+	split variable, parse(_)
+	gen double ptile = real(variable3)	
+	rename value imputed
+	keep ptile imputed variable
+	replace variable = "lnnd"
+tempfile lasso_nn_nd
+save `lasso_nn_nd'
+
 use "$dpath\mex_results_lasso.dta", clear
 	keep if etype=="nonnormal_8"
 	reshape long lasso_pov_, i(sim_sample) j(ptile)
@@ -156,6 +165,7 @@ use "$dpath\nonnormal8_mex_results.dta", clear
 	append using `ols_emp'
 	append using `rf_emp'
 	append using `lasso_emp'
+	append using `lasso_nn_nd'
 tempfile imps
 save `imps'
 
@@ -176,7 +186,7 @@ use  "$dpath\mex_pov_nums.dta", clear
 	
 twoway (scatter bias ptile if regexm(variable,"ols")) ///
 (scatter bias ptile if regexm(variable,"OLS BS 20"), msymbol(X)) ///
-(scatter bias ptile if regexm(variable,"OLS emp"), msymbol(Th)) ///
+(scatter bias ptile if regexm(variable,"OLS emp"), msymbol(Th) msize(medium)) ///
 (scatter bias ptile if regexm(variable,"Mi 20 BS"), msymbol(square) mcolor(black)) ///
 (line bias ptile if regexm(variable,"Lasso"), lpattern(-.-)), ///
 legend(label(1 "OLS ignoring non-normal") ///
@@ -190,7 +200,7 @@ graph export "$figs\bias_nonnormal8_mex.eps", as(eps) name("Graph") replace
 
 twoway (scatter mse ptile if regexm(variable,"ols")) ///
 (scatter mse ptile if regexm(variable,"OLS BS 20"), msymbol(X)) ///
-(scatter mse ptile if regexm(variable,"OLS emp"), msymbol(Th)) ///
+(scatter mse ptile if regexm(variable,"OLS emp"), msymbol(Th) msize(medium)) ///
 (scatter mse ptile if regexm(variable,"Mi 20 BS"), msymbol(square) mcolor(black)) ///
 (line    mse ptile if regexm(variable,"Lasso"), lpattern(-.-)), ///
 legend(label(1 "OLS ignoring non-normal") ///
@@ -204,7 +214,7 @@ graph export "$figs\mse_nonnormal8_mex.eps", as(eps) name("Graph") replace
 //WITH RF results
 twoway (scatter bias ptile if regexm(variable,"ols")) ///
 (scatter bias ptile if regexm(variable,"OLS BS 20"), msymbol(X)) ///
-(scatter bias ptile if regexm(variable,"OLS emp"), msymbol(Th)) ///
+(scatter bias ptile if regexm(variable,"OLS emp"), msymbol(Th) msize(medium)) ///
 (scatter bias ptile if regexm(variable,"Mi 20 BS"), msymbol(square) mcolor(black)) ///
 (line bias ptile if regexm(variable,"Lasso"), lpattern(-.-)) ///
 (line bias ptile if regexm(variable,"RF"), lpattern(.)), ///
@@ -219,7 +229,7 @@ graph export "$figs\bias_nonnormal8_mex_RF.eps", as(eps) name("Graph") replace
 
 twoway (scatter mse ptile if regexm(variable,"ols")) ///
 (scatter mse ptile if regexm(variable,"OLS BS 20"), msymbol(X)) ///
-(scatter mse ptile if regexm(variable,"OLS emp"), msymbol(Th)) ///
+(scatter mse ptile if regexm(variable,"OLS emp"), msymbol(Th) msize(medium)) ///
 (scatter mse ptile if regexm(variable,"Mi 20 BS"), msymbol(square) mcolor(black)) ///
 (line    mse ptile if regexm(variable,"Lasso"), lpattern(-.-)) ///
 (line mse ptile if regexm(variable,"RF"), lpattern(.)), ///
@@ -231,7 +241,25 @@ pos(6) cols(2)) xtitle(Poverty rate) ytitle("MSE x 10000") xsize(5) ysize(5)
 
 graph export "$figs\mse_nonnormal8_mex_RF.eps", as(eps) name("Graph") replace
 
+//Results with errors drawn from residual but assuming normal
+//WITH RF results
+twoway (line bias ptile if regexm(variable,"Lasso"), lpattern(-.-)) ///
+(line bias ptile if regexm(variable,"lnnd"), lpattern(.)), ///
+legend(label(1 "Lasso Empirical") ///
+label(2 "Lasso - errors from residual SD") ///
+pos(6) cols(1)) xtitle(Poverty rate) ytitle("Bias x 100") xsize(5) ysize(5)
 
+graph export "$figs\bias_nonnormal8_mex_lnnd.eps", as(eps) name("Graph") replace
+
+//Results with errors drawn from residual but assuming normal
+//WITH RF results
+twoway (line mse ptile if regexm(variable,"Lasso"), lpattern(-.-)) ///
+(line mse ptile if regexm(variable,"lnnd"), lpattern(.)), ///
+legend(label(1 "Lasso Empirical") ///
+label(2 "Lasso - errors from residual SD") ///
+pos(6) cols(1)) xtitle(Poverty rate) ytitle("MSE x 10000") xsize(5) ysize(5)
+
+graph export "$figs\mse_nonnormal8_mex_lnnd.eps", as(eps) name("Graph") replace
 
 //Add hetmiregress results
 
@@ -404,8 +432,8 @@ mi 20 and mi 100. MI is not designed to minimise MSE, thus the results make sens
 		
 twoway (scatter bias ptile if regexm(variable,"ols")) ///
 (scatter bias ptile if regexm(variable,"re_"), msymbol(X)) ///
-(scatter bias ptile if regexm(variable,"Mi 20"), mcolor(black) msymbol(square)) ///
-(scatter bias ptile if regexm(variable,"Mi 100"), mcolor(red) msymbol(.) msize(vsmall)), ///
+(scatter bias ptile if regexm(variable,"Mi 20"), mcolor(black) msymbol(Sh)) ///
+(scatter bias ptile if regexm(variable,"Mi 100"), mcolor(gs8) msymbol(.) msize(vsmall)), ///
 legend(label(1 "OLS") label(2 "Nested")  ///
 label(3 "MI 20") label(4 "MI 100") pos(6) cols(2)) ///
 xtitle(Poverty rate) ytitle("Bias x 100") xsize(5) ysize(5)
@@ -414,8 +442,8 @@ graph export "$figs\bias_normal_mex.eps", as(eps) name("Graph") replace
 
 twoway (scatter mse ptile if regexm(variable,"ols")) ///
 (scatter mse ptile if regexm(variable,"re_"), msymbol(X)) ///
-(scatter mse ptile if regexm(variable,"Mi 20"), mcolor(black) msymbol(square)) ///
-(scatter mse ptile if regexm(variable,"Mi 100"), mcolor(red) msymbol(.) msize(vsmall)), ///
+(scatter mse ptile if regexm(variable,"Mi 20"), mcolor(black) msymbol(Sh)) ///
+(scatter mse ptile if regexm(variable,"Mi 100"), mcolor(gs8) msymbol(.) msize(vsmall)), ///
 legend(label(1 "OLS") label(2 "Nested")  ///
 label(3 "MI 20") label(4 "MI 100") pos(6) ///
 cols(2)) xtitle(Poverty rate) ytitle("MSE x 10000") xsize(5) ysize(5)

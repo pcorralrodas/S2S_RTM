@@ -2291,6 +2291,154 @@ name "subsec:Creating-populations"
 \end_layout
 
 \begin_layout Subsubsection
+DGP relying on real world data
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:DGP-Mex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To complement the stylized simulations, the paper also evaluates robustness
+ using covariate structure estimated from real world data.
+ Specifically, the publicly available Mexican Intercensus Survey of 2015,
+ carried out by the Mexican National Institute of Statistics and Geography
+ (INEGI), is used.
+ The survey consists of 5.9 million households and is representative across
+ 2,457 municipalities of the country and localities with a population larger
+ than 50,000 people.
+ It also includes an income measure of welfare.
+\end_layout
+
+\begin_layout Standard
+The analysis uses the processed data described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2025poverty"
+literal "false"
+
+\end_inset
+
+.
+ There, the original intercensus data were modified to randomly remove 90
+ percent of households that did not report income, additionally all municipaliti
+es with less than 500 households sampled were removed.
+ The final census consists of 3.9 million households across 1,865 municipalities.
+ From this frame, 501 survey samples of roughly 23,540 households each are
+ drawn, with 10 households per PSU, reflecting design features common in
+ multi-stage household surveys 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "grosh1996manual"
+literal "false"
+
+\end_inset
+
+.
+ Each sample includes all 32 states and between 951 and 1,020 municipalities.
+ Further details on the sampling strategy are provided in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To construct the experimental data used here, a 10 percent simple random
+ sample across all PSUs in the census is taken.
+ This subsample is used to estimate a linear model of log income using the
+ full set of eligible household- and municipality-level covariates, following
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "corral2021map"
+literal "false"
+
+\end_inset
+
+.
+ The resulting model's linear fit (
+\begin_inset Formula $X\hat{\beta}$
+\end_inset
+
+) is kept fixed, but different disturbances are added to generate 
+\begin_inset Formula $\ln y$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Enumerate
+Nested normal error model: independent normally distributed disturbances
+ at the PSU, municipality, and household levels, calibrated to the estimated
+ variance components in the data to ensure the 
+\end_layout
+
+\begin_layout Enumerate
+Non normal errors: error terms are drawn from a Student's 
+\begin_inset Formula $t$
+\end_inset
+
+ distribution with 8 degrees of freedom, scaled to ensure an SD of roughly
+ 0.8, and a model 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ of roughly 0.45.
+\end_layout
+
+\begin_layout Enumerate
+Multiplicative heteroskedasticity: A covariate, 
+\begin_inset Formula $x_{het}\sim N(0.5,0.5^{2})$
+\end_inset
+
+, is simulated.
+ Then conditional on 
+\begin_inset Formula $x_{het}$
+\end_inset
+
+ the error terms are drawn: 
+\begin_inset Formula $e_{het}\sim N\left(0,\sigma^{2}(x_{het})\right),$
+\end_inset
+
+where 
+\begin_inset Formula $\sigma=\frac{\exp\left((1/6)x_{het}\right)}{1.368}$
+\end_inset
+
+ to ensure that the model's RMSE is roughly 0.8 and an 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ or roughly 0.45.
+\end_layout
+
+\begin_layout Standard
+The observed welfare variable is not used directly in these experiments.
+ The purpose of the Mexican exercise is not to reproduce Mexico-specific
+ welfare results, but to anchor the simulations in an empirically realistic
+ covariate structure while retaining control over the error-generating process.
+ This design isolates the performance consequences of the disturbances noted
+ above in a setting with realistic covariate distributions and sampling
+ features, avoiding conclusions that would otherwise be driven by country-
+ and period-specific features of the observed welfare aggregate.
+\end_layout
+
+\begin_layout Subsubsection
 DGP 1 - approximately normal 
 \begin_inset Formula $x\beta$
 \end_inset
@@ -2525,146 +2673,6 @@ Note that
  also considered for this DGP.
 \end_layout
 
-\begin_layout Subsubsection
-DGP relying on real world data
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:DGP-Mex"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-To complement the stylized simulations, the paper also evaluates robustness
- using covariate structure estimated from real world data.
- Specifically, the publicly available Mexican Intercensus Survey of 2015,
- carried out by the Mexican National Institute of Statistics and Geography
- (INEGI), is used.
- The survey consists of 5.9 million households and is representative across
- 2,457 municipalities of the country and localities with a population larger
- than 50,000 people.
- It also includes an income measure of welfare.
-\end_layout
-
-\begin_layout Standard
-The analysis uses the processed data described in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "corral2021map"
-literal "false"
-
-\end_inset
-
- and 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "corral2025poverty"
-literal "false"
-
-\end_inset
-
-.
- There, the original intercensus data were modified to randomly remove 90
- percent of households that did not report income, additionally all municipaliti
-es with less than 500 households sampled were removed.
- The final census consists of 3.9 million households across 1,865 municipalities.
- From this frame, 501 survey samples of roughly 23,540 households each are
- drawn, with 10 households per PSU, reflecting design features common in
- multi-stage household surveys 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "grosh1996manual"
-literal "false"
-
-\end_inset
-
-.
- Each sample includes all 32 states and between 951 and 1,020 municipalities.
- Further details on the sampling strategy are provided in 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "corral2021map"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-To construct the experimental data used here, a 10 percent simple random
- sample across all PSUs in the census is taken.
- This subsample is used to estimate a linear model of log income using the
- full set of eligible household- and municipality-level covariates, following
- 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "corral2021map"
-literal "false"
-
-\end_inset
-
-.
- The resulting model's linear fit (
-\begin_inset Formula $X\hat{\beta}$
-\end_inset
-
-) is kept fixed, but different disturbances are added to generate 
-\begin_inset Formula $\ln y$
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Enumerate
-Nested normal error model: independent normally distributed disturbances
- at the PSU, municipality, and household levels, calibrated to the estimated
- variance components in the data.
-\end_layout
-
-\begin_layout Enumerate
-Non normal errors: error terms are drawn from a Student's 
-\begin_inset Formula $t$
-\end_inset
-
- distribution with 8 degrees of freedom, scaled to ensure an SD of roughly
- 0.8.
-\end_layout
-
-\begin_layout Enumerate
-Multiplicative heteroskedasticity: A covariate, 
-\begin_inset Formula $x_{het}\sim N(0.5,0.5^{2})$
-\end_inset
-
-, is simulated.
- Then conditional on 
-\begin_inset Formula $x_{het}$
-\end_inset
-
- the error terms are drawn: 
-\begin_inset Formula $e_{het}\sim N\left(0,\sigma^{2}(x_{het})\right),$
-\end_inset
-
-where 
-\begin_inset Formula $\sigma=\frac{\exp\left((1/6)x_{het}\right)}{1.368}$
-\end_inset
-
- to ensure that the model's RMSE is roughly 0.8
-\end_layout
-
-\begin_layout Standard
-The observed welfare variable is not used directly in these experiments.
- The purpose of the Mexican exercise is not to reproduce Mexico-specific
- welfare results, but to anchor the simulations in an empirically realistic
- covariate structure while retaining control over the error-generating process.
- This design isolates the performance consequences of the disturbances noted
- above in a setting with realistic covariate distributions and sampling
- features, avoiding conclusions that would otherwise be driven by country-
- and period-specific features of the observed welfare aggregate.
-\end_layout
-
 \begin_layout Subsection
 Evaluation metrics 
 \begin_inset CommandInset label
@@ -2717,7 +2725,7 @@ noprefix "false"
 \begin_inset Formula $\tau$
 \end_inset
 
- (head count monetary poverty in this work).
+ (head count monetary poverty).
 \end_layout
 
 \begin_layout Standard
@@ -2794,7 +2802,7 @@ For the Mexican data, the validation design differs slightly.
  to as design-based validation (
 \begin_inset CommandInset citation
 LatexCommand citealp
-key "tzavidis2018start,corral2021map"
+key "tzavidis2018start"
 literal "false"
 
 \end_inset
@@ -3221,8 +3229,12 @@ noprefix "false"
 \end_layout
 
 \begin_layout Standard
-Varying the number of imputations (20 versus 100) has virtually no effect
- on bias or MSE (Figure 
+Varying the number of imputations (20 versus 100) implemented using Stata's
+ 
+\family typewriter
+mi regress
+\family default
+ has virtually no effect on bias or MSE (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:bias_eb_mi"
@@ -3259,16 +3271,15 @@ literal "false"
 \begin_inset Formula $\beta$
 \end_inset
 
- and variance model parameters are kept fixed..
- 
+ and variance model parameters are kept fixed.
 \end_layout
 
 \begin_layout Standard
-Finally, ignoring the clustered nature of the data has a minimal impact
- on the estimates' empirical bias and MSE.
+Ignoring the clustered nature of the data has a minimal impact on the estimates'
+ empirical bias and MSE.
  Point estimates that ignore the nested structure (OLS) perform similarly
- to, and in this case slightly better than, estimates that explicitly model
- location effects (nested).
+ to, and in this case better than, estimates that explicitly model location
+ effects (nested).
  In small area estimation, 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -3288,7 +3299,8 @@ literal "false"
 \end_inset
 
  reinforce this point using model-based simulations but show that the bias
- of point estimates remains unaffected.
+ of point estimates remains unaffected when the model ignores additional
+ nested errors.
  In our case, because the results reported here are at the national level,
  omitting random location effects does not materially reduce the validity
  or precision of the poverty estimates.
@@ -3437,19 +3449,6 @@ noprefix "false"
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-HERE
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Under non-normally distributed errors
 \end_layout
@@ -3526,7 +3525,7 @@ literal "false"
 
 ), generates bootstrap samples with errors drawn from the empirical distribution
 , though it omits the area random effect required for area-level estimates
- necessary for small area estimation.
+ often necessary for small area estimation.
  
 \end_layout
 
@@ -3804,7 +3803,8 @@ noprefix "false"
 ).
  This simulation also illustrates the importance of evaluating methods across
  the entire welfare distribution, since if RF were evaluated at the 50th
- percentile it would look be quite competitive to the other methods.
+ percentile it would look be quite competitive with other methods, when
+ it considerably lags when evaluated at other thresholds.
 \end_layout
 
 \begin_layout Subsubsection

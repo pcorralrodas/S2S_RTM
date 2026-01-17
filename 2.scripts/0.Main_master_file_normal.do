@@ -15,7 +15,7 @@ set seed 94131
 
 //Select what to run 1 to 4 (useful for multiple runs at the same time)
 //From quickest to slowest.
-local run = 1
+local run = 2
 
 * Paths
 *** CHANGE THE FIRST GLOBAL TO THE DIRECTORY WHERE YOU DOWNLOADED THE REPLICATION FILES ***
@@ -67,14 +67,14 @@ if (`run'==1){
 	run "$thedo\0.Master_PMT.do"
 }
 if (`run'==2){
-	run "$thedo\0.Master_micomps.do"
+	//run "$thedo\0.Master_micomps.do"
 	run "$thedo\0.Master_nonnormal.do"
 	run "$thedo\0.Master_het.do"
 }
 if (`run'==3){
 	run "$thedo\0.Master_RE.do"
 	run "$thedo\PMM_tests.do"
-	run "$thedo\MSE_BS_MI.do"
+	//run "$thedo\MSE_BS_MI.do"
 }
 if (`run'==4){
 	run "$thedo\0.Master.do"

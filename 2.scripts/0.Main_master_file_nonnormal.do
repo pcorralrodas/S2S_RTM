@@ -15,7 +15,7 @@ set seed 94131
 
 //Select what to run 1 to 4 (useful for multiple runs at the same time)
 //From quickest to slowest.
-local run = 1
+local run = 2
 
 
 * Paths
@@ -68,7 +68,7 @@ if (`run'==1){
 	run "$thedo\0.Master_PMT.do"
 }
 if (`run'==2){
-	run "$thedo\0.Master_micomps.do"
+	//run "$thedo\0.Master_micomps.do"
 	run "$thedo\0.Master_nonnormal.do"
 	run "$thedo\0.Master_het.do"
 }

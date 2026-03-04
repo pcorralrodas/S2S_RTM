@@ -2,58 +2,50 @@ set more off
 clear all
 
 *===============================================================================
-// MSE comparisons
-*===============================================================================
-use "$dpath\MSE_BS.dta", clear
-
-twoway (line true_mse ptile if source=="MI 20", lpattern(-) lcolor(blue)) ///
-(line true_mse ptile if source=="BLUP", lpattern(-) lcolor(red)) ///
-(scatter mse_ ptile if source=="MI 20", msymbol(Oh) mcolor(blue)) ///
-(scatter mse_ ptile if source=="BLUP", msymbol(Oh) mcolor(red)), ///
-legend(label(1 "Empirical MSE - MI 20") label(2 "Empirical MSE - BLUP") ///
-label(3 "Avg. estimated MSE - MI 20") label(4 "Avg. estimated MSE - BLUP") pos(6) cols(2)) ///
-xtitle(Poverty rate) ytitle(MSE) 
-
-graph export "$figs\method_comp_MSE.eps", as(eps) name("Graph") replace
-*===============================================================================
 // Hetero sims
 *===============================================================================
 use "$dpath/results_micomps_het.dta", clear
-
-	groupfunction, mean(value) by(method reference measure)
-	gen ptile = int(real(subinstr(reference,"povline","",.)))
-	egen double true_pov = max(value*(method=="FULL")), by( reference measure)
-	
+	egen double true_pov = max(value*(method=="FULL")), by( reference measure sim)
 	gen bias = 100*(value - true_pov)
+	gen mse  = bias^2
+	groupfunction, mean(bias mse) by(method reference measure)
+	gen ptile = int(real(subinstr(reference,"povline","",.)))
+	
 	sort ptile
 	
-	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
-	(line bias ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
-	(line bias ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="Hetregress MLE", msymbol(*) mcolor(red)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg Het", msymbol(Oh) mcolor(blue)), ///
-	legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
-	label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
-	label(6 "lasso BIC") label(7 "Het. MLE") label(8 "Alpha model") ///
-	position(6) cols(4)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	local measure_type bias mse
 	
-	graph export "$figs\method_comp_fgt0_het.eps", as(eps) name("Graph") replace
-
+	foreach type of local measure_type{
+		if ("`type'"=="bias") local title Empirical Bias x 100 (pp)
+		else local title Empirical MSE x 10,000
 	
-	twoway (line bias ptile if measure=="fgt0"  & method=="lasso BIC", color(blue) lpattern(-)) ///
-	(line bias ptile if measure=="fgt0"      & method=="lasso adaptive", color(grey)) ///
-	(line bias ptile if measure=="fgt0"      & method=="lasso empirical", color(red) lpattern(-.)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg Het", msymbol(Oh) mcolor(blue)), ///
-	legend(label(1 "lasso BIC") label(2 "lasso adaptive") ///
-	label(3 "lasso") label(4 "Alpha model") ///
-	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-
-	graph export "$figs\lasso_comp_fgt0_het.eps", as(eps) name("Graph") replace
-
-
+		twoway (line `type' ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="Hetregress MLE", msymbol(*) mcolor(red)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="Het. Mi Reg Het", msymbol(Oh) mcolor(blue)), ///
+		legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
+		label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
+		label(6 "lasso BIC") label(7 "Het. MLE") label(8 "Alpha model") ///
+		position(6) cols(4)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\method_comp_fgt0_het_`type'.eps", as(eps) name("Graph") replace
+	
+		
+		twoway (line bias ptile if measure=="fgt0"  & method=="lasso BIC", color(blue) lpattern(-)) ///
+		(line bias ptile if measure=="fgt0"      & method=="lasso adaptive", color(grey)) ///
+		(line bias ptile if measure=="fgt0"      & method=="lasso empirical", color(red) lpattern(-.)) ///
+		(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg Het", msymbol(Oh) mcolor(blue)), ///
+		legend(label(1 "lasso BIC") label(2 "lasso adaptive") ///
+		label(3 "lasso") label(4 "Alpha model") ///
+		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+	
+		graph export "$figs\lasso_comp_fgt0_het_`type'.eps", as(eps) name("Graph") replace
+	
+	}
 *===============================================================================
 // Sigma E sims
 *===============================================================================
@@ -89,56 +81,64 @@ rename line ptile
 *===============================================================================
 use "$dpath/results_micomps_t.dta", clear
 
-	groupfunction, mean(value) by(method reference measure)
-	gen ptile = int(real(subinstr(reference,"povline","",.)))
-	egen double true_pov = max(value*(method=="FULL")), by( reference measure)
-	
+	egen double true_pov = max(value*(method=="FULL")), by( reference measure sim)
 	gen bias = 100*(value - true_pov)
+	gen mse  = bias^2
+	groupfunction, mean(bias mse) by(method reference measure)
+	gen ptile = int(real(subinstr(reference,"povline","",.)))
+	
 	sort ptile
 	
-	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
-	(line bias ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
-	(line bias ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="rforest", msymbol(*) mcolor(red)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg", msymbol(Dh) mcolor(blue)) ///	
-	(scatter bias ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)), ///
-	legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
-	label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
-	label(6 "Random Forest") label(7 "OLS BS") label(8 "lasso BIC")  ///
-	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(6.5) ysize(5)
+	local measure_type bias mse
 	
-	graph export "$figs\method_comp_fgt0_rf_t.eps", as(eps) name("Graph") replace
+	foreach type of local measure_type{
+		if ("`type'"=="bias") local title Empirical Bias x 100 (pp)
+		else local title Empirical MSE x 10,000
 	
-	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
-	(line bias ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
-	(line bias ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg", msymbol(Dh) mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)), ///
-	legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
-	label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
-	label(6 "OLS BS") label(7 "lasso BIC")  ///
-	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(6.5) ysize(5)
+		twoway (line `type' ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="rforest", msymbol(*) mcolor(red)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="Het. Mi Reg", msymbol(Dh) mcolor(blue)) ///	
+		(scatter `type' ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)), ///
+		legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
+		label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
+		label(6 "Random Forest") label(7 "OLS BS") label(8 "lasso BIC")  ///
+		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate") xsize(6.5) ysize(5)
+		
+		graph export "$figs\method_comp_fgt0_rf_t_`type'.eps", as(eps) name("Graph") replace
+		
+		twoway (line `type' ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="A la EBP skew", color(grey)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="A la EBP bcox", color(red) lpattern(-.)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100 BS", msymbol(X) mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="Het. Mi Reg", msymbol(Dh) mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="lasso BIC", msymbol(+) mcolor(blue)), ///
+		legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
+		label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
+		label(6 "OLS BS") label(7 "lasso BIC")  ///
+		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate") xsize(6.5) ysize(5)
+		
+		graph export "$figs\method_comp_fgt0_t_`type'.eps", as(eps) name("Graph") replace
 	
-	graph export "$figs\method_comp_fgt0_t.eps", as(eps) name("Graph") replace
-
+		
+		twoway (line `type' ptile if measure=="fgt0"  & method=="lasso BIC", color(blue) lpattern(-)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="lasso adaptive", color(grey)) ///
+		(line `type' ptile if measure=="fgt0"      & method=="lasso empirical", color(red) lpattern(-.)), ///
+		legend(label(1 "lasso BIC") label(2 "lasso adaptive") ///
+		label(3 "lasso") ///
+		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate")
 	
-	twoway (line bias ptile if measure=="fgt0"  & method=="lasso BIC", color(blue) lpattern(-)) ///
-	(line bias ptile if measure=="fgt0"      & method=="lasso adaptive", color(grey)) ///
-	(line bias ptile if measure=="fgt0"      & method=="lasso empirical", color(red) lpattern(-.)), ///
-	legend(label(1 "lasso BIC") label(2 "lasso adaptive") ///
-	label(3 "lasso") ///
-	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-
-	graph export "$figs\lasso_comp_fgt0_t.eps", as(eps) name("Graph") replace
+		graph export "$figs\lasso_comp_fgt0_t_`type'.eps", as(eps) name("Graph") replace
+	}
 
 *===============================================================================
 // Gini
 *===============================================================================
-use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_reweight_1.dta", clear
+use "$dpath\results_reweight_1.dta", clear
 	keep if measure=="gini"
 	groupfunction, mean(value) by(source method measure variable)
 	egen double true_gini = max(value*(source=="Full")), by(measure)
@@ -160,7 +160,7 @@ use "C:\Users\WB378870\OneDrive\S2S_RTM_guidelines_personal\1.data\results_rewei
 	graph hbar (mean) bias if source=="biased_sample_topbottom", over(method) ytitle(Bias (Gini points))
 	graph export "$figs\weights_std_tbb_gini.eps", as(eps) name("Graph") replace
 	
-*===============================================================================
+/*===============================================================================
 // Figures for OVB
 // 2.ovb_sim_new.do
 *===============================================================================
@@ -199,12 +199,12 @@ qui: reshape wide value, i(ptile) j(variable) string
 		}
 	}
 		
-	
+*/	
 *===============================================================================
 // Figures for changing beta and sigma
 // 4.Changing_betas_sigmas_mu.do
 *===============================================================================
-import excel using "$main/1.data/Changing sigma.xlsx", sheet(changing_beta_sd_mu) first clear
+import excel using "$dpath/Changing sigma.xlsx", sheet(changing_beta_sd_mu) first clear
 	gen ptile = int(real(subinstr(reference,"povline","",.)))
 	gen bias = 100*value - ptile
 
@@ -253,12 +253,12 @@ twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"sd_") & pc
 	label(7 "4% increase") label(8 "4% decrease") ///
 	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
 	graph export "$figs\beta_sd_change_fgt0.eps", as(eps) name("Graph") replace
-
+*/
 *===============================================================================
 // FIgures for changing constants
 // 3.Changing constant.do
 *===============================================================================
-import excel using "$main/1.data/Changing constant.xlsx", first clear
+import excel using "$dpath/Changing constant.xlsx", first clear
 
 	gen ptile = int(real(subinstr(reference,"povline","",.)))
 	gen bias = 100*value - ptile
@@ -288,36 +288,43 @@ import excel using "$main/1.data/Changing constant.xlsx", first clear
 
 use "$dpath/results_micomps_cluster.dta", clear
 
-	groupfunction, mean(value) by(method reference measure)
-	gen ptile = int(real(subinstr(reference,"povline","",.)))
-	egen double true_pov = max(value*(method=="FULL")), by( reference measure)
-	
+	egen double true_pov = max(value*(method=="FULL")), by( reference measure sim)
 	gen bias = 100*(value - true_pov)
+	gen mse  = bias^2
+	groupfunction, mean(bias mse) by(method reference measure)
+	gen ptile = int(real(subinstr(reference,"povline","",.)))
+	
 	sort ptile
 	
-	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="One-fold", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
-	legend(label(1 "Fixed B") label(2 "MI 20") ///
-	label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
-	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	local measure_type bias mse
 	
-	graph export "$figs\mi_ebp_fgt0_cluster.eps", as(eps) name("Graph") replace
+	foreach type of local measure_type{
+		if ("`type'"=="bias") local title Empirical Bias x 100 (pp)
+		else local title Empirical MSE x 10,000
 	
-	twoway (line bias ptile if measure=="fgt1"  & method=="A la EBP", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="MI 100", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="One-fold", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
-	legend(label(1 "Fixed B") label(2 "MI 20") ///
-	label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
-	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty gap")
-	
-	graph export "$figs\mi_ebp_fgt1_cluster.eps", as(eps) name("Graph") replace
-	
-
+		twoway (line `type' ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="One-fold", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
+		legend(label(1 "Fixed B") label(2 "MI 20") ///
+		label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
+		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\mi_ebp_fgt0_cluster_`type'.eps", as(eps) name("Graph") replace
+		
+		twoway (line `type' ptile if measure=="fgt1"  & method=="A la EBP", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="MI 100", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="One-fold", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
+		legend(label(1 "Fixed B") label(2 "MI 20") ///
+		label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
+		position(7) cols(6)) ytitle("`title'") xtitle("True poverty gap")
+		
+		graph export "$figs\mi_ebp_fgt1_cluster_`type'.eps", as(eps) name("Graph") replace
+		
+	}
 	
 
 *===============================================================================
@@ -327,38 +334,46 @@ use "$dpath/results_micomps_cluster.dta", clear
 
 use "$dpath/results_micomps.dta", clear
 
-	groupfunction, mean(value) by(method reference measure)
-	gen ptile = int(real(subinstr(reference,"povline","",.)))
-	egen double true_pov = max(value*(method=="FULL")), by( reference measure)
-	
+	egen double true_pov = max(value*(method=="FULL")), by( reference measure sim)
 	gen bias = 100*(value - true_pov)
+	gen mse  = bias^2
+	groupfunction, mean(bias mse) by(method reference measure)
+	gen ptile = int(real(subinstr(reference,"povline","",.)))
+	
 	sort ptile
 	
-	twoway (line bias ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 40", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 60", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 80", msymbol(X) mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0"      & method=="MI 100", msymbol(+) mcolor(blue)), ///
-	legend(label(1 "Fixed B") label(2 "MI 20") ///
-	label(3 "MI 40") label(4 "MI 60") label(5 "MI 80") ///
-	label(6 "MI 100")  ///
-	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	local measure_type bias mse
 	
-	graph export "$figs\mi_ebp_fgt0.eps", as(eps) name("Graph") replace
+	foreach type of local measure_type{
+		if ("`type'"=="bias") local title Empirical Bias x 100 (pp)
+		else local title Empirical MSE x 10,000
 	
-	twoway (line bias ptile if measure=="fgt1"  & method=="A la EBP", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="MI 40", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="MI 60", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="MI 80", msymbol(X) mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt1"      & method=="MI 100", msymbol(+) mcolor(blue)), ///
-	legend(label(1 "Fixed B") label(2 "MI 20") ///
-	label(3 "MI 40") label(4 "MI 60") label(5 "MI 80") ///
-	label(6 "MI 100")  ///
-	position(7) cols(6)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	
-	graph export "$figs\mi_ebp_fgt1.eps", as(eps) name("Graph") replace
+		twoway (line `type' ptile if measure=="fgt0"  & method=="A la EBP", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 40", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 60", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 80", msymbol(X) mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0"      & method=="MI 100", msymbol(+) mcolor(blue)), ///
+		legend(label(1 "Fixed B") label(2 "MI 20") ///
+		label(3 "MI 40") label(4 "MI 60") label(5 "MI 80") ///
+		label(6 "MI 100")  ///
+		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\mi_ebp_fgt0_`type'.eps", as(eps) name("Graph") replace
+		
+		twoway (line `type' ptile if measure=="fgt1"  & method=="A la EBP", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="MI 20", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="MI 40", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="MI 60", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="MI 80", msymbol(X) mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt1"      & method=="MI 100", msymbol(+) mcolor(blue)), ///
+		legend(label(1 "Fixed B") label(2 "MI 20") ///
+		label(3 "MI 40") label(4 "MI 60") label(5 "MI 80") ///
+		label(6 "MI 100")  ///
+		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\mi_ebp_fgt1_`type'.eps", as(eps) name("Graph") replace
+	}
 
 *===============================================================================
 // FIgures for reweighting and standarization simulations
@@ -366,68 +381,73 @@ use "$dpath/results_micomps.dta", clear
 *===============================================================================
 use "$dpath\results_reweight_1.dta", clear
 
-	groupfunction, mean(value) by(source method reference measure)
-
+	egen double true_pov = max(value*(lower(source)=="full")), by(reference measure sim)
+	gen bias = 100*(value - true_pov)
+	gen mse  = bias^2
+	groupfunction, mean(bias mse) by(source method reference measure)
 	gen ptile = int(real(subinstr(reference,"povline","",.)))
 	
-	egen double true_pov = max(value*(source=="Full")), by( reference measure)
-
-	gen bias = 100*(value - true_pov)
+	sort ptile
 	
-	sort ptile	
+	local measure_type bias mse
 	
-	twoway (line bias ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Non adjusted", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
-	(line bias ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Standardize All", lpattern("..-")) ///
-	(line bias ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Standardize xb"), ///
-	legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
-	label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
-	label(6 "Standardize each X") label(7 "Standardize XB") ///
-	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	
-	graph export "$figs\weights_std_tbb_fgt0.eps", as(eps) name("Graph") replace
-	
-	twoway (line bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Non adjusted", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
-	(line bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Standardize All", lpattern("..-")) ///
-	(line bias ptile if measure=="fgt0" & source=="biased_sample" & method=="Standardize xb"), ///
-	legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
-	label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
-	label(6 "Standardize each X") label(7 "Standardize XB") ///
-	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	
-	graph export "$figs\weights_std_bb_fgt0.eps", as(eps) name("Graph") replace
-	
-	twoway (line bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Non adjusted", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
-	(line bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Standardize All", lpattern("..-")) ///
-	(line bias ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Standardize xb"), ///
-	legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
-	label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
-	label(6 "Standardize each X") label(7 "Standardize XB") ///
-	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	
-	graph export "$figs\weights_std_tbb_fgt1.eps", as(eps) name("Graph") replace
-	
-	twoway (line bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Non adjusted", color(blue) lpattern(-)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
-	(scatter bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
-	(line bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Standardize All", lpattern("..-")) ///
-	(line bias ptile if measure=="fgt1" & source=="biased_sample" & method=="Standardize xb"), ///
-	legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
-	label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
-	label(6 "Standardize each X") label(7 "Standardize XB") ///
-	position(7) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
-	
-	graph export "$figs\weights_std_bb_fgt1.eps", as(eps) name("Graph") replace
+	foreach type of local measure_type{
+		if ("`type'"=="bias") local title Empirical Bias x 100 (pp)
+		else local title Empirical MSE x 10,000	
+		
+		twoway (line `type' ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Non adjusted", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
+		(line `type' ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Standardize All", lpattern("..-")) ///
+		(line `type' ptile if measure=="fgt0" & source=="biased_sample_topbottom" & method=="Standardize xb"), ///
+		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
+		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
+		label(6 "Standardize each X") label(7 "Standardize XB") ///
+		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\weights_std_tbb_fgt0_`type'.eps", as(eps) name("Graph") replace
+		
+		twoway (line `type' ptile if measure=="fgt0" & source=="biased_sample" & method=="Non adjusted", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt0" & source=="biased_sample" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
+		(line `type' ptile if measure=="fgt0" & source=="biased_sample" & method=="Standardize All", lpattern("..-")) ///
+		(line `type' ptile if measure=="fgt0" & source=="biased_sample" & method=="Standardize xb"), ///
+		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
+		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
+		label(6 "Standardize each X") label(7 "Standardize XB") ///
+		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\weights_std_bb_fgt0_`type'.eps", as(eps) name("Graph") replace
+		
+		twoway (line `type' ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Non adjusted", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
+		(line `type' ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Standardize All", lpattern("..-")) ///
+		(line `type' ptile if measure=="fgt1" & source=="biased_sample_topbottom" & method=="Standardize xb"), ///
+		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
+		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
+		label(6 "Standardize each X") label(7 "Standardize XB") ///
+		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\weights_std_tbb_fgt1_`type'.eps", as(eps) name("Graph") replace
+		
+		twoway (line `type' ptile if measure=="fgt1" & source=="biased_sample" & method=="Non adjusted", color(blue) lpattern(-)) ///
+		(scatter `type' ptile if measure=="fgt1"     & source=="biased_sample" & method=="Weight 4", msymbol(oh) mcolor(blue) msize(small)) ///
+		(scatter `type' ptile if measure=="fgt1"     & source=="biased_sample" & method=="Weight 3", msymbol(d)  mcolor(blue)) ///
+		(scatter `type' ptile if measure=="fgt1"     & source=="biased_sample" & method=="Weight 2", msymbol(Th)  mcolor(blue) msize(medium)) ///
+		(scatter `type' ptile if measure=="fgt1"     & source=="biased_sample" & method=="Weight 1", msymbol(X) mcolor(blue)) ///
+		(line `type' ptile if measure=="fgt1"        & source=="biased_sample" & method=="Standardize All", lpattern("..-")) ///
+		(line `type' ptile if measure=="fgt1"        & source=="biased_sample" & method=="Standardize xb"), ///
+		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
+		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
+		label(6 "Standardize each X") label(7 "Standardize XB") ///
+		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		
+		graph export "$figs\weights_std_bb_fgt1_`type'.eps", as(eps) name("Graph") replace
+	}

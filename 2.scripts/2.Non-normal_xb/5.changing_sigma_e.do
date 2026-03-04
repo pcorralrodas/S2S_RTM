@@ -10,7 +10,7 @@
 
 forval sim = 1/1000{
 	clear all
-	
+	set maxvar 10000
 	local obsnum    = 20000 	//Number of observations in our survey
 	local outsample = 20	 	//sample size to take
 	local sigmaeps  = 0.5      	//Sigma eps
@@ -28,11 +28,16 @@ forval sim = 1/1000{
 		gen x2 = runiform()<=(0.2) //*0.05*x1 //artificial correlation
 		gen x3 = runiform()<(0.5) if x2==1
 		replace x3 = 0 if x2==0
-		gen x4 = rnormal(2.5, 2)
-		gen x5  = rt(5)*.25
-	
-	//Welfare vector
-		gen linear_fit = 3 + 0.1* x1 + 0.5* x2 - 0.25*x3 - 0.2*x4 - 0.15*x5
+		gen x4 = round(max(1,rpoisson(5)),1)
+		gen x5 = x4<3
+		gen x6 = x4>=8
+		drop x4
+		rename x5 x4
+		rename x6 x5
+		
+		
+		//Welfare vector
+		gen linear_fit = 3 + 0.1* x1 + 0.5* x2 - 0.25*x3 - 0.2*x4 - 0.15*x5 
 		gen Y_B = linear_fit + e
 		gen e_y = exp(Y_B)
 		

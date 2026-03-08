@@ -5556,7 +5556,7 @@ Standardize XB
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -5611,14 +5611,14 @@ name "fig:bias_reweight"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_bb_fgt0.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_bb_fgt0_bias.eps
 	scale 80
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_bb_fgt0.eps
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_bb_fgt0_bias.eps
 	scale 80
 
 \end_inset
@@ -5709,16 +5709,14 @@ name "fig:bias_reweight-1"
 \noindent
 \align center
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_tbb_fgt0.eps
-	lyxscale 25
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_tbb_fgt0_mse.eps
 	scale 80
 
 \end_inset
 
 
 \begin_inset Graphics
-	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_tbb_fgt0.eps
-	lyxscale 25
+	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_tbb_fgt0_mse.eps
 	scale 80
 
 \end_inset
@@ -6332,7 +6330,7 @@ on.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -13566,7 +13564,7 @@ Random Forest:
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -13593,7 +13591,7 @@ name "fig:sim_dgp_het"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent

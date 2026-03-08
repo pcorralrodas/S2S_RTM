@@ -30,7 +30,7 @@ use "$dpath/results_micomps_het.dta", clear
 		legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
 		label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
 		label(6 "lasso BIC") label(7 "Het. MLE") label(8 "Alpha model") ///
-		position(6) cols(4)) ytitle("`title'") xtitle("True poverty rate")
+		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\method_comp_fgt0_het_`type'.eps", as(eps) name("Graph") replace
 	
@@ -41,7 +41,7 @@ use "$dpath/results_micomps_het.dta", clear
 		(scatter bias ptile if measure=="fgt0"      & method=="Het. Mi Reg Het", msymbol(Oh) mcolor(blue)), ///
 		legend(label(1 "lasso BIC") label(2 "lasso adaptive") ///
 		label(3 "lasso") label(4 "Alpha model") ///
-		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 	
 		graph export "$figs\lasso_comp_fgt0_het_`type'.eps", as(eps) name("Graph") replace
 	
@@ -73,7 +73,7 @@ rename line ptile
 	legend(label(1 "95% {&sigma}") label(2 "90% {&sigma}") label(3 "80% {&sigma}") ///
 	label(4 "105% {&sigma}") label(5 "110% {&sigma}") ///
 	label(6 "120% {&sigma}")  ///
-	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	position(6) cols(3)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(5) ysize(5)
 
 	graph export "$figs\sigma_change_fgt0.eps", as(eps) name("Graph") replace
 *===============================================================================
@@ -106,7 +106,7 @@ use "$dpath/results_micomps_t.dta", clear
 		legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
 		label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
 		label(6 "Random Forest") label(7 "OLS BS") label(8 "lasso BIC")  ///
-		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate") xsize(6.5) ysize(5)
+		position(6) cols(2)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\method_comp_fgt0_rf_t_`type'.eps", as(eps) name("Graph") replace
 		
@@ -120,7 +120,7 @@ use "$dpath/results_micomps_t.dta", clear
 		legend(label(1 "Fixed B") label(2 "Fixed B, lnskew") ///
 		label(3 "Fixed B, bcskew") label(4 "MI 100") label(5 "MI 100 BS") ///
 		label(6 "OLS BS") label(7 "lasso BIC")  ///
-		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate") xsize(6.5) ysize(5)
+		position(6) cols(2)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\method_comp_fgt0_t_`type'.eps", as(eps) name("Graph") replace
 	
@@ -130,7 +130,7 @@ use "$dpath/results_micomps_t.dta", clear
 		(line `type' ptile if measure=="fgt0"      & method=="lasso empirical", color(red) lpattern(-.)), ///
 		legend(label(1 "lasso BIC") label(2 "lasso adaptive") ///
 		label(3 "lasso") ///
-		position(6) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		position(6) cols(2)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 	
 		graph export "$figs\lasso_comp_fgt0_t_`type'.eps", as(eps) name("Graph") replace
 	}
@@ -154,13 +154,13 @@ use "$dpath\results_reweight_1.dta", clear
 	replace method = "Standardize each X" if method=="Standardize All"
 	replace method = "Standardize XB" if method=="Standardize xb"
 	
-	graph hbar (mean) bias if source=="biased_sample", over(method) ytitle(Bias (Gini points))
+	graph hbar (mean) bias if source=="biased_sample", over(method) ytitle(Bias (Gini points)) xsize(5) ysize(5)
 	graph export "$figs\weights_std_bb_gini.eps", as(eps) name("Graph") replace
 	
-	graph hbar (mean) bias if source=="biased_sample_topbottom", over(method) ytitle(Bias (Gini points))
+	graph hbar (mean) bias if source=="biased_sample_topbottom", over(method) ytitle(Bias (Gini points)) xsize(5) ysize(5)
 	graph export "$figs\weights_std_tbb_gini.eps", as(eps) name("Graph") replace
 	
-/*===============================================================================
+*===============================================================================
 // Figures for OVB
 // 2.ovb_sim_new.do
 *===============================================================================
@@ -199,7 +199,7 @@ qui: reshape wide value, i(ptile) j(variable) string
 		}
 	}
 		
-*/	
+	
 *===============================================================================
 // Figures for changing beta and sigma
 // 4.Changing_betas_sigmas_mu.do
@@ -221,7 +221,7 @@ twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"b_") & pch
 	label(3 "2% increase") label(4 "2% decrease") ///
 	label(5 "3% increase") label(6 "3% decrease") ///
 	label(7 "4% increase") label(8 "4% decrease") ///
-	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(5) ysize(5)
 	graph export "$figs\beta_change_fgt0.eps", as(eps) name("Graph") replace
 	
 twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"mu_") & pchange==-1, color(red) lpattern(-)) ///
@@ -236,7 +236,7 @@ twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"mu_") & pc
 	label(3 "2% increase") label(4 "2% decrease") ///
 	label(5 "3% increase") label(6 "3% decrease") ///
 	label(7 "4% increase") label(8 "4% decrease") ///
-	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(5) ysize(5)
 	graph export "$figs\beta_mu_change_fgt0.eps", as(eps) name("Graph") replace
 	
 twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"sd_") & pchange==-1, color(red) lpattern(-)) ///
@@ -251,7 +251,7 @@ twoway        (line bias ptile if measure=="fgt0"  & regexm(variable,"sd_") & pc
 	label(3 "2% increase") label(4 "2% decrease") ///
 	label(5 "3% increase") label(6 "3% decrease") ///
 	label(7 "4% increase") label(8 "4% decrease") ///
-	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(5) ysize(5)
 	graph export "$figs\beta_sd_change_fgt0.eps", as(eps) name("Graph") replace
 */
 *===============================================================================
@@ -277,7 +277,7 @@ import excel using "$dpath/Changing constant.xlsx", first clear
 	label(3 "2% increase") label(4 "2% decrease") ///
 	label(5 "3% increase") label(6 "3% decrease") ///
 	label(7 "4% increase") label(8 "4% decrease") ///
-	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate")
+	position(6) cols(2)) ytitle("Empirical Bias (pp)") xtitle("True poverty rate") xsize(5) ysize(5)
 	
 	graph export "$figs\constant_change_fgt0.eps", as(eps) name("Graph") replace
 	
@@ -309,7 +309,7 @@ use "$dpath/results_micomps_cluster.dta", clear
 		(scatter `type' ptile if measure=="fgt0"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
 		legend(label(1 "Fixed B") label(2 "MI 20") ///
 		label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
-		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate")
+		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\mi_ebp_fgt0_cluster_`type'.eps", as(eps) name("Graph") replace
 		
@@ -320,7 +320,7 @@ use "$dpath/results_micomps_cluster.dta", clear
 		(scatter `type' ptile if measure=="fgt1"      & method=="Two-fold", msymbol(X) mcolor(blue)), ///
 		legend(label(1 "Fixed B") label(2 "MI 20") ///
 		label(3 "MI 100") label(4 "One-fold") label(5 "Two-fold") ///
-		position(7) cols(6)) ytitle("`title'") xtitle("True poverty gap")
+		position(7) cols(3)) ytitle("`title'") xtitle("True poverty gap") xsize(5) ysize(5)
 		
 		graph export "$figs\mi_ebp_fgt1_cluster_`type'.eps", as(eps) name("Graph") replace
 		
@@ -357,7 +357,7 @@ use "$dpath/results_micomps.dta", clear
 		legend(label(1 "Fixed B") label(2 "MI 20") ///
 		label(3 "MI 40") label(4 "MI 60") label(5 "MI 80") ///
 		label(6 "MI 100")  ///
-		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate")
+		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\mi_ebp_fgt0_`type'.eps", as(eps) name("Graph") replace
 		
@@ -370,7 +370,7 @@ use "$dpath/results_micomps.dta", clear
 		legend(label(1 "Fixed B") label(2 "MI 20") ///
 		label(3 "MI 40") label(4 "MI 60") label(5 "MI 80") ///
 		label(6 "MI 100")  ///
-		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate")
+		position(7) cols(6)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\mi_ebp_fgt1_`type'.eps", as(eps) name("Graph") replace
 	}
@@ -405,7 +405,7 @@ use "$dpath\results_reweight_1.dta", clear
 		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
 		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
 		label(6 "Standardize each X") label(7 "Standardize XB") ///
-		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		position(7) cols(2)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\weights_std_tbb_fgt0_`type'.eps", as(eps) name("Graph") replace
 		
@@ -419,7 +419,7 @@ use "$dpath\results_reweight_1.dta", clear
 		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
 		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
 		label(6 "Standardize each X") label(7 "Standardize XB") ///
-		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		position(7) cols(2)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\weights_std_bb_fgt0_`type'.eps", as(eps) name("Graph") replace
 		
@@ -433,7 +433,7 @@ use "$dpath\results_reweight_1.dta", clear
 		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
 		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
 		label(6 "Standardize each X") label(7 "Standardize XB") ///
-		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		position(7) cols(2)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\weights_std_tbb_fgt1_`type'.eps", as(eps) name("Graph") replace
 		
@@ -447,7 +447,7 @@ use "$dpath\results_reweight_1.dta", clear
 		legend(label(1 "Unadjusted") label(2 "Match XB and var[XB]") ///
 		label(3 "Match XB") label(4 "Match X and var[X]") label(5 "Match X") ///
 		label(6 "Standardize each X") label(7 "Standardize XB") ///
-		position(7) cols(3)) ytitle("`title'") xtitle("True poverty rate")
+		position(7) cols(2)) ytitle("`title'") xtitle("True poverty rate") xsize(5) ysize(5)
 		
 		graph export "$figs\weights_std_bb_fgt1_`type'.eps", as(eps) name("Graph") replace
 	}

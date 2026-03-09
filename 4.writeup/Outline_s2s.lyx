@@ -3142,7 +3142,7 @@ name "fig:why_errors"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/why_errors.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -3150,7 +3150,7 @@ name "fig:why_errors"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/why_errors.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -3352,7 +3352,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -3380,7 +3380,7 @@ name "fig:bias_eb_mi"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_normal_mex.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -3388,7 +3388,7 @@ name "fig:bias_eb_mi"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_normal_mex.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -3630,7 +3630,7 @@ name "fig:bias_eb_mi-1"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_nonnormal8_mex.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -3638,7 +3638,7 @@ name "fig:bias_eb_mi-1"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_nonnormal8_mex.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -4084,7 +4084,7 @@ name "fig:bias_het"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_het_mex.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -4092,7 +4092,7 @@ name "fig:bias_het"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_het_mex.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -5556,7 +5556,7 @@ Standardize XB
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -5612,14 +5612,14 @@ name "fig:bias_reweight"
 \align center
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_bb_fgt0_bias.eps
-	scale 80
+	scale 62
 
 \end_inset
 
 
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_bb_fgt0_bias.eps
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -5654,7 +5654,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -5710,14 +5710,14 @@ name "fig:bias_reweight-1"
 \align center
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_tbb_fgt0_mse.eps
-	scale 80
+	scale 62
 
 \end_inset
 
 
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_tbb_fgt0_mse.eps
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -5848,7 +5848,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -5905,7 +5905,7 @@ name "fig:bias_reweight-gini"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_bb_gini.eps
 	lyxscale 25
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -5913,7 +5913,7 @@ name "fig:bias_reweight-gini"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_bb_gini.eps
 	lyxscale 25
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -5947,7 +5947,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -6004,7 +6004,7 @@ name "fig:bias_reweight-gini-1"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/weights_std_tbb_gini.eps
 	lyxscale 25
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -6012,7 +6012,7 @@ name "fig:bias_reweight-gini-1"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/weights_std_tbb_gini.eps
 	lyxscale 25
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -6385,7 +6385,7 @@ name "fig:Change-in-poverty_sigma"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/sigma_change_fgt0.eps
 	lyxscale 80
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -6393,7 +6393,7 @@ name "fig:Change-in-poverty_sigma"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/sigma_change_fgt0.eps
 	lyxscale 80
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -6506,7 +6506,7 @@ s transformed welfare is improved by 1%.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -6557,7 +6557,7 @@ name "fig:Change-in-poverty_intercept"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/constant_change_fgt0.eps
 	lyxscale 80
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -6565,7 +6565,7 @@ name "fig:Change-in-poverty_intercept"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/constant_change_fgt0.eps
 	lyxscale 80
-	scale 80
+	scale 62
 
 \end_inset
 
@@ -8352,7 +8352,7 @@ name "fig:ovb same period"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/obv_pred_orig.eps
 	lyxscale 80
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -8360,7 +8360,7 @@ name "fig:ovb same period"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/obv_pred_orig.eps
 	lyxscale 80
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -8426,7 +8426,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -8474,7 +8474,7 @@ name "fig:ovb_Dconflict_noDegg"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/bd5_ed10.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -8482,7 +8482,7 @@ name "fig:ovb_Dconflict_noDegg"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/bd5_ed10.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -8565,7 +8565,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -8592,7 +8592,7 @@ name "fig:ovb new period-2"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/bd5_ed13.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -8600,7 +8600,7 @@ name "fig:ovb new period-2"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/bd5_ed13.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -8641,7 +8641,7 @@ on.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -8668,7 +8668,7 @@ name "fig:ovb new period-2-1"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.normal/bd5_ed7.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -8676,7 +8676,7 @@ name "fig:ovb new period-2-1"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.nonnormal/bd5_ed7.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -12909,7 +12909,7 @@ Additional figures
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -12944,7 +12944,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/mi_ebp_fgt0_cluster_bias.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -12952,7 +12952,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/mi_ebp_fgt0_cluster_bias.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13010,7 +13010,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/mi_ebp_fgt0_cluster_mse.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13018,7 +13018,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/mi_ebp_fgt0_cluster_mse.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13130,7 +13130,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -13158,7 +13158,7 @@ name "fig:nonnormal_RF"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/bias_nonnormal8_mex_RF.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13166,7 +13166,7 @@ name "fig:nonnormal_RF"
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/3.Mexican/mse_nonnormal8_mex_RF.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13279,7 +13279,7 @@ RF empirical
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -13306,7 +13306,7 @@ name "fig:sim_dgp_nonnormal_error"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -13314,7 +13314,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/method_comp_fgt0_t_bias.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13322,7 +13322,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/method_comp_fgt0_t_bias.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13376,7 +13376,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -13384,7 +13384,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/method_comp_fgt0_t_mse.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13392,7 +13392,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/method_comp_fgt0_t_mse.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13564,7 +13564,7 @@ Random Forest:
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -13591,7 +13591,7 @@ name "fig:sim_dgp_het"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -13599,7 +13599,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/method_comp_fgt0_het_bias.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13607,7 +13607,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/method_comp_fgt0_het_bias.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13657,7 +13657,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -13665,7 +13665,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/1.Normal/method_comp_fgt0_het_mse.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
@@ -13673,7 +13673,7 @@ status collapsed
 \begin_inset Graphics
 	filename C:/Users/WB378870/GitHub/S2S_RTM/5.figures/2.Nonnormal/method_comp_fgt0_het_mse.eps
 	lyxscale 80
-	scale 50
+	scale 62
 
 \end_inset
 
